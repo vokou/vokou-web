@@ -4,11 +4,11 @@ let ThemeManager = new Styles.ThemeManager();
 
 const Search = React.createClass({
   childContextTypes: {
-    muiTheme: React.PropTypes.object,
+    muiTheme: React.PropTypes.object
   },
   getChildContext() {
     return {
-      muiTheme: ThemeManager.getCurrentTheme(),
+      muiTheme: ThemeManager.getCurrentTheme()
     };
   },
   componentDidMount: function() {
