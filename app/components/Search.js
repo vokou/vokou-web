@@ -1,9 +1,11 @@
 import React from 'react';
+import { History } from 'react-router';
 import { TextField, DatePicker, FloatingActionButton, Styles } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 let ThemeManager = new Styles.ThemeManager();
 
 const Search = React.createClass({
+  mixins: [History],
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -15,9 +17,9 @@ const Search = React.createClass({
   componentDidMount: function() {
     var inputOptions = {types: ['(cities)']};
     new google.maps.places.Autocomplete(
-      document.getElementById('searchTextField'),
+      document.getElementById('destination'),
       inputOptions);
-    document.getElementById('searchTextField').placeholder = '';
+    document.getElementById('destination').placeholder = '';
   },
   formatDate(date) {
     let _month = date.getMonth() + 1;
@@ -27,6 +29,16 @@ const Search = React.createClass({
     let yy = date.getFullYear();
 
     return `${dd}/${mm}/${yy}`;
+  },
+  handleClick() {
+    let destination = document.getElementById('destination').value;
+    // TODO: date validation
+    let query = {
+      destination: destination,
+      checkIn: this.checkIn,
+      checkOut: this.checkOut
+    };
+    this.history.pushState(null, `/result`, query);
   },
   // TODO: build dedicated component for google autocomplete e.target.value
   // TODO: Date picker restriction and auto focus
@@ -43,7 +55,7 @@ const Search = React.createClass({
               hintText="Where are you going?"
               floatingLabelText="Destination"
               fullWidth={true}
-              id="searchTextField" />
+              id="destination" />
           </div>
           <div className="col-md-3 align-bottom">
             <DatePicker
@@ -64,7 +76,8 @@ const Search = React.createClass({
           <div className="col-md-1 align-bottom">
             <FloatingActionButton
               secondary={true}
-              style={buttonStyle}>
+              style={buttonStyle}
+              onClick={this.handleClick} >
               <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
             </FloatingActionButton>
           </div>
