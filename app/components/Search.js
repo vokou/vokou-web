@@ -14,8 +14,8 @@ const Search = React.createClass({
   componentDidMount: function() {
     var inputOptions = {types: ['(cities)']};
     new google.maps.places.Autocomplete(
-       document.getElementById('searchTextField'),
-       inputOptions);
+      document.getElementById('searchTextField'),
+      inputOptions);
     document.getElementById('searchTextField').placeholder = '';
   },
   buttonClick: function() {
@@ -25,6 +25,7 @@ const Search = React.createClass({
     // TODO: build dedicated component for google autocomplete
     console.log(e.target.value);
   },
+
   render: function() {
     return (
       <div>
@@ -36,7 +37,7 @@ const Search = React.createClass({
         <button onClick={this.buttonClick}>Submit</button>
         <br />
       </div>
-   );
+    );
   }
 
 });

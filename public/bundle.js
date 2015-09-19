@@ -24406,6 +24406,7 @@
 	    // TODO: build dedicated component for google autocomplete
 	    console.log(e.target.value);
 	  },
+
 	  render: function render() {
 	    return _react2['default'].createElement(
 	      'div',
