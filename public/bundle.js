@@ -24394,13 +24394,32 @@
 	      muiTheme: ThemeManager.getCurrentTheme()
 	    };
 	  },
+	  componentDidMount: function componentDidMount() {
+	    var inputOptions = { types: ['(cities)'] };
+	    new google.maps.places.Autocomplete(document.getElementById('searchTextField'), inputOptions);
+	    document.getElementById('searchTextField').placeholder = '';
+	  },
+	  buttonClick: function buttonClick() {
+	    alert(document.getElementById('searchTextField').value);
+	  },
 	  render: function render() {
 	    return _react2['default'].createElement(
 	      'div',
-	      { className: 'valign-wrapper' },
-	      _react2['default'].createElement(_materialUi.TextField, { className: 'valign', hintText: 'Where are you going?', floatingLabelText: 'Destination', fullWidth: true })
+	      null,
+	      _react2['default'].createElement(_materialUi.TextField, {
+	        hintText: 'Where are you going?',
+	        floatingLabelText: 'Destination',
+	        id: 'searchTextField',
+	        ref: 'searchField' }),
+	      _react2['default'].createElement(
+	        'button',
+	        { onClick: this.buttonClick },
+	        'Submit'
+	      ),
+	      _react2['default'].createElement('br', null)
 	    );
 	  }
+
 	});
 
 	exports['default'] = Search;

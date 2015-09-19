@@ -12,29 +12,28 @@ const Search = React.createClass({
     };
   },
   componentDidMount: function() {
-       var inputOptions = {types: ['(cities)']};
-       new google.maps.places.Autocomplete(
-           document.getElementById('searchTextField'),
-           inputOptions);
-
+    var inputOptions = {types: ['(cities)']};
+    new google.maps.places.Autocomplete(
+       document.getElementById('searchTextField'),
+       inputOptions);
+    document.getElementById('searchTextField').placeholder = '';
   },
-   buttonClick: function() {
-       alert(this.refs.searchField.getDOMNode().value);
-   },
-   render: function() {
-       return (
-           <div>
-               <label htmlFor="searchTextField">
-               Please Insert an address:
-               </label>
-               <br/>
-               <input ref='searchField' id="searchTextField" type="text" size="50"/>
-               <br/>
-               <button onClick={this.buttonClick}>Submit</button>
-               <br />
-           </div>
-           );
-   }
+  buttonClick: function() {
+    alert(document.getElementById('searchTextField').value);
+  },
+  render: function() {
+    return (
+      <div>
+        <TextField
+          hintText="Where are you going?"
+          floatingLabelText="Destination"
+          id="searchTextField"
+          ref="searchField" />
+        <button onClick={this.buttonClick}>Submit</button>
+        <br />
+      </div>
+   );
+  }
 
 });
 
