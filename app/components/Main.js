@@ -7,12 +7,10 @@ const Main = React.createClass({
         <header>
           <nav>
             <div className="nav-wrapper">
-              <div className="container">
-                <a href="#" className="brand-logo">Logo</a>
-                <ul className="right">
-                  <li>Login or Register</li>
-                </ul>
-              </div>
+              <a href="#" className="brand-logo">Logo</a>
+              <ul className="right">
+                <li>Login or Register</li>
+              </ul>
             </div>
           </nav>
         </header>

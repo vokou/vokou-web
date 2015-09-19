@@ -1,0 +1,3 @@
+input[type=text]:focus:not([readonly]) {
+    box-shadow: 0 0 0 0;
+}
