@@ -24381,7 +24381,7 @@
 
 	var _materialUi = __webpack_require__(202);
 
-	var ThemeManager = new (__webpack_require__(259))();
+	var ThemeManager = new _materialUi.Styles.ThemeManager();
 
 	var Search = _react2['default'].createClass({
 	  displayName: 'Search',
@@ -24402,6 +24402,10 @@
 	  buttonClick: function buttonClick() {
 	    alert(document.getElementById('searchTextField').value);
 	  },
+	  changeTest: function changeTest(e) {
+	    // TODO: build dedicated component for google autocomplete
+	    console.log(e.target.value);
+	  },
 	  render: function render() {
 	    return _react2['default'].createElement(
 	      'div',
@@ -24410,7 +24414,7 @@
 	        hintText: 'Where are you going?',
 	        floatingLabelText: 'Destination',
 	        id: 'searchTextField',
-	        ref: 'searchField' }),
+	        onChange: this.changeTest }),
 	      _react2['default'].createElement(
 	        'button',
 	        { onClick: this.buttonClick },

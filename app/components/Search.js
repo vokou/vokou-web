@@ -1,6 +1,6 @@
 import React from 'react';
-import { TextField } from 'material-ui';
-let ThemeManager = new (require('material-ui/lib/styles/theme-manager'))();
+import { TextField, Styles } from 'material-ui';
+let ThemeManager = new Styles.ThemeManager();
 
 const Search = React.createClass({
   childContextTypes: {
@@ -21,6 +21,10 @@ const Search = React.createClass({
   buttonClick: function() {
     alert(document.getElementById('searchTextField').value);
   },
+  changeTest: function(e) {
+    // TODO: build dedicated component for google autocomplete
+    console.log(e.target.value);
+  },
   render: function() {
     return (
       <div>
@@ -28,7 +32,7 @@ const Search = React.createClass({
           hintText="Where are you going?"
           floatingLabelText="Destination"
           id="searchTextField"
-          ref="searchField" />
+          onChange={this.changeTest} />
         <button onClick={this.buttonClick}>Submit</button>
         <br />
       </div>
