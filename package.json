@@ -22,8 +22,13 @@
     "material-ui": "^0.11.1",
     "npm": "^3.3.3",
     "react": "^0.13.3",
+<<<<<<< HEAD
     "react-router": "^1.0.0-rc1",
     "react-tap-event-plugin": "^0.1.7"
+=======
+    "react-geosuggest": "^1.9.0",
+    "react-router": "^1.0.0-rc1"
+>>>>>>> c137e1ae76493cf51db60a55ad519d7fee62d6f0
   },
   "devDependencies": {
     "babel-core": "^5.8.25",
