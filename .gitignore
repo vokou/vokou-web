@@ -7,13 +7,6 @@
 ehthumbs.db
 Thumbs.db
 *.swp
-config.json
-public/img/*
-!public/img/default-avatar.jpg
-!public/img/default-gift.png
-server/models/Categories.json
-err.log
-out.log
 npm-debug.log
 
 # Tobe re installed when needed to avoid dependency problem
