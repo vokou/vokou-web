@@ -15,3 +15,10 @@ server/models/Categories.json
 err.log
 out.log
 npm-debug.log
+
+# Tobe re installed when needed to avoid dependency problem
+node_modules
+
+# Ignore built bundles (regenerate when needed) TODO: move bundle to /build
+public/bundle.js
+
