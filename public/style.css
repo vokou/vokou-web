@@ -1,0 +1,15 @@
+.align-bottom {
+    float: none;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.align-center {
+    float: none;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+label {
+    font-weight: 400;
+}
