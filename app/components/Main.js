@@ -4,16 +4,16 @@ const Main = React.createClass({
   render : function() {
     return (
       <div>
-        <header>
-          <nav>
-            <div className="nav-wrapper">
-              <a href="#" className="brand-logo">Logo</a>
-              <ul className="right">
-                <li>Login or Register</li>
-              </ul>
+        <nav className="navbar navbar-default">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <a className="navbar-brand" href="#">Logo</a>
             </div>
-          </nav>
-        </header>
+            <ul className="nav navbar-nav navbar-right">
+              <li><a href="#">Login or register</a></li>
+            </ul>
+          </div>
+        </nav>
         <div className="container">
           {this.props.children}
         </div>

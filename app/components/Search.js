@@ -21,10 +21,7 @@ const Search = React.createClass({
   buttonClick: function() {
     alert(document.getElementById('searchTextField').value);
   },
-  changeTest: function(e) {
-    // TODO: build dedicated component for google autocomplete
-    console.log(e.target.value);
-  },
+  // TODO: build dedicated component for google autocomplete e.target.value
 
   render: function() {
     return (
@@ -32,10 +29,8 @@ const Search = React.createClass({
         <TextField
           hintText="Where are you going?"
           floatingLabelText="Destination"
-          id="searchTextField"
-          onChange={this.changeTest} />
+          id="searchTextField" />
         <button onClick={this.buttonClick}>Submit</button>
-        <br />
       </div>
     );
   }
