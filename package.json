@@ -1,34 +1,36 @@
 {
-  "name": "vokou-web",
-  "version": "1.0.0",
-  "description": "Vokou web client",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vokou/vokou-web.git"
-  },
-  "author": "July Studio",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/vokou/vokou-web/issues"
-  },
-  "homepage": "https://github.com/vokou/vokou-web",
-  "dependencies": {
-    "axios": "^0.5.4",
-    "install": "^0.1.8",
-    "material-ui": "^0.11.1",
-    "npm": "^3.3.3",
-    "react": "^0.13.3",
-    "react-router": "^1.0.0-rc1",
-    "react-tap-event-plugin": "^0.1.7",
-    "react-geosuggest": "^1.9.0"
-  },
-  "devDependencies": {
-    "babel-core": "^5.8.25",
-    "babel-loader": "^5.3.2",
-    "webpack": "^1.12.2"
-  }
+    "name": "vokou-web",
+    "version": "1.0.0",
+    "description": "Vokou web client",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack --config ./config/webpack.prod.config.js --progress --colors",
+        "live": "webpack-dev-server --config ./config/webpack.dev.config.js --devtool eval --progress --colors --hot --content-base build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vokou/vokou-web.git"
+    },
+    "author": "July Studio",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/vokou/vokou-web/issues"
+    },
+    "homepage": "https://github.com/vokou/vokou-web",
+    "dependencies": {
+        "axios": "^0.5.4",
+        "install": "^0.1.8",
+        "material-ui": "^0.11.1",
+        "npm": "^3.3.3",
+        "react": "^0.13.3",
+        "react-router": "^1.0.0-rc1",
+        "react-tap-event-plugin": "^0.1.7",
+        "react-geosuggest": "^1.9.0"
+    },
+    "devDependencies": {
+        "babel-core": "^5.8.25",
+        "babel-loader": "^5.3.2",
+        "webpack": "^1.12.2"
+    }
 }
