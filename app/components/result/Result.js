@@ -3,7 +3,7 @@ import {Styles } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ListItem from './listItem';
 import Search from '../search/Search';
-/* import Paginate from 'react-paginate'; */
+import Fetcher from '../fetcher/Fetcher';
 require("./result.css");
 
 let ThemeManager = new Styles.ThemeManager();
@@ -48,8 +48,8 @@ var Result = React.createClass({
     
     return (
       <div className="result_list">
-        
-        <Search searchFields={this.props.location.query} />         
+        <Search searchFields={this.props.location.query} />
+        <Fetcher />
         <ul>
           <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>
           <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>
