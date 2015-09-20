@@ -21,6 +21,22 @@ const Search = React.createClass({
       checkOutErr:''
     }
   },
+  componentWillMount() {
+    let defaultSearchFields = {
+      destination: '',
+      checkIn: undefined,
+      checkOut: undefined
+    };
+    const sfs = this.props.searchFields;
+    if (this.props.searchFields) {
+      this.searchFields = {};
+      this.searchFields.destination = sfs.destination;
+      this.searchFields.checkIn = new Date(sfs.checkIn);
+      this.searchFields.checkOut = new Date(sfs.checkOut);
+    } else {
+      this.searchFields = defaultSearchFields;
+    }
+  },
   componentDidMount() {
     var inputOptions = {types: ['(cities)']};
     new google.maps.places.Autocomplete(
@@ -79,7 +95,7 @@ const Search = React.createClass({
               fullWidth={true}
               errorText={this.state.destinationErr}
               ref="destination"
-              value={this.props.destination}
+              defaultValue={this.searchFields.destination}
               id="destination" />
           </div>
           <div className="col-md-3">
@@ -89,7 +105,7 @@ const Search = React.createClass({
               formatDate={this.formatDate}
               errorText={this.state.checkInErr}
               ref="checkIn"
-              value={this.props.checkIn}
+              defaultDate={this.searchFields.checkIn}
               textFieldStyle={{
                 marginTop: "24px"
               }} />
@@ -101,7 +117,7 @@ const Search = React.createClass({
               formatDate={this.formatDate}
               errorText={this.state.checkOutErr}
               ref="checkOut"
-              value={this.props.checkOut}
+              defaultDate={this.searchFields.checkOut}
               textFieldStyle={{
                 marginTop: "24px"
               }} />
