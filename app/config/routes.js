@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import Main from '../components/Main';
-import Search from '../components/Search';
+import Search from '../components/search/Search';
 import Result from '../components/result/Result';
 
 function redirectToSearch(location, replaceWith) {

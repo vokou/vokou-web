@@ -79,7 +79,8 @@ const Search = React.createClass({
               fullWidth={true}
               errorText={this.state.destinationErr}
               ref="destination"
-              id="destination"/>
+              value={this.props.destination}
+              id="destination" />
           </div>
           <div className="col-md-3">
             <DatePicker
@@ -88,7 +89,8 @@ const Search = React.createClass({
               formatDate={this.formatDate}
               errorText={this.state.checkInErr}
               ref="checkIn"
-              style={{
+              value={this.props.checkIn}
+              textFieldStyle={{
                 marginTop: "24px"
               }} />
           </div>
@@ -99,7 +101,8 @@ const Search = React.createClass({
               formatDate={this.formatDate}
               errorText={this.state.checkOutErr}
               ref="checkOut"
-              style={{
+              value={this.props.checkOut}
+              textFieldStyle={{
                 marginTop: "24px"
               }} />
           </div>
