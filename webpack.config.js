@@ -1,7 +1,7 @@
 module.exports = {
   entry: './app/App.js',
   output: {
-    filename: "public/bundle.js"
+    filename: "build/bundle.js"
   },
   module: {
     loaders: [
@@ -10,12 +10,18 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel'
       },
-      { test: /\.css$/,
-        loader: "style-loader!css-loader" },
-      { test: /\.png$/,
-        loader: "url-loader?limit=100000" },
-      { test: /\.jpg$/,
-        loader: "file-loader" },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.png$/,
+        loader: "url-loader?limit=100000"
+      },
+      {
+        test: /\.jpg$/,
+        loader: "file-loader"
+      }
     ]
   }
 };

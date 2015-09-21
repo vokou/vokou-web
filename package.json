@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config ./config/webpack.prod.config.js --progress --colors",
-    "live": "webpack-dev-server --config ./config/webpack.dev.config.js --devtool eval --progress --colors --hot --content-base build"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -25,7 +24,8 @@
     "npm": "^3.3.3",
     "react": "^0.13.3",
     "react-router": "^1.0.0-rc1",
-    "react-tap-event-plugin": "^0.1.7"
+    "react-tap-event-plugin": "^0.1.7",
+    "reqwest": "^2.0.1"
   },
   "devDependencies": {
     "babel-core": "^5.8.25",

@@ -16,8 +16,7 @@ var Result = React.createClass({
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
-
-  getInitialstate(){
+  getInitialState(){
     return {
       fetching: 1
     }
@@ -49,7 +48,7 @@ var Result = React.createClass({
     return (
       <div className="result_list">
         <Search searchFields={this.props.location.query} />
-        <Fetcher />
+        <Fetcher query={this.props.location.query} />
         <ul>
           <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>
           <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>

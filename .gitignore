@@ -13,5 +13,5 @@ npm-debug.log
 node_modules
 
 # Ignore built bundles (regenerate when needed) TODO: move bundle to /build
-public/bundle.js
+build/bundle.js
 
