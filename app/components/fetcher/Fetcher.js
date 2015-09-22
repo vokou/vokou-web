@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-//import reqwest from 'reqwest';
 import FetchProgress from './FetchProgress'
 
 var Fetcher = React.createClass({
@@ -11,35 +10,47 @@ var Fetcher = React.createClass({
   },
   componentDidMount() {
     let params = this.getParams(this.props.query);
-    console.log("nooooo");
-    //axios
-    //  .get('https://vokou.parseapp.com/search', { params: params })
-    //  .then((response) => {
-    //    params.secret = response.data;
-    //    axios
-    //      .get('http://52.89.79.251:8888/search', {params: params })
-    //      .then((response) => {
-    //
-    //      })
-    //  });
+    let hotels = [];
+    axios
+      .get('https://vokou.parseapp.com/search', { params: params })
+      .then((response) => {
+        params.secret = response.data;
+        axios
+          .get('http://52.89.79.251:8888/search', {params: params })
+          .then((response) => {
+            console.log(response.data);
+            hotels = React.addons.update(response.data, {});
+            this.getHotelsInformation(hotels, 0);
+          })
+      });
+  },
+  getHotelsInformation(hotels, index) {
+    if (index == hotels.length) {
+      console.log(hotels);
+      return;
+    }
 
-    //axios
-    //  .post('https://vokou.parseapp.com/redirect', {
-    //  hcurl: 'http://www.hotelscombined.com/Hotel/SearchResults?destination=hotel:The_Westin_New_York_at_Times_Square&radius=0mi&checkin=2015-09-24&checkout=2015-09-25&Rooms=1&adults_1=2&fileName=The_Westin_New_York_at_Times_Square'
-    //}).then(response => console.log(response));
-    //axios
-    //  .get('http://www.hotelscombined.com/Hotel/SearchResults?destination=hotel:The_Westin_New_York_at_Times_Square&radius=0mi&checkin=2015-09-24&checkout=2015-09-25&Rooms=1&agit dults_1=2&fileName=The_Westin_New_York_at_Times_Square')
-    //  .then(response => console.log(response.data));
+    let hotel = hotels[index];
+    let price = hotel.lsp ? hotel.lsp : 9999;
+    let days = this.differenceBetweenDates(new Date(this.props.query.checkIn), new Date(this.props.query.checkOut));
 
-    //reqwest({
-    //  url: `http://www.hotelscombined.com/Hotel/SearchResults?destination=hotel:The_Westin_New_York_at_Times_Square&radius=0mi&checkin=2015-09-24&checkout=2015-09-25&Rooms=1&adults_1=2&fileName=The_Westin_New_York_at_Times_Square`
-    //  , type: 'html'
-    //  , withCredentials: true
-    //  , error: function (err) { }
-    //  , success: function (resp) {
-    //    console.log(resp);
-    //  }
-    //})
+    console.log(index);
+    console.log(price * days);
+    axios
+      .post('http://52.89.79.251:8888/getPrice', {
+        hcurl: hotel.url,
+        price: price * days
+      })
+      .then((response) => {
+        console.log("ok");
+        console.log(response.data);
+        hotels[index]['brgPrice'] = !response.data ? null : response.data.price;
+        this.getHotelsInformation(hotels, index + 1);
+      });
+  },
+  differenceBetweenDates(day1, day2) {
+    let ms = day2 - day1;
+    return Math.round(ms / 1000 / 60 / 60 / 24);
   },
   getParams(query) {
     let destination = query.destination.split(", ");
