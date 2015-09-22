@@ -43,6 +43,12 @@ var Result = React.createClass({
     };
     this.setState(newState);
   },
+  handleNewSearch() {
+    this.setState({
+      fetching: true,
+      data: []
+    })
+  },
   render() {
     injectTapEventPlugin();
     var image = "http://images4.c-ctrip.com/target/hotel/375000/374685/7ffcf8a792fb41fd9cbe0d3eb1bcea36_130_130.jpg";
@@ -56,7 +62,7 @@ var Result = React.createClass({
     var fetcher = <Fetcher query={this.props.location.query} onFinish={this.handleFinish} />;
     return (
       <div className="result_list">
-        <Search searchFields={this.props.location.query} />
+        <Search searchFields={this.props.location.query} onNewSearch={this.handleNewSearch} />
         {this.state.fetching && fetcher}
         <ul>
           <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>

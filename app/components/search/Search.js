@@ -67,6 +67,10 @@ const Search = React.createClass({
         checkOut
       };
       this.history.pushState(null, `/result`, query);
+
+      if (this.props.onNewSearch) {
+        this.props.onNewSearch();
+      }
       return;
     }
 
