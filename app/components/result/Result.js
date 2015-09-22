@@ -41,13 +41,7 @@ var Result = React.createClass({
   },
   render() {
     injectTapEventPlugin();
-    var image = "http://images4.c-ctrip.com/target/hotel/375000/374685/7ffcf8a792fb41fd9cbe0d3eb1bcea36_130_130.jpg";
-    var price = 10;
-    var oldPrice = 10;
-    var pvalue = 120;
-    var location = "location";
-    var name = "name";
-    var canBRG = true;
+
     function compare(a, b) {
       if (a.brg&&!b.brg)
         return -1;
@@ -83,8 +77,6 @@ var Result = React.createClass({
         <Search searchFields={this.props.location.query} onNewSearch={this.handleNewSearch} />
         {this.state.fetching && fetcher}
         <ul>
-          <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>
-          <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>
           {ListItems}
         </ul>
       </div>

@@ -17,7 +17,7 @@ var Fetcher = React.createClass({
       .then((response) => {
         params.secret = response.data;
         axios
-          .get('http://52.89.79.251:8888/search', {params: params })
+          .get('http://52.26.198.224:8888/search', {params: params })
           .then((response) => {
             hotels = this.transformHotelsArray(response.data);
             this.getHotelsInformation(hotels, 0);
@@ -43,7 +43,7 @@ var Fetcher = React.createClass({
     let days = this.differenceBetweenDates(new Date(this.props.query.checkIn), new Date(this.props.query.checkOut));
 
     axios
-      .post('http://52.89.79.251:8888/getPrice', {
+      .post('http://52.26.198.224:8888/getPrice', {
         hcurl: hotel.url,
         price: price * days
       })
