@@ -25,17 +25,7 @@ var Result = React.createClass({
   componentDidMount: function() {
     console.log(this.props.location.query);
   },
-  handlePageClick: function(data) {
-    var selected = data.selected;
-    var offset = Math.ceil(selected * 10);
-
-    this.setState({offset: offset}, function() {
-      this.loadCommentsFromServer();
-    }.bind(this));
-
-    this.loadCommentsFromServer();
-  },
-
+  
   handleFinish(result) {
     let newState = {
       fetching: false,
@@ -52,8 +42,36 @@ var Result = React.createClass({
     var location = "location";
     var name = "name";
     var canBRG = true;
-
+    function compare(a, b) {
+      if (a.brg&&!b.brg)
+        return -1;
+      if (!a.brg&&b.brg)
+        return 1;
+      if (a.available&&!b.available)
+        return -1;
+      if (!a.available&&b.available)
+        return 1;
+      return 0;
+    }
+    //data.sort(compare);
     var fetcher = <Fetcher query={this.props.location.query} onFinish={this.handleFinish} />;
+    console.log(this.state.data);
+    var ListItems = this.state.data.map(function (hotel) {
+      return (
+        <ListItem
+          image={hotel.image}
+          price={hotel.brgPrice}
+          oldPrice={hotel.original}
+          pValue={hotel.pointsPlan.value}
+          location={hotel.address}
+          name={hotel.name}
+          canBRG={hotel.brg}
+          pointsPlan={hotel.pointsPlan.name}
+          pointsAvailable={hotel.pointsPlan.available}
+          available={hotel.available}
+        />
+      );
+    });
     return (
       <div className="result_list">
         <Search searchFields={this.props.location.query} />
@@ -61,6 +79,7 @@ var Result = React.createClass({
         <ul>
           <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>
           <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>
+          {ListItems}
         </ul>
       </div>
 
