@@ -5,7 +5,8 @@ import FetchProgress from './FetchProgress'
 var Fetcher = React.createClass({
   getInitialState() {
     return {
-      percentage: 0
+      percentage: 0,
+      text: 'Initializing your Search...'
     }
   },
   componentDidMount() {
@@ -29,6 +30,14 @@ var Fetcher = React.createClass({
       return;
     }
 
+    let newState = {
+      text: `Found ${hotels.length} hotels, looking for best price on ${index + 1}/${hotels.length} of them...`
+    };
+    if (index === 0) {
+      newState.percentage = 2;
+    }
+    this.setState(newState);
+
     let hotel = hotels[index];
     let price = hotel.original;
     let days = this.differenceBetweenDates(new Date(this.props.query.checkIn), new Date(this.props.query.checkOut));
@@ -47,6 +56,9 @@ var Fetcher = React.createClass({
           hotels[index].brgPrice = null;
         }
 
+        this.setState({
+          percentage: Math.round(100 * (index + 1.0) / hotels.length)
+        });
         this.getHotelsInformation(hotels, index + 1);
       });
   },
@@ -103,7 +115,7 @@ var Fetcher = React.createClass({
     return (
       <div className="row">
         <br/>
-        <FetchProgress percentage={this.state.percentage} />
+        <FetchProgress percentage={this.state.percentage} text={this.state.text} />
         <br/>
       </div>
     );

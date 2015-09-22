@@ -1,5 +1,5 @@
 import React from 'react';
-import { LinearProgress, Styles } from 'material-ui';
+import { LinearProgress, CircularProgress, Styles } from 'material-ui';
 let ThemeManager = new Styles.ThemeManager();
 
 var FetchProgress = React.createClass({
@@ -13,7 +13,12 @@ var FetchProgress = React.createClass({
   },
   render() {
     return (
-      <LinearProgress mode="determinate" value={this.props.percentage} />
+      <div>
+        <LinearProgress mode="determinate" value={this.props.percentage} />
+        <div>
+          <CircularProgress size={0.5} /><span id="progress-txt">{this.props.text}</span>
+        </div>
+      </div>
     );
   }
 });
