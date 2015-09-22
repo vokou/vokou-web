@@ -18,7 +18,8 @@ var Result = React.createClass({
   },
   getInitialState(){
     return {
-      fetching: 1
+      fetching: true,
+      data:[]
     }
   },
   componentDidMount: function() {
@@ -35,6 +36,13 @@ var Result = React.createClass({
     this.loadCommentsFromServer();
   },
 
+  handleFinish(result) {
+    let newState = {
+      fetching: false,
+      data: result
+    };
+    this.setState(newState);
+  },
   render() {
     injectTapEventPlugin();
     var image = "http://images4.c-ctrip.com/target/hotel/375000/374685/7ffcf8a792fb41fd9cbe0d3eb1bcea36_130_130.jpg";
@@ -44,11 +52,12 @@ var Result = React.createClass({
     var location = "location";
     var name = "name";
     var canBRG = true;
-    
+
+    var fetcher = <Fetcher query={this.props.location.query} onFinish={this.handleFinish} />;
     return (
       <div className="result_list">
         <Search searchFields={this.props.location.query} />
-        <Fetcher query={this.props.location.query} />
+        {this.state.fetching && fetcher}
         <ul>
           <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>
           <ListItem image={image} price={price} oldPrice={oldPrice} pvalue={pvalue} location={location} name={name} canBRG={canBRG}/>
