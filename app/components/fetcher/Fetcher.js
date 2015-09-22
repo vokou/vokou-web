@@ -18,8 +18,7 @@ var Fetcher = React.createClass({
         axios
           .get('http://52.89.79.251:8888/search', {params: params })
           .then((response) => {
-            console.log(response.data);
-            hotels = React.addons.update(response.data, {});
+            hotels = this.transformHotelsArray(response.data);
             this.getHotelsInformation(hotels, 0);
           })
       });
@@ -31,22 +30,49 @@ var Fetcher = React.createClass({
     }
 
     let hotel = hotels[index];
-    let price = hotel.lsp ? hotel.lsp : 9999;
+    let price = hotel.original;
     let days = this.differenceBetweenDates(new Date(this.props.query.checkIn), new Date(this.props.query.checkOut));
 
-    console.log(index);
-    console.log(price * days);
     axios
       .post('http://52.89.79.251:8888/getPrice', {
         hcurl: hotel.url,
         price: price * days
       })
       .then((response) => {
-        console.log("ok");
-        console.log(response.data);
-        hotels[index]['brgPrice'] = !response.data ? null : response.data.price;
+
+        if (response.data) {
+          hotels[index].brgPrice = response.data.price;
+          hotels[index].cover = response.data.turl;
+        } else {
+          hotels[index].brgPrice = null;
+        }
+
         this.getHotelsInformation(hotels, index + 1);
       });
+  },
+  transformHotelsArray(hotels) {
+    return hotels.map(function(hotel) {
+      let hotelObj = {
+        name: hotel.name,
+        available: hotel.lsp ? true : false,
+        original: hotel.lsp ? hotel.lsp : 9999,
+        url: hotel.url
+      };
+      let pointsPlan = {};
+      if(hotel.pp.point_plan === "No Best Point Plan") {
+        pointsPlan.available = false;
+      } else {
+        pointsPlan.available = true;
+        pointsPlan.value = hotel.pp.value;
+        if (hotel.pp.point_plan === "Points") {
+          pointsPlan.name = "SPG Free Nights";
+        } else {
+          pointsPlan.name = "SPG Cash & Points"
+        }
+      }
+      hotelObj.pointsPlan = pointsPlan;
+      return hotelObj;
+    });
   },
   differenceBetweenDates(day1, day2) {
     let ms = day2 - day1;
