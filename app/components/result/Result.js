@@ -23,7 +23,6 @@ var Result = React.createClass({
     }
   },
   
-  
   handleFinish(result) {
     let newState = {
       fetching: false,

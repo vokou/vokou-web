@@ -74,10 +74,6 @@ var ListItem = React.createClass({
             <div className="price_box">
               {price}
               {canBRG}
-              
-
-              
-              
             </div>
           </div>
 
