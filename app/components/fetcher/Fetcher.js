@@ -25,6 +25,7 @@ var Fetcher = React.createClass({
       });
   },
   getHotelsInformation(hotels, index) {
+    console.log(index);
     if (index == hotels.length) {
       this.props.onFinish(hotels);
       return;
@@ -64,14 +65,18 @@ var Fetcher = React.createClass({
   },
   transformHotelsArray(hotels) {
     return hotels.map(function(hotel) {
+      console.log(hotel);
       let hotelObj = {
         name: hotel.name,
         available: hotel.lsp ? true : false,
         original: hotel.lsp ? hotel.lsp : 9999,
-        url: hotel.url,
-        address: hotel.detail.address,
-        img: hotel.detail.img
+        url: hotel.url
       };
+
+      if (hotel.detail) {
+        hotelObj.address = hotel.detail.address;
+        hotelObj.img = hotel.detail.img;
+      }
       let pointsPlan = {};
       if(hotel.pp.point_plan === "No Best Point Plan") {
         pointsPlan.available = false;
@@ -85,6 +90,7 @@ var Fetcher = React.createClass({
         }
       }
       hotelObj.pointsPlan = pointsPlan;
+      console.log(hotelObj);
       return hotelObj;
     });
   },
