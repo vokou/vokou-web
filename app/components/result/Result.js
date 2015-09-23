@@ -57,7 +57,7 @@ var Result = React.createClass({
     var ListItems = this.state.data.map(function (hotel) {
       return (
         <ListItem
-          image={hotel.image}
+          image={hotel.img}
           price={hotel.brgPrice}
           oldPrice={hotel.original}
           pValue={hotel.pointsPlan.value}
