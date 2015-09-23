@@ -16,12 +16,39 @@ var HotelList = React.createClass({
     };
   },
 
+  sortData(data){
+    var result = data;
+    function compare(a, b) {
+      if (a.brg&&!b.brg)
+        return -1;
+      if (!a.brg&&b.brg)
+        return 1;
+      if (a.available&&!b.available)
+        return -1;
+      if (!a.available&&b.available)
+        return 1;
+      return 0;
+    };
+    result = result.sort(compare);
+    return result;
+
+  },
   getInitialState(){
     return {
       data:this.props.data
     }
   },
+  componentWillReceiveProps(nextProps){
+    console.log("hey");
+    console.log(this.props.data);
+    
+    this.setState({
+      data: this.props.data
+    });
+    
+  },
   componentWillMount(){
+
     function compare(a, b) {
       if (a.brg&&!b.brg)
         return -1;
@@ -37,7 +64,7 @@ var HotelList = React.createClass({
     var sortData = this.state.data;
     sortData.sort(compare);
     this.setState({data: sortData});
-    
+
   },
   render() {
     injectTapEventPlugin();

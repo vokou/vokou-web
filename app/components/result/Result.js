@@ -30,6 +30,7 @@ var Result = React.createClass({
       data: result
     };
     this.setState(newState);
+    this.forceUpdate();
   },
   handleNewSearch() {
     this.setState({
@@ -39,46 +40,15 @@ var Result = React.createClass({
   },
   render() {
     injectTapEventPlugin();
-    
-    function compare(a, b) {
-      if (a.brg&&!b.brg)
-        return -1;
-      if (!a.brg&&b.brg)
-        return 1;
-      if (a.available&&!b.available)
-        return -1;
-      if (!a.available&&b.available)
-        return 1;
-      return 0;
-    }
+
     //data.sort(compare);
     var fetcher = <Fetcher query={this.props.location.query} onFinish={this.handleFinish} />;
 
-    console.log(this.state.data);
-    var ListItems = this.state.data.map(function (hotel) {
-      return (
-        <ListItem
-          image={hotel.img}
-          price={hotel.brgPrice}
-          oldPrice={hotel.original}
-          pValue={hotel.pointsPlan.value}
-          location={hotel.address}
-          name={hotel.name}
-          canBRG={hotel.brg}
-          pointsPlan={hotel.pointsPlan.name}
-          pointsAvailable={hotel.pointsPlan.available}
-          available={hotel.available}
-        />
-      );
-    });
     return (
       <div className="result_list">
         <Search searchFields={this.props.location.query} onNewSearch={this.handleNewSearch} />
         {this.state.fetching && fetcher}
         <HotelList data={this.state.data} />
-        <ul>
-          {ListItems}
-        </ul>
       </div>
 
 

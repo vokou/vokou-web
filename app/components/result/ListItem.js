@@ -19,10 +19,7 @@ var ListItem = React.createClass({
 
   render() {
     injectTapEventPlugin();
-    var divStyle ={
-      border:"1px solid black",
-    };
-    
+
     var pointsString;
     if(this.props.pointsAvailable){
       pointsString = "Use "+this.props.pointsPlan+" as "+this.props.pValue+"$/point";
@@ -31,10 +28,10 @@ var ListItem = React.createClass({
     }
 
     var canBRG;
-    if(this.props.canBRG){
+    if(this.props.price){
       canBRG = <RaisedButton label="BRG" secondary={true} />
     }else{
-      canBRG = <RaisedButton label="BRG" disabled={true} />;
+      canBRG = <div></div>
     }
 
     var price;
