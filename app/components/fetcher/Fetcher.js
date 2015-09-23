@@ -10,21 +10,35 @@ var Fetcher = React.createClass({
     }
   },
   componentDidMount() {
+    this.searchID = 0;
     let params = this.getParams(this.props.query);
+    this.fetch(params, ++this.searchID);
+  },
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.stop) {
+      let params = this.getParams(nextProps.query);
+      this.setState({
+        percentage: 0,
+        text: 'Initializing your Search...'
+      });
+      this.fetch(params, ++this.searchID);
+    }
+  },
+  fetch(params, id) {
     let hotels = [];
     axios
       .get('https://vokou.parseapp.com/search', { params: params })
       .then((response) => {
         params.secret = response.data;
         axios
-          .get('http://52.26.198.224:8888/search', {params: params })
+          .get('http://52.26.198.224:8888/search', { params: params })
           .then((response) => {
             hotels = this.transformHotelsArray(response.data);
-            this.getHotelsInformation(hotels, 0);
+            this.getHotelsInformation(hotels, 0, id);
           })
       });
   },
-  getHotelsInformation(hotels, index) {
+  getHotelsInformation(hotels, index, id) {
     if (index == hotels.length) {
       this.props.onFinish(hotels);
       return;
@@ -56,10 +70,13 @@ var Fetcher = React.createClass({
           hotels[index].brgPrice = null;
         }
 
+        if (this.props.stop || id != this.searchID) {
+          return;
+        }
         this.setState({
           percentage: Math.round(100 * (index + 1.0) / hotels.length)
         });
-        this.getHotelsInformation(hotels, index + 1);
+        this.getHotelsInformation(hotels, index + 1, id);
       });
   },
   transformHotelsArray(hotels) {
@@ -118,7 +135,7 @@ var Fetcher = React.createClass({
     return (
       <div className="row">
         <br/>
-        <FetchProgress percentage={this.state.percentage} text={this.state.text} />
+        {!this.props.stop && <FetchProgress percentage={this.state.percentage} text={this.state.text} />}
         <br/>
       </div>
     );

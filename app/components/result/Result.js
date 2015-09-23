@@ -22,14 +22,12 @@ var Result = React.createClass({
       data:[]
     }
   },
-  
   handleFinish(result) {
     let newState = {
       fetching: false,
       data: result
     };
     this.setState(newState);
-    
   },
   handleNewSearch() {
     this.setState({
@@ -37,14 +35,21 @@ var Result = React.createClass({
       data: []
     })
   },
-  
+  handleCancelSearch() {
+    this.setState({
+      fetching: false
+    })
+  },
   render() {
     injectTapEventPlugin();
-    var fetcher = <Fetcher query={this.props.location.query} onFinish={this.handleFinish} />;
     return (
       <div className="result_list">
-        <Search searchFields={this.props.location.query} onNewSearch={this.handleNewSearch} />
-        {this.state.fetching && fetcher}
+        <Search
+          searchFields={this.props.location.query}
+          fetching={this.state.fetching}
+          onNewSearch={this.handleNewSearch}
+          onCancel={this.handleCancelSearch} />
+        <Fetcher query={this.props.location.query} stop={!this.state.fetching} onFinish={this.handleFinish} />
         <HotelList data={this.state.data} />
       </div>
     );

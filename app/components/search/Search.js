@@ -55,7 +55,7 @@ const Search = React.createClass({
 
     return `${mm}/${dd}/${yy}`;
   },
-  handleSubmit() {
+  handleSearchClick() {
     let destination = this.refs.destination.getValue();
     let checkIn = this.formatDate(this.refs.checkIn.getDate());
     let checkOut = this.formatDate(this.refs.checkOut.getDate());
@@ -91,7 +91,7 @@ const Search = React.createClass({
     };
     return (
       <div className="row">
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <div className="col-md-5">
             <TextField
               hintText="Where are you going?"
@@ -127,12 +127,18 @@ const Search = React.createClass({
               }} />
           </div>
           <div className="col-md-1">
-            <FloatingActionButton
+            { !this.props.fetching && <FloatingActionButton
               secondary={true}
               style={buttonStyle}
-              type="submit">
+              onClick={this.handleSearchClick}>
               <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
-            </FloatingActionButton>
+            </FloatingActionButton> }
+            { this.props.fetching && <FloatingActionButton
+              secondary={true}
+              style={buttonStyle}
+              onClick={this.props.onCancel}>
+              <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </FloatingActionButton> }
           </div>
         </form>
       </div>
