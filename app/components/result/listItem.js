@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatButton, Styles } from 'material-ui';
+import {FlatButton, Styles, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
@@ -10,23 +10,55 @@ var ListItem = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
+
   getChildContext() {
     return {
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
-  componentDidMount: function() {
-    console.log(this.props.location.query);
-  },
-  render : function() {
+
+  render() {
     injectTapEventPlugin();
     var divStyle ={
       border:"1px solid black",
     };
+    
+    var pointsString;
+    if(this.props.pointsAvailable){
+      pointsString = "Use "+this.props.pointsPlan+" as "+this.props.pValue+"$/point";
+    }else{
+      pointsString = "No best points plan";
+    }
+
+    var canBRG;
+    if(this.props.canBRG){
+      canBRG = <RaisedButton label="BRG" secondary={true} />
+    }else{
+      canBRG = <RaisedButton label="BRG" disabled={true} />;
+    }
+
+    var price;
+    if(this.props.available){
+      if(this.props.price === this.props.oldPrice || this.props.price==null){
+        price =
+        <div>
+          <strong className="number">{this.props.oldPrice}$</strong>
+        </div>
+      }else{
+        price =
+        <div>
+          <strike className="number">{this.props.oldPrice}$</strike>
+          <strong className="number">{this.props.price}$</strong>
+        </div>
+      }
+    }else{
+      price = "No room available"
+    }
     return (
+      
       <div className="listItem">
         <img src={this.props.image} className="hotelPic"/>
-        <div className="hotel_info" itemprop="reviews" itemscope="" itemtype="http://schema.org/Review">
+        <div className="hotel_info" itemType="http://schema.org/Review">
           <h3 className="hotel_name">
             {this.props.name}
           </h3>
@@ -34,19 +66,18 @@ var ListItem = React.createClass({
             {this.props.location}
           </p>
           <span className="pvalue">
-            {this.props.pvalue}
+            {pointsString}
           </span>
         </div>
         <div className="brg">
           <div className="hotel_price">
             <div className="price_box">
+              {price}
+              {canBRG}
+              
 
               
-              <strike class="number">{this.props.price}$</strike>
-              <strong class="number">{this.props.price}$</strong>
-
               
-              <FlatButton label="BRG" />
             </div>
           </div>
 

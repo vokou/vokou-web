@@ -22,9 +22,7 @@ var Result = React.createClass({
       data:[]
     }
   },
-  componentDidMount: function() {
-    console.log(this.props.location.query);
-  },
+  
   
   handleFinish(result) {
     let newState = {
@@ -55,6 +53,7 @@ var Result = React.createClass({
     }
     //data.sort(compare);
     var fetcher = <Fetcher query={this.props.location.query} onFinish={this.handleFinish} />;
+
     console.log(this.state.data);
     var ListItems = this.state.data.map(function (hotel) {
       return (
