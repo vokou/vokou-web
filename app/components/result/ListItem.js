@@ -17,51 +17,71 @@ var ListItem = React.createClass({
     };
   },
 
+
+  componentWillMount(){
+    var hotel = this.props.hotel;
+
+    this.setState({
+      "image":            hotel.img,
+      "price":            hotel.brgPrice,
+      "oldPrice":         hotel.original,
+      "pValue":           hotel.pointsPlan.value,
+      "location":         hotel.address,
+      "name":             hotel.name,
+      "canBRG":           hotel.brg,
+      "pointsPlan":       hotel.pointsPlan.name,
+      "pointsAvailable":  hotel.pointsPlan.available,
+      "available":        hotel.available,
+    });
+  },
+
   render() {
     injectTapEventPlugin();
 
     var pointsString;
-    if(this.props.pointsAvailable){
-      pointsString = "Use "+this.props.pointsPlan+" as "+this.props.pValue+"$/point";
+    if(this.state.pointsAvailable){
+      pointsString = "Use "+this.state.pointsPlan+" as "+this.state.pValue+"$/point";
     }else{
       pointsString = "No best points plan";
     }
 
     var canBRG;
-    if(this.props.price){
+    if(this.state.price){
       canBRG = <RaisedButton label="BRG" secondary={true} />
     }else{
       canBRG = <div></div>
     }
 
     var price;
-    if(this.props.available){
-      if(this.props.price === this.props.oldPrice || this.props.price==null){
+    if(this.state.available){
+      if(this.state.price === this.state.oldPrice || this.state.price==null){
         price =
         <div>
-          <strong className="number">{this.props.oldPrice}$</strong>
+          <strong className="number">{this.state.oldPrice}$</strong>
         </div>
       }else{
         price =
         <div>
-          <strike className="number">{this.props.oldPrice}$</strike>
-          <strong className="number">{this.props.price}$</strong>
+          <strike className="number">{this.state.oldPrice}$</strike>
+          <strong className="number">{this.state.price}$</strong>
         </div>
       }
     }else{
       price = "No room available"
     }
+
+    
     return (
 
       <div className="row row-height list-item">
-        <img src={this.props.image}
+        <img src={this.state.image}
           className="col-md-3 img-rounded img-responsive row-height"/>
         <div className="col-md-7 row-height hotel-info">
           <h3>
-            {this.props.name}
+            {this.state.name}
           </h3>
           <p>
-            {this.props.location}
+            {this.state.location}
           </p>
           <p className="points-string">
             {pointsString}

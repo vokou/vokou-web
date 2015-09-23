@@ -2,7 +2,7 @@ import React from 'react';
 import {Styles } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ListItem from './ListItem';
-
+import _ from 'underscore';
 
 let ThemeManager = new Styles.ThemeManager();
 
@@ -10,81 +10,55 @@ var HotelList = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
+  
   getChildContext() {
     return {
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
-
+  
+  compare(a, b) {
+    if (a.brg&&!b.brg)
+      return -1;
+    if (!a.brg&&b.brg)
+      return 1;
+    if (a.available&&!b.available)
+      return -1;
+    if (!a.available&&b.available)
+      return 1;
+    return 0;
+  },
+  
   sortData(data){
     var result = data;
-    function compare(a, b) {
-      if (a.brg&&!b.brg)
-        return -1;
-      if (!a.brg&&b.brg)
-        return 1;
-      if (a.available&&!b.available)
-        return -1;
-      if (!a.available&&b.available)
-        return 1;
-      return 0;
-    };
-    result = result.sort(compare);
+    result = result.sort(this.compare);
     return result;
-
   },
+  
   getInitialState(){
     return {
       data:this.props.data
     }
   },
+  
   componentWillReceiveProps(nextProps){
-    console.log("hey");
-    console.log(nextProps["data"]);
-    
     this.setState({
       data: nextProps["data"]
     });
-    
   },
+  
   componentWillMount(){
-
-    function compare(a, b) {
-      if (a.brg&&!b.brg)
-        return -1;
-      if (!a.brg&&b.brg)
-        return 1;
-      if (a.available&&!b.available)
-        return -1;
-      if (!a.available&&b.available)
-        return 1;
-      return 0;
-    };
-
-    var sortData = this.state.data;
-    sortData.sort(compare);
-    this.setState({data: sortData});
-
+    this.setState({data: this.state.data});
   },
+  
   render() {
     injectTapEventPlugin();
-
-    var ListItems = this.state.data.map(function (hotel) {
-      return (
-        <ListItem
-          image={hotel.img}
-          price={hotel.brgPrice}
-          oldPrice={hotel.original}
-          pValue={hotel.pointsPlan.value}
-          location={hotel.address}
-          name={hotel.name}
-          canBRG={hotel.brg}
-          pointsPlan={hotel.pointsPlan.name}
-          pointsAvailable={hotel.pointsPlan.available}
-          available={hotel.available}
-        />
-      );
+    var hotels = this.state.data;
+    var ListItems = _.map(hotels, function(hotel, key){
+      var l = <ListItem hotel={hotel} key={key}/>;
+      return l;
     });
+    
     return (
       <div className="result-list">
         <ul>
