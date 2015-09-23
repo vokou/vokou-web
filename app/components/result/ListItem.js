@@ -52,28 +52,24 @@ var ListItem = React.createClass({
       price = "No room available"
     }
     return (
-      
-      <div className="listItem">
-        <img src={this.props.image} className="hotelPic"/>
-        <div className="hotel_info" itemType="http://schema.org/Review">
-          <h3 className="hotel_name">
+
+      <div className="row row-height list-item">
+        <img src={this.props.image}
+          className="col-md-3 img-rounded img-responsive row-height"/>
+        <div className="col-md-7 row-height hotel-info">
+          <h3>
             {this.props.name}
           </h3>
-          <p className="location">
+          <p>
             {this.props.location}
           </p>
-          <span className="pvalue">
+          <p className="points-string">
             {pointsString}
-          </span>
+          </p>
         </div>
-        <div className="brg">
-          <div className="hotel_price">
-            <div className="price_box">
-              {price}
-              {canBRG}
-            </div>
-          </div>
-
+        <div className="col-md-2 row-height">
+          <div className="hotelPrice">{price}</div>
+          <div className="canBRG">{canBRG}</div>
         </div>
       </div>
 

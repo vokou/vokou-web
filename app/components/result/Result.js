@@ -43,7 +43,7 @@ var Result = React.createClass({
   render() {
     injectTapEventPlugin();
     return (
-      <div className="result_list">
+      <div className="result-list">
         <Search
           searchFields={this.props.location.query}
           fetching={this.state.fetching}

@@ -86,7 +86,7 @@ var HotelList = React.createClass({
       );
     });
     return (
-      <div className="result_list">
+      <div className="result-list">
         <ul>
           {ListItems}
         </ul>
