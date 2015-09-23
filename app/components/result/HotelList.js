@@ -1,7 +1,7 @@
 import React from 'react';
 import {Styles } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import ListItem from './listItem';
+import ListItem from './ListItem';
 
 
 let ThemeManager = new Styles.ThemeManager();

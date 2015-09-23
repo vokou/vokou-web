@@ -1,7 +1,6 @@
 import React from 'react';
 import {Styles } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import ListItem from './ListItem';
 import Search from '../search/Search';
 import Fetcher from '../fetcher/Fetcher';
 import HotelList from './HotelList'
@@ -38,20 +37,16 @@ var Result = React.createClass({
       data: []
     })
   },
+  
   render() {
     injectTapEventPlugin();
-
-    //data.sort(compare);
     var fetcher = <Fetcher query={this.props.location.query} onFinish={this.handleFinish} />;
-
     return (
       <div className="result_list">
         <Search searchFields={this.props.location.query} onNewSearch={this.handleNewSearch} />
         {this.state.fetching && fetcher}
         <HotelList data={this.state.data} />
       </div>
-
-
     );
   }
 });
