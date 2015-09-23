@@ -30,7 +30,7 @@ var Result = React.createClass({
       data: result
     };
     this.setState(newState);
-    this.forceUpdate();
+    
   },
   handleNewSearch() {
     this.setState({

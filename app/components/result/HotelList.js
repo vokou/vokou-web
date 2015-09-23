@@ -40,10 +40,10 @@ var HotelList = React.createClass({
   },
   componentWillReceiveProps(nextProps){
     console.log("hey");
-    console.log(this.props.data);
+    console.log(nextProps["data"]);
     
     this.setState({
-      data: this.props.data
+      data: nextProps["data"]
     });
     
   },
