@@ -25,7 +25,6 @@ var Fetcher = React.createClass({
       });
   },
   getHotelsInformation(hotels, index) {
-    console.log(index);
     if (index == hotels.length) {
       this.props.onFinish(hotels);
       return;
@@ -65,7 +64,6 @@ var Fetcher = React.createClass({
   },
   transformHotelsArray(hotels) {
     return hotels.map(function(hotel) {
-      console.log(hotel);
       let hotelObj = {
         name: hotel.name,
         available: hotel.lsp ? true : false,
@@ -90,7 +88,6 @@ var Fetcher = React.createClass({
         }
       }
       hotelObj.pointsPlan = pointsPlan;
-      console.log(hotelObj);
       return hotelObj;
     });
   },
