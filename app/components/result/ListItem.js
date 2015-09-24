@@ -80,7 +80,7 @@ var ListItem = React.createClass({
     return (
 
       <div className="row row-height list-item" onClick={this.goToDetail}>
-        <img src={this.state.image}
+        <img src={this.state.image} onClick={this.goToDetail}
           className="col-md-3 img-rounded img-responsive row-height"/>
         <div className="col-md-7 row-height hotel-info">
           <h3>

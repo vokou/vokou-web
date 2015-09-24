@@ -36,16 +36,16 @@ var DetailPage = React.createClass({
   componentWillMount(){
     var hotel = this.props.hotel;
     this.setState({
-      "image":            hotel.img,
-      "price":            hotel.brgPrice,
-      "oldPrice":         hotel.original,
-      "pValue":           hotel.pointsPlan.value,
-      "location":         hotel.address,
-      "name":             hotel.name,
-      "canBRG":           hotel.brg,
-      "pointsPlan":       hotel.pointsPlan.name,
-      "pointsAvailable":  hotel.pointsPlan.available,
-      "available":        hotel.available,
+      "image":            null,
+      "price":            null,
+      "oldPrice":         null,
+      "pValue":           null,
+      "location":         null,
+      "name":             null,
+      "canBRG":           null,
+      "pointsPlan":       null,
+      "pointsAvailable":  null,
+      "available":        null
     });
   },
 
