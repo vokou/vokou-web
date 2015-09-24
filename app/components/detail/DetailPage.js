@@ -87,10 +87,10 @@ var DetailPage = React.createClass({
 
     return (
 
-      <div onClick={this.goToDetail}>
+      <div>
         <img src={this.state.image}
           className="row"/>
-        <div className="row hotel-info">
+        <div className="row detail-hotel-info">
           <div className="col-md-9 row-height">
             <h3>
               {this.state.name}

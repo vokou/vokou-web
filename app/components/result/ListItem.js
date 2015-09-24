@@ -1,12 +1,14 @@
 import React from 'react';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
+import {History} from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
 let ThemeManager = new Styles.ThemeManager();
 
 var ListItem = React.createClass({
-
+  mixins: [History],
+  
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -32,16 +34,23 @@ var ListItem = React.createClass({
       "pointsPlan":       hotel.pointsPlan.name,
       "pointsAvailable":  hotel.pointsPlan.available,
       "available":        hotel.available,
+      "id":               hotel.propertyID
     });
   },
 
   goToDetail(){
     //TODO: put real argument
-    let query = {1:'1'};
+    var query = {
+      name: this.state.name,
+      id: this.state.id,
+      checkin: this.props.query.checkIn,
+      checkout: this.props.query.checkOut
+    };
+    
     this.history.pushState(null, `/detail`, query);
-    return;
+    
   },
-  
+
   render() {
     injectTapEventPlugin();
 

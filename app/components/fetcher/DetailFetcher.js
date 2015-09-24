@@ -3,6 +3,9 @@ import axios from 'axios';
 import FetchProgress from './FetchProgress'
 
 var DetailFetcher = React.createClass({
+  contextTypes: {
+    location: React.PropTypes.object
+  },
   //TODO: implement actual detail fetcher.
   componentDidMount (){
     var hotel = {
@@ -18,6 +21,7 @@ var DetailFetcher = React.createClass({
       "brg":           true,
       "available":        true
     }
+    console.log(this.context.location);
     this.props.onFinish(hotel);
   },
 
