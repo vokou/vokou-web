@@ -87,7 +87,7 @@ var DetailPage = React.createClass({
 
     return (
 
-      <div onClick={this.goToDetail}>
+      <div>
         <img src={this.state.image}
           className="row"/>
         <div className="row detail-hotel-info">
