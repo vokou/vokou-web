@@ -1,0 +1,42 @@
+.detail {
+  width: 70%;
+  margin-left: 15%;
+}
+
+.detail *{
+  padding: 0px;
+}
+.detail img {
+  width: 100%;
+}
+
+.detail .row {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.hotel-info {
+  height: 150px;
+}
+
+.hotel-info * {
+  margin-left: 0px;
+}
+
+.spg-brg{
+  position: relative;
+}
+
+.detail-brg {
+  position: absolute;
+  top: 25%;
+  left: 40%;
+}
+
+.detail-spg {
+  position: absolute;
+  top: 55%;
+  left: 30%;
+}
