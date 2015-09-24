@@ -91,7 +91,9 @@ var Fetcher = React.createClass({
       if (hotel.detail) {
         hotelObj.address = hotel.detail.address;
         hotelObj.img = hotel.detail.img.replace('_tn', '_md');
+        hotelObj.propertyID = hotel.detail.id;
       }
+      console.log(hotel.detail);
       let pointsPlan = {};
       if(hotel.pp.point_plan === "No Best Point Plan") {
         pointsPlan.available = false;
