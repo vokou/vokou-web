@@ -15,7 +15,7 @@ var Fetcher = React.createClass({
     this.fetch(params, ++this.searchID);
   },
   componentWillReceiveProps(nextProps) {
-    if (!nextProps.stop) {
+    if (!nextProps.stop && this.props.stop) {
       let params = this.getParams(nextProps.query);
       this.setState({
         percentage: 0,
@@ -40,7 +40,7 @@ var Fetcher = React.createClass({
   },
   getHotelsInformation(hotels, index, id) {
     if (index == hotels.length) {
-      this.props.onFinish(hotels);
+      this.props.onFinish();
       return;
     }
 
@@ -73,6 +73,7 @@ var Fetcher = React.createClass({
         if (this.props.stop || id != this.searchID) {
           return;
         }
+        this.props.onUpdate(hotels[index]);
         this.setState({
           percentage: Math.round(100 * (index + 1.0) / hotels.length)
         });
@@ -91,6 +92,7 @@ var Fetcher = React.createClass({
       if (hotel.detail) {
         hotelObj.address = hotel.detail.address;
         hotelObj.img = hotel.detail.img.replace('_tn', '_md');
+        hotelObj.propertyID = hotel.detail.id;
       }
       let pointsPlan = {};
       if(hotel.pp.point_plan === "No Best Point Plan") {
