@@ -54,8 +54,9 @@ var HotelList = React.createClass({
   render() {
     injectTapEventPlugin();
     var hotels = this.state.data;
+    var query = this.props.query;
     var ListItems = _.map(hotels, function(hotel, key){
-      var l = <ListItem hotel={hotel} key={key}/>;
+      var l = <ListItem hotel={hotel} key={key} query={this.props.query}/>;
       return l;
     });
     

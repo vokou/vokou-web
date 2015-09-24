@@ -50,7 +50,7 @@ var Result = React.createClass({
           onNewSearch={this.handleNewSearch}
           onCancel={this.handleCancelSearch} />
         <Fetcher query={this.props.location.query} stop={!this.state.fetching} onFinish={this.handleFinish} />
-        <HotelList data={this.state.data} />
+        <HotelList data={this.state.data} query={this.props.location.query}/>
       </div>
     );
   }
