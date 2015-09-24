@@ -22,10 +22,9 @@ var Result = React.createClass({
       data:[]
     }
   },
-  handleFinish(result) {
+  handleFinish() {
     let newState = {
-      fetching: false,
-      data: result
+      fetching: false
     };
     this.setState(newState);
   },

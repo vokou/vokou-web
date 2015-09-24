@@ -40,7 +40,7 @@ var Fetcher = React.createClass({
   },
   getHotelsInformation(hotels, index, id) {
     if (index == hotels.length) {
-      this.props.onFinish(hotels);
+      this.props.onFinish();
       return;
     }
 
