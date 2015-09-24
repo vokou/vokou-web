@@ -3,6 +3,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import Main from '../components/Main';
 import Search from '../components/search/Search';
 import Result from '../components/result/Result';
+import Detail from '../components/detail/Detail';
 
 function redirectToSearch(location, replaceWith) {
   replaceWith(null, '/search');
@@ -13,6 +14,7 @@ var routes = (
     <IndexRoute onEnter={redirectToSearch} />
     <Route path="/search" component={Search} />
     <Route path="/result" component={Result} />
+    <Route path="/detail" component={Detail} />
   </Route>
 );
 

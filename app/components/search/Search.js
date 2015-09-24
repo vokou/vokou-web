@@ -52,14 +52,13 @@ const Search = React.createClass({
     let _date = date.getDate();
     let dd = _date > 9 ? _date : `0${_date}`;
     let yy = date.getFullYear();
-
     return `${mm}/${dd}/${yy}`;
   },
   handleSearchClick() {
     let destination = this.refs.destination.getValue();
     let checkIn = this.formatDate(this.refs.checkIn.getDate());
     let checkOut = this.formatDate(this.refs.checkOut.getDate());
-
+    
     if (destination && checkIn && checkOut) {
       let query = {
         destination,

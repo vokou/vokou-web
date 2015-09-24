@@ -5,7 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 let ThemeManager = new Styles.ThemeManager();
 
-var ListItem = React.createClass({
+var DetailPage = React.createClass({
 
   childContextTypes: {
     muiTheme: React.PropTypes.object
@@ -16,11 +16,25 @@ var ListItem = React.createClass({
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
-
-
+  
+  componentWillReceiveProps(nextProps){
+    var hotel = nextProps["hotel"];
+    this.setState({
+      "image":            hotel.img,
+      "price":            hotel.brgPrice,
+      "oldPrice":         hotel.original,
+      "pValue":           hotel.pointsPlan.value,
+      "location":         hotel.address,
+      "name":             hotel.name,
+      "canBRG":           hotel.brg,
+      "pointsPlan":       hotel.pointsPlan.name,
+      "pointsAvailable":  hotel.pointsPlan.available,
+      "available":        hotel.available,
+    });
+  },
+  
   componentWillMount(){
     var hotel = this.props.hotel;
-
     this.setState({
       "image":            hotel.img,
       "price":            hotel.brgPrice,
@@ -35,13 +49,6 @@ var ListItem = React.createClass({
     });
   },
 
-  goToDetail(){
-    //TODO: put real argument
-    let query = {1:'1'};
-    this.history.pushState(null, `/detail`, query);
-    return;
-  },
-  
   render() {
     injectTapEventPlugin();
 
@@ -77,6 +84,7 @@ var ListItem = React.createClass({
       price = "No room available"
     }
 
+
     return (
 
       <div className="row row-height list-item" onClick={this.goToDetail}>
@@ -103,4 +111,4 @@ var ListItem = React.createClass({
   }
 });
 
-export default ListItem;
+export default DetailPage;
