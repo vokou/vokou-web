@@ -64,8 +64,10 @@ var Fetcher = React.createClass({
       .then((response) => {
 
         if (response.data) {
-          hotels[index].brgPrice = response.data.price;
-          hotels[index].cover = response.data.turl;
+          if (response.data.price) {
+            hotels[index].brgPrice = parseFloat(Math.round(response.data.price / days * 10) / 10);
+            hotels[index].cover = response.data.turl;
+          }
         } else {
           hotels[index].brgPrice = null;
         }
@@ -74,6 +76,7 @@ var Fetcher = React.createClass({
           return;
         }
         this.props.onUpdate(hotels[index]);
+        //console.log(hotels[index]);
         this.setState({
           percentage: Math.round(100 * (index + 1.0) / hotels.length)
         });
@@ -99,7 +102,7 @@ var Fetcher = React.createClass({
         pointsPlan.available = false;
       } else {
         pointsPlan.available = true;
-        pointsPlan.value = hotel.pp.value;
+        pointsPlan.value = parseFloat(Math.round(hotel.pp.value * 10000) / 10000);
         if (hotel.pp.point_plan === "Points") {
           pointsPlan.name = "SPG Free Nights";
         } else {
