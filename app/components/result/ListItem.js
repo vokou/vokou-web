@@ -94,8 +94,8 @@ var ListItem = React.createClass({
           </p>
         </div>
         <div className="col-md-2 row-height">
-          <div className="hotelPrice">{price}</div>
-          <div className="canBRG">{canBRG}</div>
+          <div className="hotel-price">{price}</div>
+          <div className="can-brg">{canBRG}</div>
         </div>
       </div>
 

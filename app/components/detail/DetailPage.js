@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
+require("./detail.css");
 
 let ThemeManager = new Styles.ThemeManager();
 
@@ -16,7 +16,7 @@ var DetailPage = React.createClass({
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
-  
+
   componentWillReceiveProps(nextProps){
     var hotel = nextProps["hotel"];
     this.setState({
@@ -32,7 +32,7 @@ var DetailPage = React.createClass({
       "available":        hotel.available,
     });
   },
-  
+
   componentWillMount(){
     var hotel = this.props.hotel;
     this.setState({
@@ -87,23 +87,29 @@ var DetailPage = React.createClass({
 
     return (
 
-      <div className="row row-height list-item" onClick={this.goToDetail}>
+      <div onClick={this.goToDetail}>
         <img src={this.state.image}
-          className="col-md-3 img-rounded img-responsive row-height"/>
-        <div className="col-md-7 row-height hotel-info">
-          <h3>
-            {this.state.name}
-          </h3>
-          <p>
-            {this.state.location}
-          </p>
-          <p className="points-string">
-            {pointsString}
-          </p>
-        </div>
-        <div className="col-md-2 row-height">
-          <div className="hotelPrice">{price}</div>
-          <div className="canBRG">{canBRG}</div>
+          className="row"/>
+        <div className="row hotel-info">
+          <div className="col-md-9 row-height">
+            <h3>
+              {this.state.name}
+            </h3>
+            <p>
+              {this.state.location}
+            </p>
+            <div className="detail-price">{price}</div>
+            <p className="points-string">
+              {pointsString}
+              {"   55% success rate"}
+            </p>
+          </div>
+          <div className="col-md-3 row-height spg-brg">
+            <div className="detail-brg">{canBRG}</div>
+            <div className="detail-spg">
+              <RaisedButton label="Go To SPG" secondary={true} />
+            </div>
+          </div>
         </div>
       </div>
 
