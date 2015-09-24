@@ -40,6 +40,11 @@ var Result = React.createClass({
       fetching: false
     })
   },
+  handleUpdate(hotel) {
+    this.setState({
+      data: this.state.data.concat([hotel])
+    })
+  },
   render() {
     injectTapEventPlugin();
     return (
@@ -49,7 +54,11 @@ var Result = React.createClass({
           fetching={this.state.fetching}
           onNewSearch={this.handleNewSearch}
           onCancel={this.handleCancelSearch} />
-        <Fetcher query={this.props.location.query} stop={!this.state.fetching} onFinish={this.handleFinish} />
+        <Fetcher
+          query={this.props.location.query}
+          stop={!this.state.fetching}
+          onUpdate={this.handleUpdate}
+          onFinish={this.handleFinish} />
         <HotelList data={this.state.data} />
       </div>
     );
