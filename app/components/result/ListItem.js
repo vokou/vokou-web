@@ -1,5 +1,5 @@
 import React from 'react';
-import { History } from 'react-router';
+import { History, Link } from 'react-router';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -48,10 +48,10 @@ var ListItem = React.createClass({
       checkin: this.props.query.checkIn,
       checkout: this.props.query.checkOut
     };
-    
+
 
     this.history.pushState(null, `/detail`, query);
-    
+
   },
 
   render() {
@@ -88,10 +88,18 @@ var ListItem = React.createClass({
     }else{
       price = "No room available"
     }
-
+    var query = {
+      hotelname: this.state.name,
+      propID: this.state.id,
+      checkin: encodeURIComponent(this.props.query.checkIn),
+      checkout: encodeURIComponent(this.props.query.checkOut)
+    };
+    console.log(query);
+    //${query.propID}${query.checkin}${query.checkout}
     return (
 
-      <div className="row row-height list-item" onClick={this.goToDetail}>
+      <div className="row row-height list-item">
+        <Link to={`/detail//${query.hotelname}//${query.propID}//${query.checkin}//${query.checkout}`} >
         <img src={this.state.image} onClick={this.goToDetail}
           className="col-md-3 img-rounded img-responsive"/>
         <div className="col-md-7 row-height hotel-info">
@@ -109,6 +117,7 @@ var ListItem = React.createClass({
           <div className="hotel-price">{price}</div>
           <div className="can-brg">{canBRG}</div>
         </div>
+        </Link>
       </div>
 
     );
