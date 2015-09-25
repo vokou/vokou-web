@@ -1,9 +1,21 @@
+/* make sure all list item divs have same height */
+.row-height {
+  height: 140px;
+}
+
 .list-item{
   border: 1px solid;
   margin-bottom: 10px;
-
+  cursor: pointer;
 }
 
+.list-item img{
+  height: 137px;
+}
+.list-item:hover {
+  
+  border: 3px solid;
+}
 .result-list ul {
   padding-left: 0px;
 }
@@ -18,15 +30,11 @@
   margin-bottom: 0px;
 }
 
-/* make sure all list item divs have same height */
-.row-height {
-  height: 140px;
-}
 
 
 .points-string {
   position: absolute;
-  bottom: 0px;
+  bottom: 5px;
   margin-bottom: 0px;
 }
 

@@ -35,7 +35,6 @@ var DetailPage = React.createClass({
   },
 
   componentWillMount(){
-    var hotel = this.props.hotel;
     this.setState({
       "image":            null,
       "price":            null,
