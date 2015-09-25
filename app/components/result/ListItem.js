@@ -1,7 +1,6 @@
 import React from 'react';
 import { History } from 'react-router';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
-import {History} from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
