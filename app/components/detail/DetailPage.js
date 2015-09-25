@@ -30,7 +30,8 @@ var DetailPage = React.createClass({
       "pointsPlan":       hotel.pointsPlan.name,
       "pointsAvailable":  hotel.pointsPlan.available,
       "available":        hotel.available,
-      "cover": hotel.cover
+      "cover":            hotel.cover,
+      "url":              hotel.url
     });
   },
 
@@ -55,6 +56,9 @@ var DetailPage = React.createClass({
     alert("the brg url is not working!");
   },
 
+  goSPG(){
+    window.open(this.state.url);
+  },
   render() {
     injectTapEventPlugin();
     /* loading detail from server */
@@ -123,7 +127,7 @@ var DetailPage = React.createClass({
           <div className="col-md-3 row-height spg-brg">
             <div className="detail-brg">{canBRG}</div>
             <div className="detail-spg">
-              <RaisedButton label="Go To SPG" secondary={true} />
+              <RaisedButton label="Go To SPG" secondary={true} onClick={this.goSPG}/>
             </div>
           </div>
         </div>
