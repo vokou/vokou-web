@@ -34,7 +34,6 @@ var ListItem = React.createClass({
       "pointsPlan":       hotel.pointsPlan.name,
       "pointsAvailable":  hotel.pointsPlan.available,
       "available":        hotel.available,
-
       "id":               hotel.propertyID
 
     });
