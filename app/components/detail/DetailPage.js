@@ -30,11 +30,11 @@ var DetailPage = React.createClass({
       "pointsPlan":       hotel.pointsPlan.name,
       "pointsAvailable":  hotel.pointsPlan.available,
       "available":        hotel.available,
+      "cover": hotel.cover
     });
   },
 
   componentWillMount(){
-    var hotel = this.props.hotel;
     this.setState({
       "image":            null,
       "price":            null,
@@ -45,12 +45,27 @@ var DetailPage = React.createClass({
       "canBRG":           null,
       "pointsPlan":       null,
       "pointsAvailable":  null,
-      "available":        null
+      "available":        null,
+      "cover": null
     });
+  },
+
+  goBRG(){
+    console.log(this.state.cover);
+    alert("the brg url is not working!");
   },
 
   render() {
     injectTapEventPlugin();
+    /* loading detail from server */
+    if(!this.state.name)
+      return (
+        <div className="row">
+          <div className="col-md-offset-3">
+            Loading BRG detail. Please be patient with us.
+          </div>
+        </div>);
+
 
     var pointsString;
     if(this.state.pointsAvailable){
@@ -61,7 +76,8 @@ var DetailPage = React.createClass({
 
     var canBRG;
     if(this.state.price){
-      canBRG = <RaisedButton label="BRG" secondary={true} />
+      canBRG = <RaisedButton label="BRG" secondary={true} onClick={this.goBRG}/>
+
     }else{
       canBRG = <div></div>
     }

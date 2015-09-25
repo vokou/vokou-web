@@ -1,6 +1,7 @@
 import React from 'react';
 import { History } from 'react-router';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
+import {History} from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 
@@ -8,6 +9,7 @@ let ThemeManager = new Styles.ThemeManager();
 
 var ListItem = React.createClass({
   mixins: [History],
+
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -33,25 +35,27 @@ var ListItem = React.createClass({
       "pointsPlan":       hotel.pointsPlan.name,
       "pointsAvailable":  hotel.pointsPlan.available,
       "available":        hotel.available,
-      "id": hotel.propertyID
+
+      "id":               hotel.propertyID
+
     });
   },
 
   goToDetail(){
     //TODO: put real argument
-    /* console.log(this.props);
-       console.log(this.props.location.query); */
+
     var query = {
-      name: this.state.name,
-      id: this.state.id,
+      hotelname: this.state.name,
+      propID: this.state.id,
       checkin: this.props.query.checkIn,
       checkout: this.props.query.checkOut
     };
-    /* console.log(this.props.location.query); */
+    
+
     this.history.pushState(null, `/detail`, query);
-    return;
+    
   },
-  
+
   render() {
     injectTapEventPlugin();
 
@@ -91,7 +95,7 @@ var ListItem = React.createClass({
 
       <div className="row row-height list-item" onClick={this.goToDetail}>
         <img src={this.state.image} onClick={this.goToDetail}
-          className="col-md-3 img-rounded img-responsive row-height"/>
+          className="col-md-3 img-rounded img-responsive"/>
         <div className="col-md-7 row-height hotel-info">
           <h3>
             {this.state.name}

@@ -46,6 +46,7 @@ var Result = React.createClass({
   },
   render() {
     injectTapEventPlugin();
+    
     return (
       <div className="result-list">
         <Search
@@ -59,7 +60,7 @@ var Result = React.createClass({
           stop={!this.state.fetching}
           onUpdate={this.handleUpdate}
           onFinish={this.handleFinish} />
-        <HotelList data={this.state.data} query={this.props.location.query}/>
+        <HotelList data={this.state.data} query={this.props.location.query} />
 
       </div>
     );

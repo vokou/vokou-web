@@ -26,6 +26,7 @@ var Detail = React.createClass({
       fetching: false,
       data: result
     };
+    console.log(result);
     this.setState(newState);
   },
 

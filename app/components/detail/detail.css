@@ -17,7 +17,7 @@
   margin-top: 0px;
 }
 
-.hotel-info {
+.detail-hotel-info {
   height: 150px;
 }
 
@@ -38,5 +38,9 @@
 .detail-spg {
   position: absolute;
   top: 55%;
-  left: 30%;
+  left: 33%;
+}
+
+.detail-progress {
+  margin-left: 60%;
 }
