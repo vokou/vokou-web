@@ -1,5 +1,6 @@
 import React from 'react';
-import {Styles } from 'material-ui';
+import { Styles } from 'material-ui';
+import { History } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Search from '../search/Search';
 import Fetcher from '../fetcher/Fetcher';
@@ -8,6 +9,7 @@ require("./result.css");
 
 let ThemeManager = new Styles.ThemeManager();
 var Result = React.createClass({
+  mixins: [History],
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -15,6 +17,12 @@ var Result = React.createClass({
     return {
       muiTheme: ThemeManager.getCurrentTheme()
     };
+  },
+  componentWillMount() {
+    let query = this.props.location.query;
+    if (!query.destination || !query.checkIn || !query.checkOut) {
+      this.history.replaceState(null, '/search');
+    }
   },
   getInitialState(){
     return {
