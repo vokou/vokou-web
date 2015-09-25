@@ -31,7 +31,7 @@ var Fetcher = React.createClass({
       .then((response) => {
         params.secret = response.data;
         axios
-          .get('http://52.89.111.15:8888/search', { params: params })
+          .get('http://52.27.180.1:8888/search', { params: params })
           .then((response) => {
             hotels = this.transformHotelsArray(response.data);
             this.getHotelsInformation(hotels, 0, id);
@@ -57,7 +57,7 @@ var Fetcher = React.createClass({
     let days = this.differenceBetweenDates(new Date(this.props.query.checkIn), new Date(this.props.query.checkOut));
 
     axios
-      .post('http://52.89.111.15:8888/getPrice', {
+      .post('http://52.27.180.1:8888/getPrice', {
         hcurl: hotel.url,
         price: price * days
       })
@@ -96,6 +96,7 @@ var Fetcher = React.createClass({
         hotelObj.address = hotel.detail.address;
         hotelObj.img = hotel.detail.img.replace('_tn', '_md');
         hotelObj.propertyID = hotel.detail.id;
+
       }
       let pointsPlan = {};
       if(hotel.pp.point_plan === "No Best Point Plan") {

@@ -41,8 +41,8 @@ var ListItem = React.createClass({
   goToDetail(){
     //TODO: put real argument
     var query = {
-      name: this.state.name,
-      id: this.state.id,
+      hotelname: this.state.name,
+      propID: this.state.id,
       checkin: this.props.query.checkIn,
       checkout: this.props.query.checkOut
     };
