@@ -21,7 +21,7 @@ var ListItem = React.createClass({
 
 
   componentWillMount(){
-    var hotel = this.props.hotel;
+    let hotel = this.props.hotel;
 
     this.setState({
       "image":            hotel.img,
@@ -42,7 +42,7 @@ var ListItem = React.createClass({
   goToDetail(){
     //TODO: put real argument
 
-    var query = {
+    let query = {
       hotelname: this.state.name,
       propID: this.state.id,
       checkin: this.props.query.checkIn,
@@ -57,21 +57,21 @@ var ListItem = React.createClass({
   render() {
     injectTapEventPlugin();
 
-    var pointsString;
+    let pointsString;
     if(this.state.pointsAvailable){
       pointsString = "Use "+this.state.pointsPlan+" as "+this.state.pValue+"$/point";
     }else{
       pointsString = "No best points plan";
     }
 
-    var canBRG;
+    let canBRG;
     if(this.state.price){
       canBRG = <RaisedButton label="BRG" secondary={true} />
     }else{
       canBRG = <div></div>
     }
 
-    var price;
+    let price;
     if(this.state.available){
       if(this.state.price === this.state.oldPrice || this.state.price==null){
         price =
@@ -88,13 +88,13 @@ var ListItem = React.createClass({
     }else{
       price = "No room available"
     }
-    var query = {
+    let query = {
       hotelname: this.state.name,
       propID: this.state.id,
       checkin: encodeURIComponent(this.props.query.checkIn),
       checkout: encodeURIComponent(this.props.query.checkOut)
     };
-    console.log(query);
+    //console.log(query);
     //${query.propID}${query.checkin}${query.checkout}
     return (
 

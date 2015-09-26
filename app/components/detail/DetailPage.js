@@ -18,7 +18,7 @@ var DetailPage = React.createClass({
   },
 
   componentWillReceiveProps(nextProps){
-    var hotel = nextProps["hotel"];
+    let hotel = nextProps["hotel"];
     this.setState({
       "image":            hotel.img,
       "price":            hotel.brgPrice,
@@ -71,14 +71,14 @@ var DetailPage = React.createClass({
         </div>);
 
 
-    var pointsString;
+    let pointsString;
     if(this.state.pointsAvailable){
       pointsString = "Use "+this.state.pointsPlan+" as "+this.state.pValue+"$/point";
     }else{
       pointsString = "No best points plan";
     }
 
-    var canBRG;
+    let canBRG;
     if(this.state.price){
       canBRG = <RaisedButton label="BRG" secondary={true} onClick={this.goBRG}/>
 
@@ -86,7 +86,7 @@ var DetailPage = React.createClass({
       canBRG = <div></div>
     }
 
-    var price;
+    let price;
     if(this.state.available){
       if(this.state.price === this.state.oldPrice || this.state.price==null){
         price =

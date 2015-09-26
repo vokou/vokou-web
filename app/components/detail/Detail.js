@@ -17,7 +17,7 @@ var Detail = React.createClass({
   },
   getInitialState() {
     //console.log(this.props.params);
-    var params = this.props.params;
+    let params = this.props.params;
     return {
       fetching: true,
       data:{
@@ -30,8 +30,8 @@ var Detail = React.createClass({
     
   },
   componentWillMount() {
-    var params = this.props.params;
-    var state = {
+    let params = this.props.params;
+    let state = {
       data:{
         hotelname: params.hotelname,
         propID: params.propID,

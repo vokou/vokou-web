@@ -30,7 +30,7 @@ var HotelList = React.createClass({
   },
   
   sortData(data){
-    var result = data;
+    let result = data;
     result = result.sort(this.compare);
     return result;
   },
@@ -53,11 +53,10 @@ var HotelList = React.createClass({
   
   render() {
     injectTapEventPlugin();
-    var hotels = this.state.data;
-    var q = this.props.query;
-    var ListItems = _.map(hotels, function(hotel, key){
-      var l = <ListItem hotel={hotel} key={key} query={q}/>;
-
+    let hotels = this.state.data;
+    let q = this.props.query;
+    let ListItems = _.map(hotels, function(hotel, key){
+      let l = <ListItem hotel={hotel} key={key} query={q}/>;
       return l;
     });
     

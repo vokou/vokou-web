@@ -19,7 +19,7 @@ var DetailFetcher = React.createClass({
   },
 
   formatHotelData(hotel){
-    var hotelObj = {
+    let hotelObj = {
       name: hotel.name,
       available: hotel.lsp ? true : false,
       original: hotel.lsp ? hotel.lsp : 9999,
@@ -41,17 +41,17 @@ var DetailFetcher = React.createClass({
 
   fetch(query) {
 
-    var days = this.differenceBetweenDates(new Date(query.checkin),
+    let days = this.differenceBetweenDates(new Date(query.checkin),
                                            new Date(query.checkout));
     
     axios
       .get(serverIP + 'getSPG', { params: query })
       .then((response) => {
         
-        var hotel = this.formatHotelData(response.data);
+        let hotel = this.formatHotelData(response.data);
 
         /* if lsp doesnot exist, make it relative large. */
-        var price = 10000;
+        let price = 10000;
         if(response.data.lsp > 0)
           price = response.data.lsp;
 
