@@ -15,27 +15,49 @@ var Detail = React.createClass({
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
-  getInitialState(){
+  getInitialState() {
+    //console.log(this.props.params);
+    var params = this.props.params;
     return {
       fetching: true,
-      data:[]
+      data:{
+        hotelname: params.hotelname,
+        propID: params.propID,
+        checkin: params.checkin,
+        checkout: params.checkout
+      }
     }
+    
   },
+  componentWillMount() {
+    var params = this.props.params;
+    var state = {
+      data:{
+        hotelname: params.hotelname,
+        propID: params.propID,
+        checkin: params.checkIn,
+        checkout: params.checkOut
+      }
+    }
+    this.setState({state});
+  },
+
   handleFinish(result) {
     let newState = {
       fetching: false,
       data: result
     };
-    console.log(result);
+    
     this.setState(newState);
   },
 
   render() {
     injectTapEventPlugin();
+    
     return (
       <div className="detail">
         <Fetcher
-          query={this.props.location.query}
+          query={this.state.data}
           stop={!this.state.fetching}
           onFinish={this.handleFinish} />
         <DetailPage hotel={this.state.data} />

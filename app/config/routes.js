@@ -14,7 +14,7 @@ var routes = (
     <IndexRoute onEnter={redirectToSearch} />
     <Route path="/search" component={Search} />
     <Route path="/result" component={Result} />
-    <Route path="/detail" component={Detail} />
+    <Route path="/detail/:hotelname/:propID/:checkin/:checkout" component={Detail} />
   </Route>
 );
 

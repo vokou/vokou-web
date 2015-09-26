@@ -10,7 +10,7 @@ var DetailFetcher = React.createClass({
   },
 
   componentDidMount (){
-    this.fetch(this.context.location.query);
+    this.fetch(this.props.query);
   },
   
   differenceBetweenDates(day1, day2) {
@@ -43,7 +43,7 @@ var DetailFetcher = React.createClass({
 
     var days = this.differenceBetweenDates(new Date(query.checkin),
                                            new Date(query.checkout));
-
+    
     axios
       .get(serverIP + 'getSPG', { params: query })
       .then((response) => {
