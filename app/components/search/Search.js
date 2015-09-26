@@ -65,6 +65,8 @@ const Search = React.createClass({
         checkIn,
         checkOut
       };
+      /* remove local cache first */
+      localStorage.removeItem('hotels');
       this.history.pushState(null, `/result`, query);
 
       if (this.props.onNewSearch) {
