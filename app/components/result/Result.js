@@ -42,13 +42,13 @@ var Result = React.createClass({
         this.history.replaceState(null, '/search');
       }}
   },
-  
+
 
   getInitialState(){
     let data = [];
     let fetching = true;
     let hotels = JSON.parse(localStorage.getItem('hotels'));
-    
+
     if(hotels){
       /* hotel found in localstorage */
       fetching = false;
@@ -64,9 +64,7 @@ var Result = React.createClass({
       fetching: false
     };
     this.setState(newState);
-    localStorage.setItem('hotels', JSON.stringify(this.state.data));
-    let hs = localStorage.getItem('hotels');
-    console.log('stored hotels:' , JSON.parse(hs));
+    
   },
   handleNewSearch() {
     this.setState({
@@ -82,7 +80,8 @@ var Result = React.createClass({
   handleUpdate(hotel) {
     this.setState({
       data: this.state.data.concat([hotel])
-    })
+    });
+    localStorage.setItem('hotels', JSON.stringify(this.state.data));
   },
   render() {
     injectTapEventPlugin();
