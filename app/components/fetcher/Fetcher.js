@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import reqwest from 'reqwest';
+import servers from '../../config/servers';
 import FetchProgress from './FetchProgress';
 
 var Fetcher = React.createClass({
@@ -34,16 +35,16 @@ var Fetcher = React.createClass({
       .then((response) => {
         params.secret = response.data;
         axios
-          .get('http://52.24.44.4:8888/search', { params: params })
+          .get(`${servers.api}/search`, { params: params })
           .then((response) => {
             hotels = this.transformHotelsArray(response.data);
-            console.log('OK');
+            //console.log('OK');
             let self = this;
             reqwest({
-              url: 'http://52.26.153.30:8080/http://hotelscombined.com',
+              url: `${servers.proxy}/http://hotelscombined.com`,
               method: 'get',
               withCredentials: true,
-              success: function(response) {
+              success: function() {
                 self.getHotelsInformation(hotels, 0, id);
               }
             });
@@ -68,36 +69,10 @@ var Fetcher = React.createClass({
     let price = hotel.original;
     let days = this.differenceBetweenDates(new Date(this.props.query.checkIn), new Date(this.props.query.checkOut));
 
-    //axios
-    //  .post('http://52.89.111.15:8888/getPrice', {
-    //    hcurl: hotel.url,
-    //    price: price * days
-    //  })
-    //  .then((response) => {
-    //
-    //    if (response.data) {
-    //      if (response.data.price) {
-    //        hotels[index].brgPrice = parseFloat(Math.round(response.data.price / days * 10) / 10);
-    //        hotels[index].cover = response.data.turl;
-    //      }
-    //    } else {
-    //      hotels[index].brgPrice = null;
-    //    }
-    //
-    //    if (this.props.stop || id != this.searchID) {
-    //      return;
-    //    }
-    //    this.props.onUpdate(hotels[index]);
-    //    //console.log(hotels[index]);
-    //    this.setState({
-    //      percentage: Math.round(100 * (index + 1.0) / hotels.length)
-    //    });
-    //    this.getHotelsInformation(hotels, index + 1, id);
-    //  });
     this.getInfo(hotel.url,
         result => {
-          console.log(`${hotels[index].name}`);
-          console.log(result);
+          //console.log(`${hotels[index].name}`);
+          //console.log(result);
           if (!result.err && result.price < price * days * 0.99) {
             hotels[index].brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
             hotels[index].url = result.url;
@@ -125,18 +100,21 @@ var Fetcher = React.createClass({
         else
           callBack(info);
       })
-      .catch(err => failCallBack());
+      .catch((err) => {
+        console.log(err);
+        failCallBack()
+      });
   },
   _getInfo(hotelURL) {
     let params = {
-      url: `http://52.26.153.30:8080/${hotelURL}`,
+      url: `${servers.proxy}/${hotelURL}`,
       method: 'get',
       withCredentials : true
     };
     return reqwest(params)
       .then((response) => {
         if (response.indexOf("Searching all the best travel sites...") != -1) {
-          console.log('Enter');
+          //console.log('Enter');
           var promise = new Promise((resolve, reject) => {
               setTimeout(() => {
                 reqwest(params).then(response => resolve(response));
