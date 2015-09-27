@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import reqwest from 'reqwest';
+import servers from '../../config/servers';
 import FetchProgress from './FetchProgress';
 
 var Fetcher = React.createClass({
@@ -33,13 +34,13 @@ var Fetcher = React.createClass({
       .then((response) => {
         params.secret = response.data;
         axios
-          .get('http://52.24.44.4:8888/search', { params: params })
+          .get(`${servers.api}/search`, { params: params })
           .then((response) => {
             hotels = this.transformHotelsArray(response.data);
             //console.log('OK');
             let self = this;
             reqwest({
-              url: 'http://52.26.153.30:8080/http://hotelscombined.com',
+              url: `${servers.proxy}/http://hotelscombined.com`,
               method: 'get',
               withCredentials: true,
               success: function() {
@@ -105,7 +106,7 @@ var Fetcher = React.createClass({
   },
   _getInfo(hotelURL) {
     let params = {
-      url: `http://52.26.153.30:8080/${hotelURL}`,
+      url: `${servers.proxy}/${hotelURL}`,
       method: 'get',
       withCredentials : true
     };
