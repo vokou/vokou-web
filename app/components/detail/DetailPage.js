@@ -54,7 +54,7 @@ var DetailPage = React.createClass({
 
   goBRG(){
     
-    window.open('http://www.hotelscombined.com/' + this.state.brgurl);
+    window.open(this.state.brgurl);
   },
 
   goSPG(){

@@ -70,7 +70,7 @@ var DetailFetcher = React.createClass({
           .then((response) => {
             let hotel = this.formatHotelData(response.data);
             let price = hotel.original;
-            console.log(hotel);
+            
             let self = this;
             reqwest({
               url: `${servers.proxy}/http://hotelscombined.com`,
@@ -82,14 +82,28 @@ var DetailFetcher = React.createClass({
 
                 clientFetch(d, hotel.url,
                             result => {
+                              
                               if (!result.err && result.price < price * days * 0.99) {
                                 hotel.brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
-                                hotel.url = result.url;
+                                /* translate url to real url */
+                                var u = servers.proxy + '/http://www.hotelscombined.com/' + result.url;
+                                reqwest({
+                                  url: u,
+                                  method: 'get',
+                                  success: function (resp) {
+                                    // get the part start from url = 'h<- this 'h'
+                                    let starti = resp.indexOf("url") + 7;
+                                    let endi = resp.indexOf("\'", starti + 7);
+                                    let brgurl = resp.substring(starti, endi);
+                                    hotel.url = brgurl;
+                                    self.props.onFinish(hotel);
+                                  }
+                                })
                               } else {
                                 hotel.brgPrice = null;
+                                self.props.onFinish(hotel);
                               }
-                              console.log(result);
-                              self.props.onFinish(hotel);
+
                             }, (response) => console.log("fail"));
               }
             });
