@@ -15,10 +15,15 @@ const Search = React.createClass({
     };
   },
   getInitialState() {
+    let minCheckInDate = new Date();
+    minCheckInDate = new Date(minCheckInDate.getTime() + 86400000);
+    let minCheckOutDate = new Date(minCheckInDate.getTime() + 86400000);
     return {
       destinationErr: '',
       checkInErr: '',
-      checkOutErr:''
+      checkOutErr:'',
+      minCheckInDate: minCheckInDate,
+      minCheckOutDate: minCheckOutDate
     }
   },
   componentWillMount() {
@@ -82,6 +87,13 @@ const Search = React.createClass({
 
     this.setState(err);
   },
+  handleCheckInChange(nill, date) {
+    let checkOutDate = new Date(date.getTime() + 86400000);
+    this.refs.checkOut.setDate(checkOutDate);
+    this.setState({
+      minCheckOutDate: checkOutDate
+    });
+  },
   // TODO: build dedicated component for google autocomplete e.target.value
   // TODO: Date picker restriction and auto focus
   render() {
@@ -108,7 +120,9 @@ const Search = React.createClass({
               hintText="Check in"
               autoOk={true}
               formatDate={this.formatDate}
+              minDate={this.state.minCheckInDate}
               errorText={this.state.checkInErr}
+              onChange={this.handleCheckInChange}
               ref="checkIn"
               defaultDate={this.searchFields.checkIn}
               textFieldStyle={{
@@ -120,6 +134,7 @@ const Search = React.createClass({
               hintText="Check out"
               autoOk={true}
               formatDate={this.formatDate}
+              minDate={this.state.minCheckOutDate}
               errorText={this.state.checkOutErr}
               ref="checkOut"
               defaultDate={this.searchFields.checkOut}
