@@ -3,6 +3,7 @@ import axios from 'axios';
 import reqwest from 'reqwest';
 import servers from '../../config/servers';
 import FetchProgress from './FetchProgress';
+import clientFetch from './clientFetch';
 
 var Fetcher = React.createClass({
   getInitialState() {
@@ -68,7 +69,7 @@ var Fetcher = React.createClass({
     let price = hotel.original;
     let days = this.differenceBetweenDates(new Date(this.props.query.checkIn), new Date(this.props.query.checkOut));
 
-    this.getInfo(hotel.url,
+    clientFetch(this.dataDOM, hotel.url,
         result => {
           //console.log(`${hotels[index].name}`);
           //console.log(result);
@@ -90,72 +91,6 @@ var Fetcher = React.createClass({
           //console.log(index);
           this.getHotelsInformation(hotels, index + 1, id);
         }, () => this.getHotelsInformation(hotels, index + 1, id));
-  },
-  getInfo(hotelURL, callBack, failCallBack) {
-    this._getInfo(hotelURL)
-      .then((info) => {
-        if (info.then)
-          info.then(result => callBack(result));
-        else
-          callBack(info);
-      })
-      .catch((err) => {
-        console.log(err);
-        failCallBack()
-      });
-  },
-  _getInfo(hotelURL) {
-    let params = {
-      url: `${servers.proxy}/${hotelURL}`,
-      method: 'get',
-      withCredentials : true
-    };
-    return reqwest(params)
-      .then((response) => {
-        if (response.indexOf("Searching all the best travel sites...") != -1) {
-          //console.log('Enter');
-          var promise = new Promise((resolve, reject) => {
-              setTimeout(() => {
-                reqwest(params).then(response => resolve(response));
-              }, 2000);
-          });
-          return promise.then((response) => {
-            return this.fetchInfo(response);
-          });
-        } else {
-          return this.fetchInfo(response);
-        }
-      });
-  },
-  fetchInfo(response) {
-    this.dataDOM.innerHTML = response;
-    let rows = this.dataDOM.childNodes[0].querySelectorAll('tr');
-    let minPrice = -1;
-    let minURL = '';
-    for (let i = 0; i < rows.length; i++) {
-      let row = rows[i];
-      // Filter out Ctrip
-      if (!row.dataset.providercode || row.dataset.providercode === "CTE") {
-        continue;
-      }
-      let anchorTag = row.querySelector('.hc_tbl_col2 a');
-      if (anchorTag) {
-        let url = anchorTag.href;
-        url = url.substring(url.indexOf('Provider'));
-        let price = parseInt(anchorTag.innerText.replace('$', '').replace(',', ''));
-        if (minPrice < 0) {
-          minPrice = price;
-          minURL = url;
-        } else if (price < minPrice) {
-          minPrice = price;
-          minURL = url;
-        }
-      }
-    }
-    return {
-      url: minURL,
-      price: minPrice
-    }
   },
   transformHotelsArray(hotels) {
     return hotels.map(function(hotel) {
