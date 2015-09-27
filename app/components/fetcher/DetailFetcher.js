@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import FetchProgress from './FetchProgress';
 import { CircularProgress, Styles } from 'material-ui';
+import servers from '../../config/servers';
+import _ from 'underscore';
 
 const serverIP = 'http://52.89.111.15:8888/';
 var DetailFetcher = React.createClass({
@@ -45,7 +47,7 @@ var DetailFetcher = React.createClass({
                                            new Date(query.checkout));
     
     let params = {
-      destination: query.city,
+      city: query.city,
       checkin: query.checkin,
       checkout: query.checkout,
       source: 'spg'
@@ -55,9 +57,13 @@ var DetailFetcher = React.createClass({
       .get('https://vokou.parseapp.com/search', { params: params })
       .then((response) => {
         params.secret = response.data;
+        params.hotelname = this.props.query.hotelname;
+        
         axios
-          .get('http://52.24.44.4:8888/search', { params: params })
+          .get(servers.api + '/search', { params: params })
           .then((response) => {
+            console.log(response.data);
+            var hotel = _.filter
             hotels = this.transformHotelsArray(response.data);
             console.log('OK');
             let self = this;
