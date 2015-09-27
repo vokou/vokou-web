@@ -36,13 +36,13 @@ var Fetcher = React.createClass({
           .get('http://52.24.44.4:8888/search', { params: params })
           .then((response) => {
             hotels = this.transformHotelsArray(response.data);
-            console.log('OK');
+            //console.log('OK');
             let self = this;
             reqwest({
               url: 'http://52.26.153.30:8080/http://hotelscombined.com',
               method: 'get',
               withCredentials: true,
-              success: function(response) {
+              success: function() {
                 self.getHotelsInformation(hotels, 0, id);
               }
             });
@@ -98,7 +98,10 @@ var Fetcher = React.createClass({
         else
           callBack(info);
       })
-      .catch(err => failCallBack());
+      .catch((err) => {
+        console.log(err);
+        failCallBack()
+      });
   },
   _getInfo(hotelURL) {
     let params = {
