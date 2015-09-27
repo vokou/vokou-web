@@ -22,7 +22,7 @@ var Detail = React.createClass({
       fetching: true,
       data:{
         hotelname: params.hotelname,
-        propID: params.propID,
+        city: params.city,
         checkin: params.checkin,
         checkout: params.checkout
       }

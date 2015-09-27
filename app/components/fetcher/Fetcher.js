@@ -28,6 +28,7 @@ var Fetcher = React.createClass({
   },
   fetch(params, id) {
     let hotels = [];
+    console.log(params);
     axios
       .get('https://vokou.parseapp.com/search', { params: params })
       .then((response) => {

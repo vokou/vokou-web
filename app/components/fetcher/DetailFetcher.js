@@ -44,6 +44,34 @@ var DetailFetcher = React.createClass({
     let days = this.differenceBetweenDates(new Date(query.checkin),
                                            new Date(query.checkout));
     
+    let params = {
+      destination: query.city,
+      checkin: query.checkin,
+      checkout: query.checkout,
+      source: 'spg'
+    }
+    console.log(params);
+    axios
+      .get('https://vokou.parseapp.com/search', { params: params })
+      .then((response) => {
+        params.secret = response.data;
+        axios
+          .get('http://52.24.44.4:8888/search', { params: params })
+          .then((response) => {
+            hotels = this.transformHotelsArray(response.data);
+            console.log('OK');
+            let self = this;
+            reqwest({
+              url: 'http://52.26.153.30:8080/http://hotelscombined.com',
+              method: 'get',
+              withCredentials: true,
+              success: function(response) {
+                self.getHotelsInformation(hotels, 0, id);
+              }
+            });
+          })
+      });
+    
     axios
       .get(serverIP + 'getSPG', { params: query })
       .then((response) => {

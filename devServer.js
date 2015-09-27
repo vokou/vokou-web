@@ -17,7 +17,7 @@ app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, './build/index-dev.html'));
 });
 
-app.listen(3000, 'localhost', function(err) {
+app.listen(63342, 'localhost', function(err) {
   if (err) {
     console.log(err);
     return;

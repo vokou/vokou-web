@@ -34,8 +34,8 @@ var ListItem = React.createClass({
       "pointsPlan":       hotel.pointsPlan.name,
       "pointsAvailable":  hotel.pointsPlan.available,
       "available":        hotel.available,
-      "id":               hotel.propertyID
-
+      "id":               hotel.propertyID,
+      "url":              hotel.url
     });
   },
 
@@ -44,7 +44,7 @@ var ListItem = React.createClass({
 
     let query = {
       hotelname: this.state.name,
-      propID: this.state.id,
+      city: this.props.query.city,
       checkin: this.props.query.checkIn,
       checkout: this.props.query.checkOut
     };
@@ -90,16 +90,16 @@ var ListItem = React.createClass({
     }
     let query = {
       hotelname: this.state.name,
-      propID: this.state.id,
+      city: this.props.query.destination,
       checkin: encodeURIComponent(this.props.query.checkIn),
       checkout: encodeURIComponent(this.props.query.checkOut)
     };
-    //console.log(query);
+    console.log(query);
     //${query.propID}${query.checkin}${query.checkout}
     return (
 
       <div className="row row-height list-item">
-        <Link to={`/detail//${query.hotelname}//${query.propID}//${query.checkin}//${query.checkout}`} >
+        <Link to={`/detail//${query.hotelname}//${query.city}//${query.checkin}//${query.checkout}`} >
         <img src={this.state.image} onClick={this.goToDetail}
           className="col-md-3 img-rounded img-responsive"/>
         <div className="col-md-7 row-height hotel-info">
