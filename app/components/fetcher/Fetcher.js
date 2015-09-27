@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import FetchProgress from './FetchProgress'
+import reqwest from 'reqwest';
+import FetchProgress from './FetchProgress';
 
 var Fetcher = React.createClass({
   getInitialState() {
@@ -13,6 +14,7 @@ var Fetcher = React.createClass({
     this.searchID = 0;
     let params = this.getParams(this.props.query);
     this.fetch(params, ++this.searchID);
+    this.dataDOM = document.createElement('div');
   },
   componentWillReceiveProps(nextProps) {
     if (!nextProps.stop && this.props.stop) {
@@ -31,10 +33,19 @@ var Fetcher = React.createClass({
       .then((response) => {
         params.secret = response.data;
         axios
-          .get('http://52.89.111.15:8888/search', { params: params })
+          .get('http://52.24.44.4:8888/search', { params: params })
           .then((response) => {
             hotels = this.transformHotelsArray(response.data);
-            this.getHotelsInformation(hotels, 0, id);
+            console.log('OK');
+            let self = this;
+            reqwest({
+              url: 'http://52.26.153.30:8080/http://hotelscombined.com',
+              method: 'get',
+              withCredentials: true,
+              success: function(response) {
+                self.getHotelsInformation(hotels, 0, id);
+              }
+            });
           })
       });
   },
@@ -56,32 +67,117 @@ var Fetcher = React.createClass({
     let price = hotel.original;
     let days = this.differenceBetweenDates(new Date(this.props.query.checkIn), new Date(this.props.query.checkOut));
 
-    axios
-      .post('http://52.89.111.15:8888/getPrice', {
-        hcurl: hotel.url,
-        price: price * days
-      })
-      .then((response) => {
-
-        if (response.data) {
-          if (response.data.price) {
-            hotels[index].brgPrice = parseFloat(Math.round(response.data.price / days * 10) / 10);
-            hotels[index].cover = response.data.turl;
+    //axios
+    //  .post('http://52.89.111.15:8888/getPrice', {
+    //    hcurl: hotel.url,
+    //    price: price * days
+    //  })
+    //  .then((response) => {
+    //
+    //    if (response.data) {
+    //      if (response.data.price) {
+    //        hotels[index].brgPrice = parseFloat(Math.round(response.data.price / days * 10) / 10);
+    //        hotels[index].cover = response.data.turl;
+    //      }
+    //    } else {
+    //      hotels[index].brgPrice = null;
+    //    }
+    //
+    //    if (this.props.stop || id != this.searchID) {
+    //      return;
+    //    }
+    //    this.props.onUpdate(hotels[index]);
+    //    //console.log(hotels[index]);
+    //    this.setState({
+    //      percentage: Math.round(100 * (index + 1.0) / hotels.length)
+    //    });
+    //    this.getHotelsInformation(hotels, index + 1, id);
+    //  });
+    this.getInfo(hotel.url,
+        result => {
+          console.log(`${hotels[index].name}`);
+          console.log(result);
+          if (!result.err && result.price < price * days * 0.99) {
+            hotels[index].brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
+            hotels[index].url = result.url;
+          } else {
+            hotels[index].brgPrice = null;
           }
-        } else {
-          hotels[index].brgPrice = null;
-        }
 
-        if (this.props.stop || id != this.searchID) {
-          return;
+          if (this.props.stop || id != this.searchID) {
+            return;
+          }
+          this.props.onUpdate(hotels[index]);
+          //console.log(hotels[index]);
+          this.setState({
+            percentage: Math.round(100 * (index + 1.0) / hotels.length)
+          });
+          //console.log(index);
+          this.getHotelsInformation(hotels, index + 1, id);
+        }, () => this.getHotelsInformation(hotels, index + 1, id));
+  },
+  getInfo(hotelURL, callBack, failCallBack) {
+    this._getInfo(hotelURL)
+      .then((info) => {
+        if (info.then)
+          info.then(result => callBack(result));
+        else
+          callBack(info);
+      })
+      .catch(err => failCallBack());
+  },
+  _getInfo(hotelURL) {
+    let params = {
+      url: `http://52.26.153.30:8080/${hotelURL}`,
+      method: 'get',
+      withCredentials : true
+    };
+    return reqwest(params)
+      .then((response) => {
+        if (response.indexOf("Searching all the best travel sites...") != -1) {
+          console.log('Enter');
+          var promise = new Promise((resolve, reject) => {
+              setTimeout(() => {
+                reqwest(params).then(response => resolve(response));
+              }, 2000);
+          });
+          return promise.then((response) => {
+            return this.fetchInfo(response);
+          });
+        } else {
+          return this.fetchInfo(response);
         }
-        this.props.onUpdate(hotels[index]);
-        //console.log(hotels[index]);
-        this.setState({
-          percentage: Math.round(100 * (index + 1.0) / hotels.length)
-        });
-        this.getHotelsInformation(hotels, index + 1, id);
       });
+  },
+  fetchInfo(response) {
+    this.dataDOM.innerHTML = response;
+    let rows = this.dataDOM.childNodes[0].querySelectorAll('tr');
+    let minPrice = -1;
+    let minURL = '';
+    for (let i = 0; i < rows.length; i++) {
+      let row = rows[i];
+      // Filter out Ctrip
+      if (!row.dataset.providercode || row.dataset.providercode === "CTE") {
+        continue;
+      }
+      let anchorTag = row.querySelector('.hc_tbl_col2 a');
+      if (anchorTag) {
+        let url = anchorTag.href;
+        url = url.substring(url.indexOf('Provider'));
+        let price = parseInt(anchorTag.innerText.replace('$', '').replace(',', ''));
+        if (minPrice < 0) {
+          minPrice = price;
+          minURL = url;
+        } else if (price < minPrice) {
+          minPrice = price;
+          minURL = url;
+        }
+      }
+    }
+    return {
+      url: minURL,
+      price: minPrice
+    }
   },
   transformHotelsArray(hotels) {
     return hotels.map(function(hotel) {
