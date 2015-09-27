@@ -104,7 +104,10 @@ var DetailFetcher = React.createClass({
                                 self.props.onFinish(hotel);
                               }
 
-                            }, (response) => console.log("fail"));
+                            }, () => {
+                              hotel.brgPrice = null;
+                              self.props.onFinish(hotel);
+                            });
               }
             });
           })

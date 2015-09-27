@@ -77,7 +77,7 @@ var Fetcher = React.createClass({
         result => {
           //console.log(`${hotels[index].name}`);
           console.log( result);
-          if (!result.err && result.price < price * days * 0.99) {
+          if (!result.err && result.price < price * days * 0.99 && result.price != -1) {
             hotels[index].brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
             hotels[index].url = result.url;
           } else {
@@ -94,7 +94,14 @@ var Fetcher = React.createClass({
           });
           //console.log(index);
           this.getHotelsInformation(hotels, index + 1, id);
-        }, () => this.getHotelsInformation(hotels, index + 1, id));
+        }, () => {
+          hotels[index].brgPrice = null;
+          this.props.onUpdate(hotels[index]);
+          this.setState({
+            percentage: Math.round(100 * (index + 1.0) / hotels.length)
+          });
+          this.getHotelsInformation(hotels, index + 1, id);
+        });
   },
   transformHotelsArray(hotels) {
     return hotels.map(function(hotel) {
