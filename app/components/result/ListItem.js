@@ -41,18 +41,14 @@ var ListItem = React.createClass({
   },
 
   goToDetail(){
-    //TODO: put real argument
-
+    //no real use for now.
     let query = {
       hotelname: this.state.name,
-      city: this.props.query.city,
-      checkin: this.props.query.checkIn,
-      checkout: this.props.query.checkOut
+      city: this.props.query.destination,
+      checkin: encodeURIComponent(this.props.query.checkIn),
+      checkout: encodeURIComponent(this.props.query.checkOut)
     };
-
-
-    this.history.pushState(null, `/detail`, query);
-
+    window.open(this.history.createHref(`/detail//${query.hotelname}//${query.city}//${query.checkin}//${query.checkout}`));
   },
 
   render() {
@@ -89,6 +85,7 @@ var ListItem = React.createClass({
     }else{
       price = "No room available"
     }
+    
     let query = {
       hotelname: this.state.name,
       city: this.props.query.destination,
@@ -96,12 +93,20 @@ var ListItem = React.createClass({
       checkout: encodeURIComponent(this.props.query.checkOut)
     };
     
+    let detailURL = `/detail//${query.hotelname}//${query.city}//${query.checkin}//${query.checkout}`;
     //${query.propID}${query.checkin}${query.checkout}
     return (
 
       <div className="row row-height list-item">
-        <Link to={`/detail//${query.hotelname}//${query.city}//${query.checkin}//${query.checkout}`} >
-        <img src={this.state.image} onClick={this.goToDetail}
+        <Link
+          to={detailURL}
+          target="_blank"
+          onClick={(event) => {
+                   event.preventDefault();
+                   window.open(this.history.createHref(detailURL));
+                   }}
+          >
+        <img src={this.state.image} 
           className="col-md-3 img-rounded img-responsive"/>
         <div className="col-md-7 row-height hotel-info">
           <h3>
