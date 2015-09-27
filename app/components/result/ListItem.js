@@ -37,6 +37,7 @@ var ListItem = React.createClass({
       "id":               hotel.propertyID,
       "url":              hotel.url
     });
+
   },
 
   goToDetail(){
@@ -94,7 +95,7 @@ var ListItem = React.createClass({
       checkin: encodeURIComponent(this.props.query.checkIn),
       checkout: encodeURIComponent(this.props.query.checkOut)
     };
-    console.log(query);
+    
     //${query.propID}${query.checkin}${query.checkout}
     return (
 

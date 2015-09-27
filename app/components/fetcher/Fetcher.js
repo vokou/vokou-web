@@ -17,6 +17,7 @@ var Fetcher = React.createClass({
     let params = this.getParams(this.props.query);
     this.fetch(params, ++this.searchID);
     this.dataDOM = document.createElement('div');
+    
   },
   componentWillReceiveProps(nextProps) {
     if (!nextProps.stop && this.props.stop) {
@@ -30,7 +31,7 @@ var Fetcher = React.createClass({
   },
   fetch(params, id) {
     let hotels = [];
-    console.log(params);
+    //console.log(params);
     axios
       .get('https://vokou.parseapp.com/search', { params: params })
       .then((response) => {
@@ -40,12 +41,14 @@ var Fetcher = React.createClass({
           .then((response) => {
             hotels = this.transformHotelsArray(response.data);
             //console.log('OK');
-            let self = this;
+            console.log(`${servers.proxy}/http://hotelscombined.com`);
+            let self = this;            
             reqwest({
               url: `${servers.proxy}/http://hotelscombined.com`,
               method: 'get',
               withCredentials: true,
               success: function() {
+                console.log("success!");
                 self.getHotelsInformation(hotels, 0, id);
               }
             });
@@ -73,7 +76,7 @@ var Fetcher = React.createClass({
     clientFetch(this.dataDOM, hotel.url,
         result => {
           //console.log(`${hotels[index].name}`);
-          //console.log(result);
+          console.log( result);
           if (!result.err && result.price < price * days * 0.99) {
             hotels[index].brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
             hotels[index].url = result.url;

@@ -15,6 +15,7 @@ var routes = (
     <Route path="/search" component={Search} />
     <Route path="/result" component={Result} />
     <Route path="/detail/:hotelname/:city/:checkin/:checkout" component={Detail} />
+    <Route path="/detail/" component={Detail} />
   </Route>
 );
 

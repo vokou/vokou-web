@@ -40,6 +40,7 @@ function _getInfo(dataDOM, hotelURL) {
 }
 
 function fetchInfo(dataDOM, response) {
+  
   dataDOM.innerHTML = response;
   let rows = dataDOM.childNodes[0].querySelectorAll('tr');
   let minPrice = -1;

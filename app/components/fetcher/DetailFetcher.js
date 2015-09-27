@@ -4,6 +4,8 @@ import FetchProgress from './FetchProgress';
 import { CircularProgress, Styles } from 'material-ui';
 import servers from '../../config/servers';
 import _ from 'underscore';
+import clientFetch from './clientFetch';
+import reqwest from 'reqwest';
 
 const serverIP = 'http://52.89.111.15:8888/';
 var DetailFetcher = React.createClass({
@@ -12,6 +14,8 @@ var DetailFetcher = React.createClass({
   },
 
   componentDidMount (){
+//    this.dataDOM = document.createElement('div');
+
     this.fetch(this.props.query);
   },
   
@@ -34,9 +38,10 @@ var DetailFetcher = React.createClass({
       hotelObj.propertyID = hotel.detail.id;
     }
     /* TODO: server does not support points plan yet */
-    let pointsPlan = {value: 10,
-                      name: "hey",
-                      available: true};
+    let pointsPlan = {value: hotel.pp.value,
+                      name: hotel.pp.point_plan,
+                      available: hotel.pp.point_plan ? true : false
+    };
     hotelObj.pointsPlan = pointsPlan;
     return hotelObj;
   },
@@ -52,68 +57,44 @@ var DetailFetcher = React.createClass({
       checkout: query.checkout,
       source: 'spg'
     }
-    console.log(params);
+    //console.log(params);
     axios
       .get('https://vokou.parseapp.com/search', { params: params })
       .then((response) => {
         params.secret = response.data;
         params.hotelname = this.props.query.hotelname;
-        
         axios
           .get(servers.api + '/search', { params: params })
           .then((response) => {
-            console.log(response.data);
-            var hotel = _.filter
-            hotels = this.transformHotelsArray(response.data);
-            console.log('OK');
+            let hotel = this.formatHotelData(response.data);
+            let price = hotel.original;
+            console.log(hotel);
             let self = this;
             reqwest({
-              url: 'http://52.26.153.30:8080/http://hotelscombined.com',
+              url: `${servers.proxy}/http://hotelscombined.com`,
               method: 'get',
               withCredentials: true,
-              success: function(response) {
-                self.getHotelsInformation(hotels, 0, id);
+              success: function() {
+                //the dom created at componentDiDmount does not work;
+                var d = document.createElement('div');
+
+                clientFetch(d, hotel.url,
+                            result => {
+                              if (!result.err && result.price < price * days * 0.99) {
+                                hotel.brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
+                                hotel.url = result.url;
+                              } else {
+                                hotel.brgPrice = null;
+                              }
+                              console.log(result);
+                              self.props.onFinish(hotel);
+                            }, (response) => console.log("fail"));
               }
             });
           })
       });
     
-    axios
-      .get(serverIP + 'getSPG', { params: query })
-      .then((response) => {
-        
-        let hotel = this.formatHotelData(response.data);
-
-        /* if lsp doesnot exist, make it relative large. */
-        let price = 10000;
-        if(response.data.lsp > 0)
-          price = response.data.lsp;
-
-        /* + 33 is used to get around server issue. Need to be fixed after server is fixed */
-        axios.post(serverIP + 'getPrice', {
-          hcurl: response.data.hcurl,
-          price: price * days+33
-        }).then((response) => {
-          console.log("getprice: ");
-          console.log(response.data);
-          if (response.data) {
-            if (response.data.price)
-              hotel.brgPrice = parseFloat(Math.round(response.data.price / days * 10) / 10);
-
-            /* call source api to get brg address*/
-            axios.get(serverIP + 'source/' + response.data.turl)
-              .then((response) =>{
-                hotel.cover = response.data;
-                this.props.onFinish(hotel);
-              });
-          } else {
-            hotel.brgPrice = null;
-            console.log(hotel);
-            this.props.onFinish(hotel);
-          }
-
-        });
-      });
+    
   },
 
   render() {

@@ -52,8 +52,8 @@ var DetailPage = React.createClass({
   },
 
   goBRG(){
-    console.log(this.state.cover);
-    alert("the brg url is not working!");
+    
+    window.open('http://www.hotelscombined.com/' + this.state.url);
   },
 
   goSPG(){
