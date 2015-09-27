@@ -24,7 +24,8 @@ var Detail = React.createClass({
         hotelname: params.hotelname,
         city: params.city,
         checkin: params.checkin,
-        checkout: params.checkout
+        checkout: params.checkout,
+        propID: params.propID
       }
     }
     

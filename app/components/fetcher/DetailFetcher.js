@@ -42,6 +42,7 @@ var DetailFetcher = React.createClass({
                       name: hotel.pp.point_plan,
                       available: hotel.pp.point_plan ? true : false
     };
+    hotelObj.spgURL = hotel.spgurl;
     hotelObj.pointsPlan = pointsPlan;
     return hotelObj;
   },
@@ -63,6 +64,7 @@ var DetailFetcher = React.createClass({
       .then((response) => {
         params.secret = response.data;
         params.hotelname = this.props.query.hotelname;
+        params.propID = this.props.query.propID;
         axios
           .get(servers.api + '/search', { params: params })
           .then((response) => {

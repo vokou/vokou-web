@@ -31,7 +31,8 @@ var DetailPage = React.createClass({
       "pointsAvailable":  hotel.pointsPlan.available,
       "available":        hotel.available,
       "cover":            hotel.cover,
-      "url":              hotel.url
+      "brgurl":           hotel.url,
+      "spgurl":           hotel.spgURL,
     });
   },
 
@@ -53,11 +54,11 @@ var DetailPage = React.createClass({
 
   goBRG(){
     
-    window.open('http://www.hotelscombined.com/' + this.state.url);
+    window.open('http://www.hotelscombined.com/' + this.state.brgurl);
   },
 
   goSPG(){
-    window.open(this.state.url);
+    window.open(this.state.spgurl);
   },
   render() {
     injectTapEventPlugin();

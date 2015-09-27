@@ -90,10 +90,11 @@ var ListItem = React.createClass({
       hotelname: this.state.name,
       city: this.props.query.destination,
       checkin: encodeURIComponent(this.props.query.checkIn),
-      checkout: encodeURIComponent(this.props.query.checkOut)
+      checkout: encodeURIComponent(this.props.query.checkOut),
+      propID: this.state.id
     };
     
-    let detailURL = `/detail//${query.hotelname}//${query.city}//${query.checkin}//${query.checkout}`;
+    let detailURL = `/detail//${query.hotelname}//${query.city}//${query.checkin}//${query.checkout}//${query.propID}`;
     //${query.propID}${query.checkin}${query.checkout}
     return (
 
