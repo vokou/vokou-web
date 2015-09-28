@@ -39,7 +39,7 @@ var Detail = React.createClass({
         checkin: params.checkIn,
         checkout: params.checkOut
       }
-    }
+    };
     this.setState({state});
   },
 
