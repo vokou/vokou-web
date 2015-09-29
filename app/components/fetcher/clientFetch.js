@@ -23,7 +23,9 @@ function _getInfo(dataDOM, hotelURL) {
   };
   return reqwest(params)
     .then((response) => {
-      if (response.indexOf("Searching all the best travel sites...") != -1) {
+      dataDOM.innerHTML = response;
+      let rows = dataDOM.childNodes[0].querySelectorAll('tr');
+      if (rows.length == 0) {
         //console.log('Enter');
         var promise = new Promise((resolve, reject) => {
           setTimeout(() => {
