@@ -38,7 +38,7 @@ var DetailFetcher = React.createClass({
       hotelObj.propertyID = hotel.detail.id;
     }
     /* TODO: server does not support points plan yet */
-    let pointsPlan = {value: hotel.pp.value,
+    let pointsPlan = {value: parseFloat(Math.round(hotel.pp.value * 10000) / 10000),
                       name: hotel.pp.point_plan,
                       available: hotel.pp.point_plan ? true : false
     };
@@ -51,13 +51,22 @@ var DetailFetcher = React.createClass({
 
     let days = this.differenceBetweenDates(new Date(query.checkin),
                                            new Date(query.checkout));
-    
+
+    let destination = query.city.replace(' Thailand', ', Thailand').split(", ");
     let params = {
-      city: query.city,
+      city: destination[0],
       checkin: query.checkin,
       checkout: query.checkout,
       source: 'spg'
+    };
+
+    if (destination.length > 2) {
+      params.state = destination[1];
+      params.country = destination[2];
+    } else if (destination.length > 1) {
+      params.country = destination[1];
     }
+
     //console.log(params);
     axios
       .get('https://vokou.parseapp.com/search', { params: params })
@@ -104,7 +113,10 @@ var DetailFetcher = React.createClass({
                                 self.props.onFinish(hotel);
                               }
 
-                            }, (response) => console.log("fail"));
+                            }, () => {
+                              hotel.brgPrice = null;
+                              self.props.onFinish(hotel);
+                            });
               }
             });
           })

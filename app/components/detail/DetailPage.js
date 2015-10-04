@@ -92,13 +92,13 @@ var DetailPage = React.createClass({
       if(this.state.price === this.state.oldPrice || this.state.price==null){
         price =
         <div>
-          <strong className="number">{this.state.oldPrice}$</strong>
+          <strong className="number">{this.state.oldPrice}$/Night</strong>
         </div>
       }else{
         price =
         <div>
-          <strike className="number">{this.state.oldPrice}$</strike>
-          <strong className="number">{this.state.price}$</strong>
+          <strike className="number">{this.state.oldPrice}$</strike>&nbsp;
+          <strong className="number">{this.state.price}$/Night</strong>
         </div>
       }
     }else{
