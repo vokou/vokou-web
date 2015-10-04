@@ -7,7 +7,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 let ThemeManager = new Styles.ThemeManager();
 
 
-var Login = React.createClass({
+var Register = React.createClass({
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -17,7 +17,6 @@ var Login = React.createClass({
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
-  
 
   render() {
     injectTapEventPlugin();
@@ -26,7 +25,12 @@ var Login = React.createClass({
       <div>
         Username:
         <div>
+
           <TextField hintText="User name" />
+        </div>
+        Email:
+        <div>
+          <TextField hintText="Email address" />
         </div>
         Password:
         <div>
@@ -42,11 +46,10 @@ var Login = React.createClass({
           label="Submit"
           primary={true}
           onTouchTap={this.props.submit} />
-
       </div>
     );
 
   }
 });
 
-export default Login;
+export default Register;

@@ -1,22 +1,27 @@
 import React from 'react';
+import {Styles, Dialog, FlatButton, RaisedButton} from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Modal from './modal/Modal';
-import LoginForm from './accounts/Login';
+import Accounts from './accounts/Accounts';
 
-
+let ThemeManager = new Styles.ThemeManager();
 const Main = React.createClass({
-
-  
-  getInitialState() {
-    return { modalIsOpen: false };
+  childContextTypes: {
+    muiTheme: React.PropTypes.object
   },
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  },
+
     
-  openModal() {
-    this.setState({modalIsOpen: true});
+  openDialog() {
+    this.refs.accountDialog.show();
   },
 
-  closeModal() {
-    this.setState({modalIsOpen: false});
+  closeDialog() {
+    this.refs.accountDialog.dismiss();
   },
   
   render() {
@@ -29,18 +34,17 @@ const Main = React.createClass({
               <a className="navbar-brand" href="#">Logo</a>
             </div>
             <ul className="nav navbar-nav navbar-right">
-              <li ><a href="javascript:;" onClick={this.openModal}>Login or register</a></li>
+              <li ><a href="javascript:;" onClick={this.openDialog}>Login or register</a></li>
             </ul>
           </div>
         </nav>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          title="Vokou">
+        
+        <Dialog ref="accountDialog">
           
-          <LoginForm />
+          <Accounts close={this.closeDialog}/>
           
-        </Modal>
+        </Dialog>
+        
         <div className="container">
           {this.props.children}
         </div>
