@@ -139,7 +139,7 @@ var Fetcher = React.createClass({
     return Math.round(ms / 1000 / 60 / 60 / 24);
   },
   getParams(query) {
-    let destination = query.destination.replace(' Thailand', ', Thailand').split(", ");
+    let destination = query.destination.split(", ");
     let params = {
       city: destination[0],
       checkin: query.checkIn,

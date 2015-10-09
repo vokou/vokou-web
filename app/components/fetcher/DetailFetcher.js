@@ -52,7 +52,7 @@ var DetailFetcher = React.createClass({
     let days = this.differenceBetweenDates(new Date(query.checkin),
                                            new Date(query.checkout));
 
-    let destination = query.city.replace(' Thailand', ', Thailand').split(", ");
+    let destination = query.city.split(", ");
     let params = {
       city: destination[0],
       checkin: query.checkin,

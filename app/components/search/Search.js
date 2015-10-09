@@ -2,6 +2,7 @@ import React from 'react';
 import { History } from 'react-router';
 import { TextField, DatePicker, FloatingActionButton, Styles } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import DestInput from './DestInput.js';
 let ThemeManager = new Styles.ThemeManager();
 
 const Search = React.createClass({
@@ -41,13 +42,6 @@ const Search = React.createClass({
     } else {
       this.searchFields = defaultSearchFields;
     }
-  },
-  componentDidMount() {
-    var inputOptions = {types: ['(cities)']};
-    new google.maps.places.Autocomplete(
-      document.getElementById('destination'),
-      inputOptions);
-    document.getElementById('destination').placeholder = '';
   },
   formatDate(date) {
     if (!date) return undefined;
@@ -94,7 +88,6 @@ const Search = React.createClass({
       minCheckOutDate: checkOutDate
     });
   },
-  // TODO: build dedicated component for google autocomplete e.target.value
   // TODO: Date picker restriction and auto focus
   render() {
     injectTapEventPlugin();
@@ -106,14 +99,10 @@ const Search = React.createClass({
       <div className="row">
         <form>
           <div className="col-md-5">
-            <TextField
-              hintText="Where are you going?"
-              floatingLabelText="Destination"
-              fullWidth={true}
+            <DestInput
               errorText={this.state.destinationErr}
-              ref="destination"
               defaultValue={this.searchFields.destination}
-              id="destination" />
+              ref="destination"/>
           </div>
           <div className="col-md-3">
             <DatePicker
