@@ -18,16 +18,18 @@ var Accounts = React.createClass({
     };
   },
 
+
+  
   render() {
     injectTapEventPlugin();
 
     return (
       <Tabs>
         <Tab label="Log In" >
-          <Login close={this.props.close}/>
+          <Login close={this.props.close} onSuccess={this.props.onSuccess}/>
         </Tab>
         <Tab label="Register" >
-          <Register close={this.props.close}/>
+          <Register close={this.props.close} onSuccess={this.props.onSuccess}/>
         </Tab>
         
       </Tabs>

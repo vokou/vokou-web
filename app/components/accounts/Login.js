@@ -1,9 +1,7 @@
 import React from 'react';
 import {Styles, TextField, FlatButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
-
-
+import Parse from 'parse';
 let ThemeManager = new Styles.ThemeManager();
 
 
@@ -17,20 +15,44 @@ var Login = React.createClass({
       muiTheme: ThemeManager.getCurrentTheme()
     };
   },
+
+  getInitialState(){
+    return {
+      currentUser: ''
+    }
+  },
   
+  login(){
+    let params = {
+      password: this.refs.pw.getValue(),
+      email:    this.refs.email.getValue()
+    };
+    console.log(this.props.onLogin);
+    let onSuccess = this.props.onSuccess;
+    let close = this.props.close;
+    Parse.User.logIn(params.email, params.password, {
+      success: function(user) {
+        onSuccess();
+        close();
+        console.log("success");
+      },
+      error: function(user, error) {
+        console.log(error);
+      }
+    });
+  },
 
   render() {
     injectTapEventPlugin();
-
     return (
       <div>
         Username:
         <div>
-          <TextField hintText="User name" />
+          <TextField ref="email" hintText="User name" type="email"/>
         </div>
         Password:
         <div>
-          <TextField hintText="Password" />
+          <TextField ref="pw" hintText="Password" type="password"/>
         </div>
         <FlatButton
           key={1}
@@ -41,9 +63,10 @@ var Login = React.createClass({
           key={2}
           label="Submit"
           primary={true}
-          onTouchTap={this.props.submit} />
+          onTouchTap={this.login} />
 
       </div>
+      
     );
 
   }

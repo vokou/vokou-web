@@ -46,6 +46,7 @@
     "htmlparser2": "^3.8.3",
     "json-loader": "^0.5.3",
     "lodash": "^3.10.1",
+    "parse": "^1.6.5",
     "react-paginate": "^0.2.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.0",

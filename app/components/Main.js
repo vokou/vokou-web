@@ -2,6 +2,7 @@ import React from 'react';
 import {Styles, Dialog, FlatButton, RaisedButton} from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Accounts from './accounts/Accounts';
+import Parse from 'parse';
 
 let ThemeManager = new Styles.ThemeManager();
 const Main = React.createClass({
@@ -15,6 +16,18 @@ const Main = React.createClass({
     };
   },
 
+  getInitialState(){
+    return {
+      logedIn: false
+    }
+  },
+  
+  componentWillMount() {
+    Parse.initialize("JUXCXuysBgoulgFgGDGzc9elQNx4q84XiaDBoYyo", "B7RS0P7Yc5ts80tia2wMoMFBsyVqMFmj9H3JocTK");
+    if(Parse.User.current()){
+      this.setState({logedIn: true});
+    }
+  },
     
   openDialog() {
     this.refs.accountDialog.show();
@@ -23,9 +36,25 @@ const Main = React.createClass({
   closeDialog() {
     this.refs.accountDialog.dismiss();
   },
+
+  onLogout() {
+    Parse.User.logOut();
+    this.setState({logedIn: false});
+  },
+
+  onSuccess(){
+    this.setState({logedIn: true});
+  },
   
   render() {
     injectTapEventPlugin();
+    if(this.state.logedIn){
+      console.log(Parse.User.current());
+      var loginOrUser = <li ><a href="javascript:;" onClick={this.onLogout}>Hello {Parse.User.current().getUsername()}</a></li>
+    } else {
+      var loginOrUser = <li ><a href="javascript:;" onClick={this.openDialog}>Login or register</a></li>
+    };
+    
     return (
       <div>
         <nav className="navbar navbar-default">
@@ -34,15 +63,13 @@ const Main = React.createClass({
               <a className="navbar-brand" href="#">Logo</a>
             </div>
             <ul className="nav navbar-nav navbar-right">
-              <li ><a href="javascript:;" onClick={this.openDialog}>Login or register</a></li>
+              {loginOrUser}
             </ul>
           </div>
         </nav>
         
         <Dialog ref="accountDialog">
-          
-          <Accounts close={this.closeDialog}/>
-          
+          <Accounts close={this.closeDialog} onSuccess={this.onSuccess}/>
         </Dialog>
         
         <div className="container">

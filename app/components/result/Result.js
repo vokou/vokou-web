@@ -43,7 +43,6 @@ var Result = React.createClass({
       }}
   },
 
-
   getInitialState(){
     let data = [];
     let fetching = true;
@@ -87,7 +86,7 @@ var Result = React.createClass({
     injectTapEventPlugin();
 
     return (
-      <div className="result-list">
+      <div className="result">
         <Search
           searchFields={this.props.location.query}
           fetching={this.state.fetching}
