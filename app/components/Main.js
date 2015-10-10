@@ -24,14 +24,14 @@ const Main = React.createClass({
       logedIn: false
     }
   },
-  
+
   componentWillMount() {
     Parse.initialize("JUXCXuysBgoulgFgGDGzc9elQNx4q84XiaDBoYyo", "B7RS0P7Yc5ts80tia2wMoMFBsyVqMFmj9H3JocTK");
     if(Parse.User.current()){
       this.setState({logedIn: true});
     }
   },
-    
+
   openDialog() {
     this.refs.accountDialog.show();
   },
@@ -49,7 +49,7 @@ const Main = React.createClass({
   onSuccess(){
     this.setState({logedIn: true});
   },
-  
+
   render() {
     injectTapEventPlugin();
     if(this.state.logedIn){
@@ -72,10 +72,11 @@ const Main = React.createClass({
           </div>
         </nav>
         
-        <Dialog ref="accountDialog">
+        <Dialog ref="accountDialog" className="account-dialog">
           <Accounts close={this.closeDialog} onSuccess={this.onSuccess}/>
         </Dialog>
-        
+
+
         <div className="container">
           {this.props.children}
         </div>
