@@ -1,4 +1,5 @@
 import React from 'react';
+import { History } from 'react-router';
 import {Styles, TextField, FlatButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import axios from 'axios';
@@ -9,6 +10,7 @@ let ThemeManager = new Styles.ThemeManager();
 
 
 var Register = React.createClass({
+  mixins: [History],
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -38,7 +40,7 @@ var Register = React.createClass({
           success: function(user) {
             onSuccess();
             close();
-            console.log("success");
+            self.history.replaceState(null, '/search');
           },
           error: function(user, error) {
             console.log(error);

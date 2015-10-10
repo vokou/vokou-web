@@ -26,7 +26,6 @@ const Main = React.createClass({
   },
   
   componentWillMount() {
-    Parse.initialize("JUXCXuysBgoulgFgGDGzc9elQNx4q84XiaDBoYyo", "B7RS0P7Yc5ts80tia2wMoMFBsyVqMFmj9H3JocTK");
     if(Parse.User.current()){
       this.setState({logedIn: true});
     }

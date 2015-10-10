@@ -1,11 +1,13 @@
 import React from 'react';
-import {Styles, TextField, FlatButton } from 'material-ui';
+import { History } from 'react-router';
+import { Styles, TextField, FlatButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Parse from 'parse';
 let ThemeManager = new Styles.ThemeManager();
 
 
 var Login = React.createClass({
+  mixins: [History],
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -23,6 +25,7 @@ var Login = React.createClass({
   },
   
   login(){
+    let self = this;
     let params = {
       password: this.refs.pw.getValue(),
       email:    this.refs.email.getValue()
@@ -34,7 +37,7 @@ var Login = React.createClass({
       success: function(user) {
         onSuccess();
         close();
-        console.log("success");
+        self.history.replaceState(null, '/search');
       },
       error: function(user, error) {
         console.log(error);
