@@ -1,11 +1,14 @@
 import React from 'react';
+import { History } from 'react-router';
 import {Styles, Dialog, FlatButton, RaisedButton} from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Accounts from './accounts/Accounts';
 import Parse from 'parse';
 
 let ThemeManager = new Styles.ThemeManager();
+
 const Main = React.createClass({
+  mixins: [History],
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -39,6 +42,7 @@ const Main = React.createClass({
 
   onLogout() {
     Parse.User.logOut();
+    this.history.pushState(null, `/`);
     this.setState({logedIn: false});
   },
 

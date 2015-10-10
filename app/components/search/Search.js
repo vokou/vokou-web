@@ -3,6 +3,7 @@ import { History } from 'react-router';
 import { TextField, DatePicker, FloatingActionButton, Styles } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import DestInput from './DestInput.js';
+import Parse from 'parse';
 let ThemeManager = new Styles.ThemeManager();
 
 const Search = React.createClass({
@@ -67,7 +68,7 @@ const Search = React.createClass({
       /* remove local cache first */
       localStorage.removeItem('hotels');
       this.history.pushState(null, `/result`, query);
-
+      
       if (this.props.onNewSearch) {
         this.props.onNewSearch();
       }
