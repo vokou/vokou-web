@@ -46,11 +46,11 @@ var Login = React.createClass({
     injectTapEventPlugin();
     return (
       <div>
-        Username:
+        
         <div>
-          <TextField ref="email" hintText="User name" type="email"/>
+          <TextField ref="email" hintText="email" type="email"/>
         </div>
-        Password:
+        
         <div>
           <TextField ref="pw" hintText="Password" type="password"/>
         </div>
