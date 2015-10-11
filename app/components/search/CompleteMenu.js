@@ -20,6 +20,7 @@ const CompleteMenu = React.createClass({
     let list = cities.map(function(city, i) {
       return (
         <li key={i}>
+          <span className="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;
           <div className="menu-item" onClick={self.handleClick.bind(self, city)}>{city}</div>
         </li>
       )
@@ -46,7 +47,8 @@ const CompleteMenu = React.createClass({
   render() {
     let ulStyle = {};
     if (this.props.bottom) {
-      ulStyle.bottom = '50px';
+      ulStyle.bottom = '65px';
+      ulStyle.left = 0;
     } else {
       ulStyle.top = '95%';
     }

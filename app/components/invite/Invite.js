@@ -14,7 +14,8 @@ const Invite = React.createClass({
       text: undefined
     }
   },
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     let self = this;
     let email = React.findDOMNode(this.refs.email).value.trim();
     if (!validateEmail(email)) {

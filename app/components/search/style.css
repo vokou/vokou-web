@@ -3,23 +3,30 @@
     padding-left: 0;
     z-index: 100;
     position: absolute;
-    width: 95%;
+    width: 100%;
 }
 
-.result-list .menu-item {
+.menu li {
     padding-top: 3px;
     padding-bottom: 3px;
+    padding-left: 10px;
     cursor: pointer;
-}
-
-.menu-item {
-    padding-top: 3px;
-    padding-bottom: 3px;
-    cursor: pointer;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.6);
     color: #d3d3d3;
 }
 
-.menu-item:hover {
+.menu-item {
+    display: inline;
+}
+
+.menu li:hover {
     background-color: #808080;
+}
+
+.input-fields > div {
+    color: #d3d3d3 !important;
+}
+
+.input-fields > input {
+    color: white !important;
 }

@@ -114,8 +114,7 @@ var Fetcher = React.createClass({
 
       if (hotel.detail) {
         hotelObj.address = hotel.detail.address;
-        console.log(hotel.detail.img);
-        hotelObj.img = hotel.detail.img.replace('_tn', '_md');
+        hotelObj.img = hotel.detail.img[0].replace('_xx', '_md');
         hotelObj.propertyID = hotel.detail.id;
 
       }
