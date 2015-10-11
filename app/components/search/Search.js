@@ -144,13 +144,15 @@ const Search = React.createClass({
             { !this.props.fetching && <FloatingActionButton
               secondary={true}
               style={buttonStyle}
-              onClick={this.handleSearchClick}>
+              onClick={this.handleSearchClick}
+              backgroundColor="black">
               <span className="glyphicon glyphicon-search" aria-hidden="true"></span>
             </FloatingActionButton> }
             { this.props.fetching && <FloatingActionButton
               secondary={true}
               style={buttonStyle}
-              onClick={this.props.onCancel}>
+              onClick={this.props.onCancel}
+              backgroundColor="black">
               <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
             </FloatingActionButton> }
           </div>
