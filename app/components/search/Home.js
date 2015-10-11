@@ -7,7 +7,7 @@ const Home = React.createClass({
       position: 'absolute',
       width: '100%',
       bottom: 0,
-      paddingBottom: '80px'
+      paddingBottom: '60px'
     };
     return (
       <div style={footerStyle}>

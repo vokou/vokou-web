@@ -47,7 +47,8 @@ const CompleteMenu = React.createClass({
   render() {
     let ulStyle = {};
     if (this.props.bottom) {
-      ulStyle.bottom = '50px';
+      ulStyle.bottom = '65px';
+      ulStyle.left = 0;
     } else {
       ulStyle.top = '95%';
     }

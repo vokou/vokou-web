@@ -56,8 +56,8 @@ const DestInput = React.createClass({
     return (
       <div>
         <TextField
-          hintText="Where are you going?"
-          floatingLabelText="Destination"
+          className="input-fields"
+          hintText="Destination"
           fullWidth={true}
           errorText={this.props.errorText}
           ref="destination"
@@ -65,7 +65,8 @@ const DestInput = React.createClass({
           id="destination"
           onChange={this.handleInputChange}
           //onBlur={this.handleBlur}
-          onFocus={this.handleFocus} />
+          onFocus={this.handleFocus}
+          underlineFocusStyle={{borderColor: '#d3d3d3'}}/>
         <CompleteMenu
           cities={this.state.cities}
           handleFill={this.handleFill}

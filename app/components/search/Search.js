@@ -98,20 +98,28 @@ const Search = React.createClass({
     injectTapEventPlugin();
     let buttonStyle = {
       fontSize: '1.5em',
-      marginTop: "20px"
+      position: 'relative',
+      bottom: '3px'
+    };
+    let rowStyle = {
+      backgroundColor: 'rgba(0, 0, 0, 0.6)',
+      marginTop: '0px',
+      paddingTop: '20px',
+      paddingBottom: '10px'
     };
     return (
-      <div className="row">
+      <div className="row" style={rowStyle}>
         <form>
           <div className="col-md-5">
             <DestInput
               errorText={this.state.destinationErr}
               defaultValue={this.searchFields.destination}
               bottom={this.props.bottom}
-              ref="destination"/>
+              ref="destination" />
           </div>
           <div className="col-md-3">
             <DatePicker
+              className="input-fields"
               hintText="Check in"
               autoOk={true}
               formatDate={this.formatDate}
@@ -119,23 +127,18 @@ const Search = React.createClass({
               errorText={this.state.checkInErr}
               onChange={this.handleCheckInChange}
               ref="checkIn"
-              defaultDate={this.searchFields.checkIn}
-              textFieldStyle={{
-                marginTop: "24px"
-              }} />
+              defaultDate={this.searchFields.checkIn} />
           </div>
           <div className="col-md-3">
             <DatePicker
+              className="input-fields"
               hintText="Check out"
               autoOk={true}
               formatDate={this.formatDate}
               minDate={this.state.minCheckOutDate}
               errorText={this.state.checkOutErr}
               ref="checkOut"
-              defaultDate={this.searchFields.checkOut}
-              textFieldStyle={{
-                marginTop: "24px"
-              }} />
+              defaultDate={this.searchFields.checkOut} />
           </div>
           <div className="col-md-1">
             { !this.props.fetching && <FloatingActionButton
