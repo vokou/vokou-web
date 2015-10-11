@@ -50,7 +50,7 @@ function fetchInfo(dataDOM, response) {
   for (let i = 0; i < rows.length; i++) {
     let row = rows[i];
     // Filter out Ctrip
-    if (!row.dataset.providercode || row.dataset.providercode === "CTE") {
+    if (!row.dataset.providercode || row.dataset.providercode === "CTE" || row.dataset.providercode === "CTR") {
       continue;
     }
     let anchorTag = row.querySelector('.hc_tbl_col2 a');
