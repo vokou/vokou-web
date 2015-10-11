@@ -15,7 +15,7 @@
   opacity: 0.5;
 }
 
-.account button, span{
+.account button, .account span{
   color: grey !important;
   border-radius: 25px !important;
   text-align: center !important;
