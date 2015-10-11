@@ -64,7 +64,7 @@ const DestInput = React.createClass({
           defaultValue={this.props.defaultValue}
           id="destination"
           onChange={this.handleInputChange}
-          //onBlur={this.handleBlur}
+          onBlur={this.handleBlur}
           onFocus={this.handleFocus}
           underlineFocusStyle={{borderColor: '#d3d3d3'}}/>
         <CompleteMenu
