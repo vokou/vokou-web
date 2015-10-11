@@ -44,13 +44,12 @@ const CompleteMenu = React.createClass({
     this.init(this.props.cities);
   },
   render() {
-    let ulStyle = {
-      listStyle: 'none',
-      position: 'abosolute',
-      top: '95%',
-      paddingLeft: 0,
-      zIndex: 100
-    };
+    let ulStyle = {};
+    if (this.props.bottom) {
+      ulStyle.bottom = '50px';
+    } else {
+      ulStyle.top = '95%';
+    }
     return (
       <ul className="menu" style={ulStyle}>
         {this.state.list}

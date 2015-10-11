@@ -3,24 +3,23 @@
     padding-left: 0;
     z-index: 100;
     position: absolute;
-    background-color: white;
     width: 95%;
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
 }
+
 .result-list .menu-item {
     padding-top: 3px;
-    padding-left: 8px;
     padding-bottom: 3px;
     cursor: pointer;
 }
 
 .menu-item {
     padding-top: 3px;
-    padding-left: 8px;
     padding-bottom: 3px;
     cursor: pointer;
+    background-color: black;
+    color: #d3d3d3;
 }
 
 .menu-item:hover {
-    background-color: rgba(0,0,0,.2);
+    background-color: #808080;
 }

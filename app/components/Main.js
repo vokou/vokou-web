@@ -60,7 +60,12 @@ const Main = React.createClass({
     
     return (
       <div>
-        <nav className="navbar navbar-default">
+        <nav className="navbar navbar-default"
+             style={{
+              backgroundColor: 'black',
+              borderColor: 'black',
+              borderRadius: '0px'
+             }}>
           <div className="container-fluid">
             <div className="navbar-header">
               <a className="navbar-brand" href="#">Logo</a>
@@ -75,8 +80,19 @@ const Main = React.createClass({
           <Accounts close={this.closeDialog} onSuccess={this.onSuccess}/>
         </Dialog>
         
-        <div className="container">
-          {this.props.children}
+
+        {this.props.children}
+        <div style={{
+            position: 'fixed',
+            width: '100%',
+            bottom: 0,
+            backgroundColor: 'black'
+          }}>
+          <div className="container">
+            <p style={{marginTop: '20px', marginBottom: '20px', color: '#d3d3d3'}}>
+              Ⓒ 2015 Vokou LLC All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     );

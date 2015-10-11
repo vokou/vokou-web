@@ -107,6 +107,7 @@ const Search = React.createClass({
             <DestInput
               errorText={this.state.destinationErr}
               defaultValue={this.searchFields.destination}
+              bottom={this.props.bottom}
               ref="destination"/>
           </div>
           <div className="col-md-3">

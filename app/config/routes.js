@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import Parse from 'parse';
 import Main from '../components/Main';
-import Search from '../components/search/Search';
+import Home from '../components/search/Home';
 import Result from '../components/result/Result';
 import Detail from '../components/detail/Detail';
 import Invite from '../components/invite/Invite';
@@ -26,7 +26,7 @@ function authenticate(location, replaceWith) {
 var routes = (
   <Route name="app" path="/" component={Main}>
     <IndexRoute onEnter={indexRedirect} />
-    <Route path="/search" component={Search} onEnter={authenticate} />
+    <Route path="/search" component={Home} onEnter={authenticate} />
     <Route path="/result" component={Result} onEnter={authenticate}/>
     <Route path="/detail/:hotelname/:city/:checkin/:checkout/:propID" component={Detail} onEnter={authenticate} />
     <Route path="/detail/" component={Detail} onEnter={authenticate} />

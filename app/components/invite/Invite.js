@@ -62,28 +62,30 @@ const Invite = React.createClass({
         <h3>{this.state.text}</h3>
       </div>;
     return (
-      <div className="row">
-        <div className="col-md-6 col-md-offset-3">
-          <h1>Welcome to vokou!</h1>
-          <p className="lead">vokou is currently under private beta and it's invite only.
-            Please leave your e-mail below to get your invitation code.</p>
-          <div>
-            <div style={{position: 'relative'}}>
-              {this.state.err && errorPanel}
-              <form className="form-inline" onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                  <input type="text"
-                         className="form-control"
-                         id="emailInput"
-                         placeholder="Please enter your e-mail address"
-                         style={inputStyle}
-                         ref="email" />
-                </div>
-                <button type="submit" className="btn btn-default">Get invitation</button>
-              </form>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6 col-md-offset-3">
+            <h1>Welcome to vokou!</h1>
+            <p className="lead">vokou is currently under private beta and it's invite only.
+              Please leave your e-mail below to get your invitation code.</p>
+            <div>
+              <div style={{position: 'relative'}}>
+                {this.state.err && errorPanel}
+                <form className="form-inline" onSubmit={this.handleSubmit}>
+                  <div className="form-group">
+                    <input type="text"
+                           className="form-control"
+                           id="emailInput"
+                           placeholder="Please enter your e-mail address"
+                           style={inputStyle}
+                           ref="email" />
+                  </div>
+                  <button type="submit" className="btn btn-default">Get invitation</button>
+                </form>
+              </div>
             </div>
+            {this.state.text && infoPanel}
           </div>
-          {this.state.text && infoPanel}
         </div>
       </div>
     );
