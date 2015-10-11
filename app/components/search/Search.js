@@ -94,7 +94,6 @@ const Search = React.createClass({
       minCheckOutDate: checkOutDate
     });
   },
-  // TODO: Date picker restriction and auto focus
   render() {
     injectTapEventPlugin();
     let buttonStyle = {
