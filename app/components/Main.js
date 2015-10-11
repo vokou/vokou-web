@@ -4,7 +4,7 @@ import {Styles, Dialog, FlatButton, RaisedButton} from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Accounts from './accounts/Accounts';
 import Parse from 'parse';
-require('./main.css');
+
 
 let ThemeManager = new Styles.ThemeManager();
 
