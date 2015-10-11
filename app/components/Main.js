@@ -72,7 +72,7 @@ const Main = React.createClass({
 
       var loginOrUser =
       <li className="ignore-react-onclickoutside">
-        <a href="javascript:;" onClick={this.onLogout}>Hello {Parse.User.current().getUsername()}</a>
+        <a href="javascript:;" onClick={this.onLogout}>Logout</a>
       </li>
     } else {
       var loginOrUser =
@@ -86,7 +86,7 @@ const Main = React.createClass({
     } else {
       var loginDialog = null;
     }
-      
+    console.log(this.props.myprop);
     return (
       <div>
         <nav className="navbar navbar-default"

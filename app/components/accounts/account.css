@@ -4,14 +4,66 @@
   float: right;
   top: 58px;
   right: 0.5%;
-  background: white;
+  width: 250px;
   /* opacity: 1; */
   z-index: 1;
-  width: 30%;
+  
   position: fixed;
   /* display: none; */
+  
+  background: black;
+  opacity: 0.5;
 }
 
-.account a{
-  cursor: pointer;
+.account button, .account span{
+  color: grey !important;
+  border-radius: 25px !important;
+  text-align: center !important;
+  /* height: 60% !important; */
 }
+
+.account p{
+  color: white;
+  text-align: center;
+  font-size: 80%;
+}
+.account .inputfield {
+  /* margin-left: 20%; */
+  width: 90% !important;
+  margin-left: 5% !important;
+  margin-right: 5% !important;
+  height: 30px !important;
+}
+
+.account .inputfield div, hr {
+  bottom: 5px !important;
+}
+.user-input {
+  display: inline-block;
+  /* cursor: pointer !important; */
+}
+
+.loginToggle{
+  margin-top: 10px;
+  text-align: center;
+  
+}
+.email > input{
+  color: white !important;
+  font-size: 80% !important;
+}
+.email > div{
+  color: grey !important;
+  font-size: 80% !important;
+}
+.pw > input{
+  color: white !important;
+  font-size: 80% !important;
+}
+
+
+.pw > div{
+  color: grey !important;
+  font-size: 80% !important;
+}
+
