@@ -23,7 +23,7 @@ var Login = React.createClass({
       currentUser: ''
     }
   },
-  
+
   login(){
     let self = this;
     let params = {
@@ -49,33 +49,43 @@ var Login = React.createClass({
     injectTapEventPlugin();
     return (
       <div>
-        <div>
-          <TextField ref="email" hintText="email" type="email"/>
+        <form>
+          <div>
+            <p>Sign in to Vokou or create a account</p>
+          </div>
+          <div className="user-input">
+            <TextField
+              ref="email"
+              hintText="email"
+              type="email"
+              className="email inputfield"/>
+            <TextField
+              ref="pw"
+              hintText="Password"
+              type="password"
+              className="pw inputfield"/>
+
+          </div>
+          <div className="loginToggle">
+            <FlatButton
+              key={2}
+              label="Sign in"
+              primary={true}
+              onTouchTap={this.login}
+              className="login-button"
+              type="submit"
+            />
+          </div>
+        </form>
+        <div className="loginToggle">
+          <a onClick={this.props.toggle}>Register</a>
         </div>
-        
-        <div>
-          <TextField ref="pw" hintText="Password" type="password"/>
-        </div>
-        <FlatButton
-          key={2}
-          label="Login"
-          primary={true}
-          onTouchTap={this.login} />
-        <FlatButton
-          key={1}
-          label="Cancel"
-          secondary={true}
-          onTouchTap={this.props.close} />
-        
-        <a onClick={this.props.toggle}>Register</a>
+
       </div>
-      
+
     );
 
   }
 });
 
 export default Login;
-
-
-

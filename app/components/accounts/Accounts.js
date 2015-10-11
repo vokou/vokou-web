@@ -42,9 +42,9 @@ var Accounts = React.createClass({
     injectTapEventPlugin();
 
     if(this.state.displayToggle){
-      var display = <Login close={this.props.close} onSuccess={this.props.onSuccess} toggle={this.toggle}/>
+      var display = <Login type="submit" close={this.props.close} onSuccess={this.props.onSuccess} toggle={this.toggle}/>
     } else {
-      var display = <Register close={this.props.close} onSuccess={this.props.onSuccess} toggle={this.toggle}/>
+      var display = <Register type="submit" close={this.props.close} onSuccess={this.props.onSuccess} toggle={this.toggle}/>
     }
     
     return (

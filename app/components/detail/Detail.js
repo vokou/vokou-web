@@ -56,7 +56,7 @@ var Detail = React.createClass({
     injectTapEventPlugin();
     
     return (
-      <div className="detail">
+      <div className="detail container" >
         <Fetcher
           query={this.state.data}
           stop={!this.state.fetching}
