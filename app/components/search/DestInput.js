@@ -69,6 +69,7 @@ const DestInput = React.createClass({
         <CompleteMenu
           cities={this.state.cities}
           handleFill={this.handleFill}
+          bottom={this.props.bottom}
           ref="menu" />
       </div>
     );

@@ -86,21 +86,23 @@ var Result = React.createClass({
     injectTapEventPlugin();
 
     return (
-      <div className="result">
-        <Search
-          searchFields={this.props.location.query}
-          fetching={this.state.fetching}
-          onNewSearch={this.handleNewSearch}
-          onCancel={this.handleCancelSearch} />
+      <div className="container" style={{paddingBottom:'60px'}}>
+        <div className="result">
+          <Search
+            searchFields={this.props.location.query}
+            fetching={this.state.fetching}
+            onNewSearch={this.handleNewSearch}
+            onCancel={this.handleCancelSearch} />
 
-        <Fetcher
-          query={this.props.location.query}
-          stop={!this.state.fetching}
-          onUpdate={this.handleUpdate}
-          onFinish={this.handleFinish} />
+          <Fetcher
+            query={this.props.location.query}
+            stop={!this.state.fetching}
+            onUpdate={this.handleUpdate}
+            onFinish={this.handleFinish} />
 
-        <HotelList data={this.state.data} query={this.props.location.query} />
+          <HotelList data={this.state.data} query={this.props.location.query} />
 
+        </div>
       </div>
     );
   }
