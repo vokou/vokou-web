@@ -4,6 +4,7 @@ import {Styles, Dialog, FlatButton, RaisedButton} from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Accounts from './accounts/Accounts';
 import Parse from 'parse';
+require('./main.css');
 
 let ThemeManager = new Styles.ThemeManager();
 
@@ -21,7 +22,8 @@ const Main = React.createClass({
 
   getInitialState(){
     return {
-      logedIn: false
+      logedIn: false,
+      showLogin: false
     }
   },
 
@@ -32,12 +34,27 @@ const Main = React.createClass({
     }
   },
 
-  openDialog() {
-    this.refs.accountDialog.show();
+  toggleLogin() {
+    this.setState({
+      logedIn: this.state.logedIn,
+      showLogin: !this.state.showLogin
+    })
   },
 
+  openLogin(){
+    //this.refs.accountDialog.show();
+    this.setState({
+      logedIn: this.state.logedIn,
+      showLogin: true
+    })
+  },
+  
   closeDialog() {
-    this.refs.accountDialog.dismiss();
+    //this.refs.accountDialog.dismiss();
+    this.setState({
+      logedIn: this.state.logedIn,
+      showLogin: false
+    })
   },
 
   onLogout() {
@@ -53,12 +70,24 @@ const Main = React.createClass({
   render() {
     injectTapEventPlugin();
     if(this.state.logedIn){
-      console.log(Parse.User.current());
-      var loginOrUser = <li ><a href="javascript:;" onClick={this.onLogout}>Hello {Parse.User.current().getUsername()}</a></li>
+
+      var loginOrUser =
+      <li className="ignore-react-onclickoutside">
+        <a href="javascript:;" onClick={this.onLogout}>Hello {Parse.User.current().getUsername()}</a>
+      </li>
     } else {
-      var loginOrUser = <li ><a href="javascript:;" onClick={this.openDialog}>Login or register</a></li>
+      var loginOrUser =
+      <li className="ignore-react-onclickoutside">
+        <a href="javascript:;" onClick={this.toggleLogin}>Login or register</a>
+      </li>
     };
-    
+
+    if(this.state.showLogin){
+      var loginDialog = <Accounts  close={this.closeDialog} onSuccess={this.onSuccess}/>        
+    } else {
+      var loginDialog = null;
+    }
+      
     return (
       <div>
         <nav className="navbar navbar-default">
@@ -72,10 +101,7 @@ const Main = React.createClass({
           </div>
         </nav>
         
-        <Dialog ref="accountDialog" className="account-dialog">
-          <Accounts close={this.closeDialog} onSuccess={this.onSuccess}/>
-        </Dialog>
-
+        {loginDialog}
 
         <div className="container">
           {this.props.children}

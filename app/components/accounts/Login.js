@@ -46,7 +46,6 @@ var Login = React.createClass({
     injectTapEventPlugin();
     return (
       <div>
-        
         <div>
           <TextField ref="email" hintText="email" type="email"/>
         </div>
@@ -55,16 +54,17 @@ var Login = React.createClass({
           <TextField ref="pw" hintText="Password" type="password"/>
         </div>
         <FlatButton
+          key={2}
+          label="Login"
+          primary={true}
+          onTouchTap={this.login} />
+        <FlatButton
           key={1}
           label="Cancel"
           secondary={true}
           onTouchTap={this.props.close} />
-        <FlatButton
-          key={2}
-          label="Submit"
-          primary={true}
-          onTouchTap={this.login} />
-
+        
+        <a onClick={this.props.toggle}>Register</a>
       </div>
       
     );

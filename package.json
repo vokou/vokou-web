@@ -47,6 +47,8 @@
     "json-loader": "^0.5.3",
     "lodash": "^3.10.1",
     "parse": "^1.6.5",
+    "react-bootstrap": "^0.26.1",
+    "react-onclickoutside": "^0.3.3",
     "react-paginate": "^0.2.0",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.0",

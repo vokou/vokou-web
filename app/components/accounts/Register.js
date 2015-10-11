@@ -62,17 +62,19 @@ var Register = React.createClass({
         <div>
           <TextField ref="pw" floatingLabelText="Password" type="password" hintText="Password" />
         </div>
-
+        <FlatButton
+          key={2}
+          label="Register"
+          primary={true}
+          onTouchTap={this.submit} />
         <FlatButton
           key={1}
           label="Cancel"
           secondary={true}
           onTouchTap={this.props.close} />
-        <FlatButton
-          key={2}
-          label="Submit"
-          primary={true}
-          onTouchTap={this.submit} />
+        <div>
+          <a onClick={this.props.toggle}>Already have a account?</a>
+        </div>
       </div>
     );
 
