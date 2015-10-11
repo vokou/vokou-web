@@ -28,11 +28,7 @@ const Invite = React.createClass({
       method: 'post',
       data: {email: email},
       success: function(resp) {
-        if (resp.err === 1) {
-          self.setState({text: "Thank you! Your invitation code would be sent to you via email during our beta!"});
-        } else {
-          self.setState({text: "Congratulations! Your invitation code is", code: resp.code});
-        }
+        self.setState({text: "Thank you! Your invitation code would be sent to you via email during our beta!"});
       },
       error: function(err) {
        self.setState({err: "Sorry, You've already applied!"});
@@ -63,8 +59,7 @@ const Invite = React.createClass({
       </div>;
     let infoPanel =
       <div>
-        <h2>{this.state.text}</h2>
-        <h3>{this.state.code}</h3>
+        <h3>{this.state.text}</h3>
       </div>;
     return (
       <div className="row">
