@@ -6,18 +6,16 @@
     width: 95%;
 }
 
-.result-list .menu-item {
-    padding-top: 3px;
-    padding-bottom: 3px;
-    cursor: pointer;
-}
-
-.menu-item {
+.menu li {
     padding-top: 3px;
     padding-bottom: 3px;
     cursor: pointer;
     background-color: black;
     color: #d3d3d3;
+}
+
+.menu-item {
+    display: inline;
 }
 
 .menu-item:hover {

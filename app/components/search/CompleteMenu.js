@@ -20,6 +20,7 @@ const CompleteMenu = React.createClass({
     let list = cities.map(function(city, i) {
       return (
         <li key={i}>
+          <span className="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;
           <div className="menu-item" onClick={self.handleClick.bind(self, city)}>{city}</div>
         </li>
       )
