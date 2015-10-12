@@ -65,11 +65,11 @@ var ListItem = React.createClass({
 
     let canBRG;
     if(this.state.price){
-      canBRG = <div className="canbrg row-height brg v-center">
+      canBRG = <div className="canbrg row-height v-center brg">
         <span>BRG</span>
       </div>
     }else{
-      canBRG = <div className="nobrg row-height brg v-center">
+      canBRG = <div className="nobrg row-height v-center brg">
         <span>BRG</span>
       </div>
     }
@@ -85,7 +85,6 @@ var ListItem = React.createClass({
         price =
         <div className="brg-price price-pos" >
           <div className="big-number">{this.state.price}$</div>
-          
           <div className="small-number">{this.state.oldPrice}$</div>
         </div>
       }
@@ -115,8 +114,8 @@ var ListItem = React.createClass({
                    }}
           >
         <img src={this.state.image} 
-          className="col-md-3 img-rounded img-responsive"/>
-        <div className="col-md-7 row-height hotel-info">
+          className="col-md-2 img-rounded img-responsive"/>
+        <div className="col-md-8 row-height hotel-info">
           <h3>
             {this.state.name}
           </h3>
@@ -127,11 +126,8 @@ var ListItem = React.createClass({
             {pointsString}
           </p>
         </div>
-        <div className="col-md-1 row-height">
-          <div className="hotel-price v-center">
+        <div className="col-md-1 row-height hotel-price v-center">
             {price}
-          </div>
-          
         </div>
         
         <div className="col-md-1 row-height">

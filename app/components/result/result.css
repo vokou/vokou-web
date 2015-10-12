@@ -1,6 +1,7 @@
 /* make sure all list item divs have same height */
 .row-height {
   height: 100px;
+  padding-right: 0px;
 }
 
 .list-item{
@@ -12,11 +13,9 @@
 
 .list-item img{
   height: 100px;
-  width: 20%;
 }
 .list-item:hover {
   background-color: #888686;
-  /* border: 3px solid; */
 }
 
 
@@ -48,18 +47,22 @@
 .hotel-price {
   display: block;
   border-left: 1px solid black;
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  height: 80px;
-  color: black;
+  /* position: absolute; */
+  /* width:auto; */
+  /* margin-top: 10%; */
+  /* /\* left: 50%; *\/ */
+  /* height: 80px; */
+  /* color: black; */
+  /* float: right; */
 }
 
 .price-pos {
+  position: absolute;
+  top: 30%;
   width: 50px;
-  margin-left: 80%;
   text-align: right;
-  margin-left: 40px;
+  /* margin-left: 70%; */
+  left: 30%;
 }
 
 .big-number {
@@ -75,22 +78,31 @@
 
 /* brg img */
 .brg {
+  text-align: right;
   font-weight: bold;
-  position: absolute;
-  width: 50%;
-  left: 111%;
+  /* margin-left: 52%; */
+  
+
+  width: 100%;
   font-size: 80%;
+  background-position: right; 
   background-size: contain;
   background-size: 40px 100px;
   background-repeat: no-repeat;
 }
 
+.brg span{
+  margin-left:70%;
+}
+
 .canbrg {
+  float: right;
   color: black;
   background-image: url('../../assets/brg.png');
 }
 
 .nobrg {
+  float: right;
   text-decoration:line-through;
   color: white;
   background-image: url('../../assets/nobrg.png');
@@ -100,7 +112,7 @@
 /* utility: align things at vertical and horizontal center */
 .v-center {
   display: flex;
-  justify-content: center; /* align horizontal */
+  /* justify-content: center; /\* align horizontal *\/ */
   align-items: center; /* align vertical */
   
 }
