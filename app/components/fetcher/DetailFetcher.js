@@ -34,7 +34,10 @@ var DetailFetcher = React.createClass({
 
     if (hotel.detail) {
       hotelObj.address = hotel.detail.address;
-      hotelObj.img = hotel.detail.img[0].replace('_tn', '_md');
+      hotelObj.img = hotel.detail.img[0];
+      hotelObj.img_1 = hotel.detail.img[1].replace('_xx', '_ss');
+      hotelObj.img_2 = hotel.detail.img[2].replace('_xx', '_ss');
+      hotelObj.img_3 = hotel.detail.img[3].replace('_xx', '_ss');
       hotelObj.propertyID = hotel.detail.id;
     }
     /* TODO: server does not support points plan yet */
