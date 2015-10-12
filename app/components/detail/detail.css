@@ -29,8 +29,8 @@
   padding: 0;
 }
 .sq-img {
-  width: 25%;
-  margin-top: 45px;
+  width: 20%;
+  margin-top: 30px;
   margin-left: 30px !important;
   margin-right: 10px !important;
   vertical-align: top;
@@ -68,12 +68,18 @@
   top: 55%;
   left: 33%;
 }
+.detail-location {
+  margin-top: -3%;
+  color: grey;
+}
 .detail-text{
-  margin-left: 50px;
+  /*margin-left: 0;*/
+  margin-top: 2%;
 }
 .detail-all {
-  margin-top: 50px;
-  margin-left: 50px;
+  margin-top: 1% !important;
+  /*margin-bottom: 5%;*/
+  margin-right: 30px;
   display: inline-block;
 }
 .detail-progress {
