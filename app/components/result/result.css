@@ -1,21 +1,25 @@
 /* make sure all list item divs have same height */
 .row-height {
-  height: 140px;
+  height: 100px;
 }
 
 .list-item{
-  border: 1px solid;
+  outline: 1px solid;
   margin-bottom: 10px;
   cursor: pointer;
+  
 }
 
 .list-item img{
-  height: 137px;
+  height: 100px;
+  width: 20%;
 }
 .list-item:hover {
-  
-  border: 3px solid;
+  background-color: #888686;
+  /* border: 3px solid; */
 }
+
+
 .result-list ul {
   padding-left: 0px;
 }
@@ -24,13 +28,14 @@
   padding-left: 0px;
 }
 
+/* hotel infos */
+
 .hotel-info *{
   margin-left: 15px;
   margin-top: 0px;
   margin-bottom: 0px;
+  color: grey;
 }
-
-
 
 .points-string {
   position: absolute;
@@ -38,15 +43,67 @@
   margin-bottom: 0px;
 }
 
+
+/* hotel price */
 .hotel-price {
+  display: block;
+  border-left: 1px solid black;
   position: absolute;
-  top: 50%;
+  top: 10%;
   left: 50%;
+  height: 80px;
+  color: black;
 }
 
-.can-brg {
-  position: absolute;
-  top: 20%;
-  left: 50%;
+.price-pos {
+  width: 50px;
+  margin-left: 80%;
+  text-align: right;
+  margin-left: 40px;
 }
+
+.big-number {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.small-number{
+  margin-top: -5%;
+  font-size: 80%;
+  text-decoration: line-through;
+}
+
+/* brg img */
+.brg {
+  font-weight: bold;
+  position: absolute;
+  width: 50%;
+  left: 111%;
+  font-size: 80%;
+  background-size: contain;
+  background-size: 40px 100px;
+  background-repeat: no-repeat;
+}
+
+.canbrg {
+  color: black;
+  background-image: url('../../assets/brg.png');
+}
+
+.nobrg {
+  text-decoration:line-through;
+  color: white;
+  background-image: url('../../assets/nobrg.png');
+}
+
+
+/* utility: align things at vertical and horizontal center */
+.v-center {
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  
+}
+
+
 

@@ -2,6 +2,8 @@ import React from 'react';
 import { History, Link } from 'react-router';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import nobrgpng from '../../assets/nobrg.png';
+import brgpng from '../../assets/brg.png';
 
 
 let ThemeManager = new Styles.ThemeManager();
@@ -63,24 +65,28 @@ var ListItem = React.createClass({
 
     let canBRG;
     if(this.state.price){
-      canBRG = <RaisedButton label="BRG" secondary={true} />
+      canBRG = <div className="canbrg row-height brg v-center">
+        <span>BRG</span>
+      </div>
     }else{
-      canBRG = <div></div>
+      canBRG = <div className="nobrg row-height brg v-center">
+        <span>BRG</span>
+      </div>
     }
 
     let price;
     if(this.state.available){
       if(this.state.price === this.state.oldPrice || this.state.price==null){
         price =
-        <div>
-          <strong className="number">{this.state.oldPrice}$/Night</strong>
+        <div className="nobrg-price price-pos">
+          <div className="big-number">{this.state.oldPrice}$</div>
         </div>
       }else{
         price =
-        <div>
-          <strike className="number">{this.state.oldPrice}$</strike>
-          <br/>
-          <strong className="number">{this.state.price}$/Night</strong>
+        <div className="brg-price price-pos" >
+          <div className="big-number">{this.state.price}$</div>
+          
+          <div className="small-number">{this.state.oldPrice}$</div>
         </div>
       }
     }else{
@@ -96,7 +102,7 @@ var ListItem = React.createClass({
     };
     
     let detailURL = `/detail//${query.hotelname}//${query.city}//${query.checkin}//${query.checkout}//${query.propID}`;
-    //${query.propID}${query.checkin}${query.checkout}
+    
     return (
 
       <div className="row row-height list-item">
@@ -121,9 +127,15 @@ var ListItem = React.createClass({
             {pointsString}
           </p>
         </div>
-        <div className="col-md-2 row-height">
-          <div className="hotel-price">{price}</div>
-          <div className="can-brg">{canBRG}</div>
+        <div className="col-md-1 row-height">
+          <div className="hotel-price v-center">
+            {price}
+          </div>
+          
+        </div>
+        
+        <div className="col-md-1 row-height">
+          {canBRG}
         </div>
         </Link>
       </div>
