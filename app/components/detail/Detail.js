@@ -67,7 +67,7 @@ var Detail = React.createClass({
     }
 
     return (
-      <div className="detail container" >
+      <div className="detail" >
         <div className="center">
           {fetch}
         </div>

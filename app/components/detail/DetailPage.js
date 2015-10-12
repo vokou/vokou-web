@@ -21,6 +21,9 @@ var DetailPage = React.createClass({
     let hotel = nextProps["hotel"];
     this.setState({
       "image":            hotel.img,
+      "image1":           hotel.img_1,
+      "image2":           hotel.img_2,
+      "image3":           hotel.img_3,
       "price":            hotel.brgPrice,
       "oldPrice":         hotel.original,
       "pValue":           hotel.pointsPlan.value,
@@ -39,6 +42,9 @@ var DetailPage = React.createClass({
   componentWillMount(){
     this.setState({
       "image":            null,
+      "image1":           null,
+      "image2":           null,
+      "image3":           null,
       "price":            null,
       "oldPrice":         null,
       "pValue":           null,
@@ -74,7 +80,7 @@ var DetailPage = React.createClass({
 
     let pointsString;
     if(this.state.pointsAvailable){
-      pointsString = "Use "+this.state.pointsPlan+" as "+this.state.pValue+"$/point";
+      pointsString = "or Use "+this.state.pointsPlan+" as "+this.state.pValue+"$/point";
     }else{
       pointsString = "No best points plan";
     }
@@ -106,29 +112,36 @@ var DetailPage = React.createClass({
     }
 
 
+
     return (
 
       <div>
-        <img src={this.state.image}
-          className="big-img"/>
-        <div className="row detail-hotel-info">
-          <div className="col-md-9 row-height">
-            <h3>
-              {this.state.name}
-            </h3>
-            <p>
-              {this.state.location}
-            </p>
-            <div className="detail-price">{price}</div>
-            <p className="points-string">
-              {pointsString}
-              {"   55% success rate"}
-            </p>
-          </div>
-          <div className="col-md-3 row-height spg-brg">
-            <div className="detail-brg">{canBRG}</div>
-            <div className="detail-spg">
-              <RaisedButton label="Go To SPG" secondary={true} onClick={this.goSPG}/>
+        <div className="container big-img-container" >
+          <img src={this.state.image}
+            className="big-img img-responsive"/>
+        </div>
+        <div className="container">
+          <div className="row detail-hotel-info">
+            <div className="col-md-8 row-height sq-img-container" >
+                <img src={this.state.image1} className="sq-img"/>
+                <img src={this.state.image2} className="sq-img"/>
+                <img src={this.state.image3} className="sq-img"/>
+            </div>
+            <div className="col-md-4 row-height">
+              <h3 className="detail-text">
+                {this.state.name} 
+              </h3>
+              <p className="detail-text">
+                {this.state.location}
+              </p>
+              <p className="points-string detail-text">
+                {pointsString}
+              </p>
+              <div className="detail-price detail-text">{price}</div>
+              <div className="detail-all">
+                <RaisedButton label="Go To SPG" secondary={true} onClick={this.goSPG}/>
+              </div>
+              <div className="detail-all">{canBRG}</div>
             </div>
           </div>
         </div>

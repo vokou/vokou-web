@@ -93,7 +93,8 @@ const Main = React.createClass({
              style={{
               backgroundColor: 'black',
               borderColor: 'black',
-              borderRadius: '0px'
+              borderRadius: '0px',
+              marginBottom: '0px'
              }}>
           <div className="container-fluid">
             <div className="navbar-header">
