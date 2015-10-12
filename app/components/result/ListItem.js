@@ -114,8 +114,8 @@ var ListItem = React.createClass({
                    }}
           >
         <img src={this.state.image} 
-          className="col-md-2 img-rounded img-responsive"/>
-        <div className="col-md-8 row-height hotel-info">
+          className="col-sm-2 img-rounded img-responsive"/>
+        <div className="col-sm-8 row-height hotel-info">
           <h3>
             {this.state.name}
           </h3>
@@ -126,11 +126,11 @@ var ListItem = React.createClass({
             {pointsString}
           </p>
         </div>
-        <div className="col-md-1 row-height hotel-price v-center">
+        <div className="col-sm-1 row-height hotel-price v-center">
             {price}
         </div>
         
-        <div className="col-md-1 row-height">
+        <div className="col-sm-1 row-height fix-align">
           {canBRG}
         </div>
         </Link>

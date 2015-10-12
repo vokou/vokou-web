@@ -5,17 +5,16 @@
 }
 
 .list-item{
-  outline: 1px solid;
+  outline: 1px solid #A0A0A0;
   margin-bottom: 10px;
   cursor: pointer;
-  
 }
 
 .list-item img{
   height: 100px;
 }
 .list-item:hover {
-  background-color: #888686;
+  background-color: #E0E0E0;
 }
 
 
@@ -46,24 +45,21 @@
 /* hotel price */
 .hotel-price {
   display: block;
-  border-left: 1px solid black;
-  /* position: absolute; */
-  /* width:auto; */
-  /* margin-top: 10%; */
-  /* /\* left: 50%; *\/ */
-  /* height: 80px; */
-  /* color: black; */
-  /* float: right; */
+  border-left: 1px solid #A0A0A0;
+  color: black;
+  margin-top:1%;
+  height: 80%;
 }
 
 .price-pos {
   position: absolute;
-  top: 30%;
+  top: 35%;
   width: 50px;
   text-align: right;
   /* margin-left: 70%; */
-  left: 30%;
+  left: 35%;
 }
+
 
 .big-number {
   font-size: 150%;
@@ -81,18 +77,21 @@
   text-align: right;
   font-weight: bold;
   /* margin-left: 52%; */
+  left: 1px;
   
-
   width: 100%;
   font-size: 80%;
   background-position: right; 
   background-size: contain;
-  background-size: 40px 100px;
+  background-size: 50% 100px;
   background-repeat: no-repeat;
+  
 }
 
 .brg span{
-  margin-left:70%;
+  /* text-align: right; */
+  font-size: 0.9vw;
+  margin-left:65%;
 }
 
 .canbrg {
@@ -103,11 +102,11 @@
 
 .nobrg {
   float: right;
+  left: 1px;
   text-decoration:line-through;
   color: white;
   background-image: url('../../assets/nobrg.png');
 }
-
 
 /* utility: align things at vertical and horizontal center */
 .v-center {
@@ -118,4 +117,7 @@
 }
 
 
-
+/* cols cannot add up to 100% row, thus the small fix */
+.fix-align {
+  left: 1px;
+}
