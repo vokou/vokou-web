@@ -66,7 +66,7 @@ var DetailPage = React.createClass({
     if(!this.state.name)
       return (
         <div className="row">
-          <div className="col-md-offset-3">
+          <div className="center">
             Loading BRG detail. Please be patient with us.
           </div>
         </div>);
@@ -110,7 +110,7 @@ var DetailPage = React.createClass({
 
       <div>
         <img src={this.state.image}
-          className="row"/>
+          className="big-img"/>
         <div className="row detail-hotel-info">
           <div className="col-md-9 row-height">
             <h3>

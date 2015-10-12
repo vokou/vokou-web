@@ -1,4 +1,5 @@
 .detail {
+  top: -20px;
   width: 70%;
   height: 60%;
   bottom: 30%;
@@ -9,7 +10,8 @@
 .detail *{
   padding: 0px;
 }
-.detail img {
+.big-img {
+  margin-top: -20px;
   width: 100%;
 }
 
@@ -47,4 +49,8 @@
 
 .detail-progress {
   margin-left: 60%;
+}
+
+.center {
+  text-align: center;
 }

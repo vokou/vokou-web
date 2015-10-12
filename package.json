@@ -44,6 +44,8 @@
     "express": "^4.13.3",
     "file-loader": "^0.8.4",
     "htmlparser2": "^3.8.3",
+    "image-webpack-loader": "^1.6.1",
+    "imagemin": "^3.2.0",
     "json-loader": "^0.5.3",
     "lodash": "^3.10.1",
     "parse": "^1.6.5",

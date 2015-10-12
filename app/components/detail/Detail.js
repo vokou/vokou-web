@@ -28,7 +28,7 @@ var Detail = React.createClass({
         propID: params.propID
       }
     }
-    
+
   },
   componentWillMount() {
     let params = this.props.params;
@@ -48,19 +48,29 @@ var Detail = React.createClass({
       fetching: false,
       data: result
     };
-    
+
     this.setState(newState);
   },
 
   render() {
     injectTapEventPlugin();
-    
+    if(this.state.fetching){
+      var fetch = <Fetcher
+                    className="detail-progress"
+                    query={this.state.data}
+                    stop={!this.state.fetching}
+                    onFinish={this.handleFinish} />
+    }
+    else{
+      var fetch = null;
+
+    }
+
     return (
       <div className="detail container" >
-        <Fetcher
-          query={this.state.data}
-          stop={!this.state.fetching}
-          onFinish={this.handleFinish} />
+        <div className="center">
+          {fetch}
+        </div>
         <DetailPage hotel={this.state.data} />
       </div>
     );
