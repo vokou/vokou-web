@@ -55,11 +55,15 @@ var Detail = React.createClass({
   render() {
     injectTapEventPlugin();
     if(this.state.fetching){
-      var fetch = <Fetcher
-                    className="detail-progress"
-                    query={this.state.data}
-                    stop={!this.state.fetching}
-                    onFinish={this.handleFinish} />
+      var fetch =
+      <div className="center">
+        <Fetcher
+          className="detail-progress"
+          query={this.state.data}
+          stop={!this.state.fetching}
+          onFinish={this.handleFinish} />
+        Loading BRG detail. Please be patient with us.
+      </div>
     }
     else{
       var fetch = null;
@@ -68,10 +72,8 @@ var Detail = React.createClass({
 
     return (
       <div className="detail" >
-        <div className="center">
-          {fetch}
-        </div>
-        <DetailPage hotel={this.state.data} />
+        {fetch}
+      <DetailPage hotel={this.state.data} />
       </div>
     );
   }

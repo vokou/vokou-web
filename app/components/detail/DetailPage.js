@@ -73,7 +73,7 @@ var DetailPage = React.createClass({
       return (
         <div className="row">
           <div className="center">
-            Loading BRG detail. Please be patient with us.
+            {/* Loading BRG detail. Please be patient with us. */}
           </div>
         </div>);
 
