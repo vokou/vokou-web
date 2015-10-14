@@ -109,7 +109,6 @@ const Main = React.createClass({
               <a className="navbar-brand" href="#">Logo</a>
             </div>
             <ul className="nav navbar-nav navbar-right">
-              {loginOrUser}
             </ul>
           </div>
         </nav>

@@ -10,17 +10,17 @@ import Invite from '../components/invite/Invite';
 Parse.initialize("JUXCXuysBgoulgFgGDGzc9elQNx4q84XiaDBoYyo", "B7RS0P7Yc5ts80tia2wMoMFBsyVqMFmj9H3JocTK");
 
 function indexRedirect(location, replaceWith) {
-  if (Parse.User.current()) {
+  //if (Parse.User.current()) {
     replaceWith(null, '/search');
-  } else {
-    replaceWith(null, '/invite');
-  }
+  //} else {
+  //  replaceWith(null, '/invite');
+  //}
 }
 
 function authenticate(location, replaceWith) {
-  if (!Parse.User.current()) {
-    replaceWith(null, '/invite');
-  }
+  //if (!Parse.User.current()) {
+  //  replaceWith(null, '/invite');
+  //}
 }
 
 function redirectAfterLogin(locatoin, replaceWith) {
