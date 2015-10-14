@@ -97,7 +97,7 @@
 .canbrg {
   float: right;
   color: black;
-  background-image: url('../../assets/brg.png');
+  background-image: url('https://s3.amazonaws.com/vokou/assets/brg.png');
 }
 
 .nobrg {
@@ -105,7 +105,7 @@
   left: 1px;
   text-decoration:line-through;
   color: white;
-  background-image: url('../../assets/nobrg.png');
+  background-image: url('https://s3.amazonaws.com/vokou/assets/nobrg.png');
 }
 
 /* utility: align things at vertical and horizontal center */

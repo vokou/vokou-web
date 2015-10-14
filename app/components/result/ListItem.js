@@ -2,9 +2,6 @@ import React from 'react';
 import { History, Link } from 'react-router';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import nobrgpng from '../../assets/nobrg.png';
-import brgpng from '../../assets/brg.png';
-
 
 let ThemeManager = new Styles.ThemeManager();
 
