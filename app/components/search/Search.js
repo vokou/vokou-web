@@ -47,10 +47,10 @@ const Search = React.createClass({
     return `${mm}/${dd}/${yy}`;
   },
   handleSearchClick() {
-    if(!Parse.User.current()){
-      alert("Please login first");
-      return;
-    };
+    //if(!Parse.User.current()){
+    //  alert("Please login first");
+    //  return;
+    //};
     
     let destination = this.refs.destination.getValue();
     let checkIn = this.formatDate(this.refs.checkIn.getDate());
