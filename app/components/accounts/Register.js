@@ -21,8 +21,8 @@ var Register = React.createClass({
     };
   },
 
-  submit(e) {
-    /* e.preventDefault(); */
+  register(e) {
+    e.preventDefault();
     let params = {
       password: this.refs.pw.getValue(),
       email:    this.refs.email.getValue(),
@@ -56,7 +56,7 @@ var Register = React.createClass({
     injectTapEventPlugin();
     return (
       <div>
-        <form onSubmit={this.sumbit}>
+        <form onSubmit={this.register}>
           <div className="user-input">
             <TextField ref="code"  hintText="Code" className="pw inputfield"/>
 
@@ -70,14 +70,15 @@ var Register = React.createClass({
               key={2}
               label="Register"
               primary={true}
-              onClick={this.submit}
+              type="submit"
+              
             />
           </div>
         </form>
-          <div className="loginToggle">
-            <a onClick={this.props.toggle}>Already have a account?</a>
-          </div>
-        
+        <div className="loginToggle">
+          <a onClick={this.props.toggle}>Already have a account?</a>
+        </div>
+
       </div>
     );
 
