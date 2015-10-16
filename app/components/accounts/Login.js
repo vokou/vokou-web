@@ -42,8 +42,7 @@ var Login = React.createClass({
         self.history.replaceState(null, '/search');
       },
       error: function(user, error) {
-        console.log(error);
-        debugger;
+        alert(error.message);
       }
     });
     
