@@ -47,7 +47,7 @@ const Main = React.createClass({
       showLogin: true
     })
   },
-  
+
   closeDialog() {
     //this.refs.accountDialog.dismiss();
     this.setState({
@@ -57,9 +57,16 @@ const Main = React.createClass({
   },
 
   onLogout() {
-    Parse.User.logOut();
-    this.history.pushState(null, `/`);
-    this.setState({logedIn: false});
+    let self = this;
+    Parse.User.logOut().then(
+      function(result) {
+        console.log("logout attempt");
+        /* self.history.replaceState(null, '/invite'); */
+        self.history.replaceState(null, `/`);
+        self.setState({logedIn: false});
+      }
+    );
+
   },
 
   onSuccess(){
@@ -82,20 +89,20 @@ const Main = React.createClass({
     };
 
     if(this.state.showLogin){
-      var loginDialog = <Accounts  close={this.closeDialog} onSuccess={this.onSuccess}/>        
+      var loginDialog = <Accounts  close={this.closeDialog} onSuccess={this.onSuccess}/>
     } else {
       var loginDialog = null;
     }
-    console.log(this.props.myprop);
+
     return (
       <div>
         <nav className="navbar navbar-default"
-             style={{
-              backgroundColor: 'black',
-              borderColor: 'black',
-              borderRadius: '0px',
-              marginBottom: '0px'
-             }}>
+          style={{
+            backgroundColor: 'black',
+            borderColor: 'black',
+            borderRadius: '0px',
+            marginBottom: '0px'
+          }}>
           <div className="container-fluid">
             <div className="navbar-header">
               <a className="navbar-brand" href="#">Logo</a>
@@ -105,16 +112,16 @@ const Main = React.createClass({
             </ul>
           </div>
         </nav>
-        
+
         {loginDialog}
 
         {this.props.children}
         <div style={{
-            position: 'fixed',
-            width: '100%',
-            bottom: 0,
-            backgroundColor: 'black'
-          }}>
+          position: 'fixed',
+          width: '100%',
+          bottom: 0,
+          backgroundColor: 'black'
+        }}>
           <div className="container">
             <p style={{marginTop: '20px', marginBottom: '20px', color: '#d3d3d3'}}>
               Ⓒ 2015 Vokou LLC All rights reserved.

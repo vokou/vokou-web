@@ -24,32 +24,36 @@ var Login = React.createClass({
     }
   },
 
-  login(){
+  login(e){
+    e.preventDefault(); 
     let self = this;
     let params = {
       password: this.refs.pw.getValue(),
       email:    this.refs.email.getValue()
     };
-    console.log(this.props.onLogin);
+    
     let onSuccess = this.props.onSuccess;
     let close = this.props.close;
     Parse.User.logIn(params.email, params.password, {
       success: function(user) {
+        console.log("success");
         onSuccess();
         close();
         self.history.replaceState(null, '/search');
       },
       error: function(user, error) {
         console.log(error);
+        debugger;
       }
     });
+    
   },
 
   render() {
     injectTapEventPlugin();
     return (
       <div>
-        <form>
+        <form onSubmit={this.login}>
           <div>
             <p>Sign in to Vokou or create a account</p>
           </div>
@@ -71,7 +75,6 @@ var Login = React.createClass({
               key={2}
               label="Sign in"
               primary={true}
-              onTouchTap={this.login}
               className="login-button"
               type="submit"
             />

@@ -21,8 +21,8 @@ var Register = React.createClass({
     };
   },
 
-  submit() {
-
+  submit(e) {
+    /* e.preventDefault(); */
     let params = {
       password: this.refs.pw.getValue(),
       email:    this.refs.email.getValue(),
@@ -46,6 +46,9 @@ var Register = React.createClass({
             console.log(error);
           }
         });
+      })
+      .catch((response) =>{
+        alert(response);
       });
   },
 
@@ -53,25 +56,28 @@ var Register = React.createClass({
     injectTapEventPlugin();
     return (
       <div>
-        <div className="user-input">
-          <TextField ref="code"  hintText="Code" className="pw inputfield"/>
+        <form onSubmit={this.sumbit}>
+          <div className="user-input">
+            <TextField ref="code"  hintText="Code" className="pw inputfield"/>
 
-          <TextField ref="email"  type="email" hintText="Email address" className="pw inputfield"/>
+            <TextField ref="email"  type="email" hintText="Email address" className="pw inputfield"/>
 
-          <TextField ref="pw"  type="password" hintText="Password" className="pw inputfield"/>
-        </div>
+            <TextField ref="pw"  type="password" hintText="Password" className="pw inputfield"/>
+          </div>
+
+          <div className="loginToggle">
+            <FlatButton
+              key={2}
+              label="Register"
+              primary={true}
+              onClick={this.submit}
+            />
+          </div>
+        </form>
+          <div className="loginToggle">
+            <a onClick={this.props.toggle}>Already have a account?</a>
+          </div>
         
-        <div className="loginToggle">
-          <FlatButton
-            key={2}
-            label="Register"
-            primary={true}
-            onTouchTap={this.submit} />
-        </div>
-
-        <div className="loginToggle">
-          <a onClick={this.props.toggle}>Already have a account?</a>
-        </div>
       </div>
     );
 
