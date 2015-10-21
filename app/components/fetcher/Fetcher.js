@@ -20,7 +20,6 @@ var Fetcher = React.createClass({
     this.dataDOM = document.createElement('div');
 
   },
-
   componentWillReceiveProps(nextProps) {
     if (!nextProps.stop && this.props.stop) {
       let params = this.getParams(nextProps.query);
