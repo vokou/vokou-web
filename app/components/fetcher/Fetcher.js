@@ -63,8 +63,7 @@ var Fetcher = React.createClass({
                   });
                 });
             });
-        }
-        else{
+        } else if (!this.props.stop) {
           hotels = response.data;
           for(var i = 0 ; i < hotels.length ; i++){
             this.props.onUpdate(hotels[i]);
