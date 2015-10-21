@@ -34,11 +34,9 @@ const CompleteMenu = React.createClass({
   },
   hide() {
     this.focus = false;
-    setTimeout(() => {
-      this.setState({
-        list: undefined
-      });
-    }, 100);
+    this.setState({
+      list: undefined
+    });
   },
   show() {
     this.focus = true;
