@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import reqwest from 'reqwest';
 import servers from '../../config/servers.js'
 
@@ -17,7 +18,7 @@ const Invite = React.createClass({
   handleSubmit(e) {
     e.preventDefault();
     let self = this;
-    let email = React.findDOMNode(this.refs.email).value.trim();
+    let email = ReactDOM.findDOMNode(this.refs.email).value.trim();
     if (!validateEmail(email)) {
       this.setState({
         err: 'Please enter valid email address'
