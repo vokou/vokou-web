@@ -7,18 +7,9 @@ import Fetcher from '../fetcher/Fetcher';
 import HotelList from './HotelList'
 require("./result.css");
 
-let ThemeManager = new Styles.ThemeManager();
-
 var Result = React.createClass({
   mixins: [History],
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
+
   isLocalStorageOn() {
     // this code is borrowed from modernizer
     let mod = 'react-count';

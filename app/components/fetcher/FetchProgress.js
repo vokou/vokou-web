@@ -1,16 +1,7 @@
 import React from 'react';
 import { LinearProgress, CircularProgress, Styles } from 'material-ui';
-let ThemeManager = new Styles.ThemeManager();
 
 var FetchProgress = React.createClass({
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
   render() {
     return (
       <div>

@@ -2,17 +2,8 @@ import React from 'react';
 import { TextField, Styles } from 'material-ui';
 import CompleteMenu from './CompleteMenu.js';
 import cityList from '../../utils/cityList.json';
-let ThemeManager = new Styles.ThemeManager();
 
 const DestInput = React.createClass({
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
   getValue() {
     return this.refs.destination.getValue();
   },

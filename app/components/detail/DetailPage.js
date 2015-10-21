@@ -3,20 +3,7 @@ import {FlatButton, Styles, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 require("./detail.css");
 
-let ThemeManager = new Styles.ThemeManager();
-
 var DetailPage = React.createClass({
-
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
-
   componentWillReceiveProps(nextProps){
     let hotel = nextProps["hotel"];
     this.setState({

@@ -6,20 +6,8 @@ import axios from 'axios';
 import servers from '../../config/servers';
 import Parse from 'parse';
 
-let ThemeManager = new Styles.ThemeManager();
-
-
 var Register = React.createClass({
   mixins: [History],
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
 
   register(e) {
     e.preventDefault();

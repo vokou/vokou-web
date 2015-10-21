@@ -4,18 +4,10 @@ import { TextField, DatePicker, FloatingActionButton, Styles } from 'material-ui
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import DestInput from './DestInput.js';
 import Parse from 'parse';
-let ThemeManager = new Styles.ThemeManager();
 
 const Search = React.createClass({
   mixins: [History],
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
+
   getInitialState() {
     let minCheckInDate = new Date();
     minCheckInDate = new Date(minCheckInDate.getTime() + 86400000);

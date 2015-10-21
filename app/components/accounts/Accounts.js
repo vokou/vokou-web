@@ -5,20 +5,7 @@ import Login from './Login';
 import Register from './Register';
 require('./account.css');
 
-let ThemeManager = new Styles.ThemeManager();
-
-
 var Accounts = React.createClass({
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
-
   mixins: [
     require('react-onclickoutside')
   ],

@@ -3,20 +3,9 @@ import { History } from 'react-router';
 import { Styles, TextField, FlatButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Parse from 'parse';
-let ThemeManager = new Styles.ThemeManager();
-
 
 var Login = React.createClass({
   mixins: [History],
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
 
   getInitialState(){
     return {

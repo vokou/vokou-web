@@ -4,19 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import ListItem from './ListItem';
 import _ from 'underscore';
 
-let ThemeManager = new Styles.ThemeManager();
-
 var HotelList = React.createClass({
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
-  
   compare(a, b) {
     if (a.brg&&!b.brg)
       return -1;

@@ -3,21 +3,8 @@ import { History, Link } from 'react-router';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-let ThemeManager = new Styles.ThemeManager();
-
 var ListItem = React.createClass({
   mixins: [History],
-
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
-
 
   componentWillMount(){
     let hotel = this.props.hotel;

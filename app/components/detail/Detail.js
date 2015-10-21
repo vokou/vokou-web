@@ -4,17 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Fetcher from '../fetcher/DetailFetcher';
 import DetailPage from './DetailPage'
 
-
-let ThemeManager = new Styles.ThemeManager();
 var Detail = React.createClass({
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  },
   getInitialState() {
     //console.log(this.props.params);
     let params = this.props.params;
