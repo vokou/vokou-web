@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import sha1 from 'sha1';
 import reqwest from 'reqwest';
 import servers from '../../config/servers';
 import FetchProgress from './FetchProgress';
@@ -17,7 +18,7 @@ var Fetcher = React.createClass({
     let params = this.getParams(this.props.query);
     this.fetch(params, ++this.searchID);
     this.dataDOM = document.createElement('div');
-    
+
   },
   componentWillReceiveProps(nextProps) {
     if (!nextProps.stop && this.props.stop) {
@@ -32,32 +33,56 @@ var Fetcher = React.createClass({
   fetch(params, id) {
     let hotels = [];
     //console.log(params);
+    var hash = params.checkin+params.checkout+params.city+params.source;
+    hash = sha1(hash);
+    console.log(hash);
     axios
-      .get('https://vokou.parseapp.com/search', { params: params })
-      .then((response) => {
-        params.secret = response.data;
-        axios
-          .get(`${servers.api}/search`, { params: params })
-          .then((response) => {
-            hotels = this.transformHotelsArray(response.data);
-            //console.log('OK');
-            console.log(`${servers.proxy}/http://hotelscombined.com`);
-            let self = this;            
-            reqwest({
-              url: `${servers.proxy}/http://hotelscombined.com`,
-              method: 'get',
-              withCredentials: true,
-              success: function() {
-                console.log("success!");
-                self.getHotelsInformation(hotels, 0, id);
-              }
+      .get('https://vokou.parseapp.com/cache/'+hash)
+      .then((response)=>{
+        if(response.data == 'FAIL'){
+          console.log("Not match");
+          axios
+            .get('https://vokou.parseapp.com/search', { params: params })
+            .then((response) => {
+              params.secret = response.data;
+              axios
+                .get(`${servers.api}/search`, { params: params })
+                .then((response) => {
+                  hotels = this.transformHotelsArray(response.data);
+                  //console.log('OK');
+                  console.log(`${servers.proxy}/http://hotelscombined.com`);
+                  let self = this;
+                  reqwest({
+                    url: `${servers.proxy}/http://hotelscombined.com`,
+                    method: 'get',
+                    withCredentials: true,
+                    success: function() {
+                      console.log("success!");
+                      self.getHotelsInformation(hotels, 0, id, hash);
+                    }
+                  });
+                });
             });
-          })
+        }
+        else{
+          hotels = response.data;
+          for(var i = 0 ; i < hotels.length ; i++){
+            this.props.onUpdate(hotels[i]);
+          }
+          //Need to clean hotel
+          this.props.onFinish();
+
+        }
       });
   },
-  getHotelsInformation(hotels, index, id) {
+  getHotelsInformation(hotels, index, id, hash) {
     if (index == hotels.length) {
       this.props.onFinish();
+      if(index != 0){
+        axios.post('https://vokou.parseapp.com/cache/'+hash, {
+          result: JSON.stringify(hotels)
+        });
+      }
       return;
     }
 
@@ -93,14 +118,14 @@ var Fetcher = React.createClass({
             percentage: Math.round(100 * (index + 1.0) / hotels.length)
           });
           //console.log(index);
-          this.getHotelsInformation(hotels, index + 1, id);
+          this.getHotelsInformation(hotels, index + 1, id, hash);
         }, () => {
           hotels[index].brgPrice = null;
           this.props.onUpdate(hotels[index]);
           this.setState({
             percentage: Math.round(100 * (index + 1.0) / hotels.length)
           });
-          this.getHotelsInformation(hotels, index + 1, id);
+          this.getHotelsInformation(hotels, index + 1, id, hash);
         });
   },
   transformHotelsArray(hotels) {
