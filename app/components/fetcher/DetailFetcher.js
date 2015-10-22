@@ -74,7 +74,7 @@ var DetailFetcher = React.createClass({
     axios
       .get('https://vokou.parseapp.com/cache/'+hash, {params: {id: this.props.query.propID}})
       .then((response)=>{
-        
+        console.log(response.data);
         if(response.data == 'FAIL'){
           console.log("no cache");
             axios
@@ -129,8 +129,18 @@ var DetailFetcher = React.createClass({
                     }});})})}else{
                       console.log("found cache");
                       let hotel = response.data;
-                      console.log(hotel);
-                      let u = servers.proxy + '/http://www.hotelscombined.com/' + hotel.url;
+                      hotel.img = hotel.detailImgs[0];
+                      hotel.img_1 = hotel.detailImgs[1].replace('_xx', '_ss');
+                      hotel.img_2 = hotel.detailImgs[2].replace('_xx', '_ss');
+                      hotel.img_3 = hotel.detailImgs[3].replace('_xx', '_ss');
+                      
+                      if(hotel.brgPrice == null){
+                        
+                        this.props.onFinish(hotel);
+                        
+                      }else{
+                        
+                        let u = servers.proxy + '/http://www.hotelscombined.com/' + hotel.url;
                       let self=this;
                       reqwest({
                         url: u,
@@ -141,16 +151,12 @@ var DetailFetcher = React.createClass({
                           let starti = resp.indexOf("url") + 7;
                           let endi = resp.indexOf("\'", starti + 7);
                           let brgurl = resp.substring(starti, endi);
-                          hotel.img = hotel.detailImgs[0];
-                          hotel.img_1 = hotel.detailImgs[1].replace('_xx', '_ss');
-                          hotel.img_2 = hotel.detailImgs[2].replace('_xx', '_ss');
-                          hotel.img_3 = hotel.detailImgs[3].replace('_xx', '_ss');
                           hotel.url = brgurl;
                           console.log(hotel);
                           self.props.onFinish(hotel);
                         }
                       })
-                    }})
+                    }}})
   },
 
   render() {
