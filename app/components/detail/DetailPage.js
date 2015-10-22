@@ -1,6 +1,7 @@
 import React from 'react';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import servers from '../../config/servers'
 require("./detail.css");
 
 var DetailPage = React.createClass({
@@ -46,12 +47,13 @@ var DetailPage = React.createClass({
   },
 
   goBRG(){
-    
-    window.open(this.state.brgurl);
+    let escapeURL = this.state.brgurl.replace(/\?/g, '%3F').replace(/&/g, '%26');
+    window.open(`${servers.vokou}redirect?url=${escapeURL}`);
   },
 
   goSPG(){
-    window.open(this.state.spgurl);
+    let escapeURL = this.state.spgurl.replace(/\?/g, '%3F').replace(/&/g, '%26');
+    window.open(`${servers.vokou}redirect?url=${escapeURL}`);
   },
   render() {
     injectTapEventPlugin();
@@ -84,18 +86,18 @@ var DetailPage = React.createClass({
     if(this.state.available){
       if(this.state.price === this.state.oldPrice || this.state.price==null){
         price =
-        <div>
-          <strong className="number">{this.state.oldPrice}$/Night</strong>
-        </div>
+          <div>
+            <strong className="number">{this.state.oldPrice}$/Night</strong>
+          </div>
       }else{
         price =
-        <div>
-          <strike className="number">{this.state.oldPrice}$</strike>&nbsp;
-          <strong className="number">{this.state.price}$/Night</strong>
-        </div>
+          <div>
+            <strike className="number">{this.state.oldPrice}$</strike>&nbsp;
+            <strong className="number">{this.state.price}$/Night</strong>
+          </div>
       }
     }else{
-      price = 
+      price =
         <p>
           No room available!
         </p>
@@ -108,18 +110,18 @@ var DetailPage = React.createClass({
       <div>
         <div className="container big-img-container" >
           <img src={this.state.image}
-            className="big-img img-responsive"/>
+               className="big-img img-responsive"/>
         </div>
         <div className="container">
           <div className="row detail-hotel-info">
             <div className="col-md-7 row-height sq-img-container" >
-                <img src={this.state.image1} className="sq-img"/>
-                <img src={this.state.image2} className="sq-img"/>
-                <img src={this.state.image3} className="sq-img"/>
+              <img src={this.state.image1} className="sq-img"/>
+              <img src={this.state.image2} className="sq-img"/>
+              <img src={this.state.image3} className="sq-img"/>
             </div>
             <div className="col-md-5 row-height">
               <h3 className="detail-text">
-                {this.state.name} 
+                {this.state.name}
               </h3>
               <p className="detail-location">
                 {this.state.location}
