@@ -119,14 +119,14 @@ var DetailPage = React.createClass({
               <img src={this.state.image2} className="sq-img"/>
               <img src={this.state.image3} className="sq-img"/>
             </div>
-            <div className="col-md-5 row-height">
+            <div className="col-md-5">
               <h3 className="detail-text">
                 {this.state.name}
               </h3>
               <div className="detail-location">
                 {this.state.location}
               </div>
-              <div className="points-string detail-text">
+              <div className="points-string-detail detail-text">
                 {price}
                 {pointsString}
               </div>
