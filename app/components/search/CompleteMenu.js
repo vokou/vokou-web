@@ -29,6 +29,9 @@ const CompleteMenu = React.createClass({
       list: list
     });
   },
+  handleMouseDown(e) {
+    e.preventDefault();
+  },
   handleClick(city) {
     this.props.handleFill(city);
   },
@@ -50,7 +53,7 @@ const CompleteMenu = React.createClass({
       ulStyle.top = '70px';
     }
     return (
-      <ul className="menu" style={ulStyle}>
+      <ul className="menu" style={ulStyle} onMouseDown={this.handleMouseDown}>
         {this.state.list}
       </ul>
     );

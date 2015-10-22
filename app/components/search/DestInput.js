@@ -35,13 +35,14 @@ const DestInput = React.createClass({
     }
   },
   handleBlur() {
-    setTimeout(() => this.refs.menu.hide(), 100);
+    this.refs.menu.hide();
   },
   handleFocus() {
     this.refs.menu.show();
   },
   handleFill(city) {
     this.refs.destination.setValue(city);
+    this.refs.destination.blur();
   },
   render() {
     return (
