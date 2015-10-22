@@ -48,12 +48,12 @@ var DetailPage = React.createClass({
 
   goBRG(){
     let escapeURL = this.state.brgurl.replace(/\?/g, '%3F').replace(/&/g, '%26');
-    window.open(`${servers.vokou}redirect?url=${escapeURL}`);
+    window.open(`${servers.vokou}redirect?url=${escapeURL}&type=brg`);
   },
 
   goSPG(){
     let escapeURL = this.state.spgurl.replace(/\?/g, '%3F').replace(/&/g, '%26');
-    window.open(`${servers.vokou}redirect?url=${escapeURL}`);
+    window.open(`${servers.vokou}redirect?url=${escapeURL}&type=spg`);
   },
   render() {
     injectTapEventPlugin();

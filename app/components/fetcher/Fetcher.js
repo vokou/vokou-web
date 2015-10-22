@@ -15,6 +15,7 @@ var Fetcher = React.createClass({
   },
   componentDidMount() {
     this.searchID = 0;
+    this.found = false;
     let params = this.getParams(this.props.query);
     this.fetch(params, ++this.searchID);
     this.dataDOM = document.createElement('div');
@@ -22,6 +23,7 @@ var Fetcher = React.createClass({
   },
   componentWillReceiveProps(nextProps) {
     if (!nextProps.stop && this.props.stop) {
+      this.found = false;
       let params = this.getParams(nextProps.query);
       this.setState({
         percentage: 0,
@@ -104,6 +106,10 @@ var Fetcher = React.createClass({
           if (!result.err && result.price < price * days * 0.99 && result.price != -1) {
             hotels[index].brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
             hotels[index].url = result.url;
+            if (!this.found) {
+              reqwest(`${servers.vokou}foundBRG`, () => {});
+              this.found = true;
+            }
           } else {
             hotels[index].brgPrice = null;
           }
