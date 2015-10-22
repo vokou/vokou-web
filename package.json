@@ -28,6 +28,7 @@
     "parse": "^1.6.5",
     "qwery": "^4.0.0",
     "react": "^0.14.0",
+    "react-modal": "^0.6.0",
     "react-router": "^1.0.0-rc3",
     "react-tap-event-plugin": "^0.2.1",
     "reqwest": "^2.0.1",

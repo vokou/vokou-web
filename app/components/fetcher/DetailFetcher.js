@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import FetchProgress from './FetchProgress';
+import sha1 from 'sha1';
 import { CircularProgress, Styles } from 'material-ui';
 import servers from '../../config/servers';
 import _ from 'underscore';
@@ -14,11 +14,11 @@ var DetailFetcher = React.createClass({
   },
 
   componentDidMount (){
-//    this.dataDOM = document.createElement('div');
+    //    this.dataDOM = document.createElement('div');
 
     this.fetch(this.props.query);
   },
-  
+
   differenceBetweenDates(day1, day2) {
     let ms = day2 - day1;
     return Math.round(ms / 1000 / 60 / 60 / 24);
@@ -69,63 +69,88 @@ var DetailFetcher = React.createClass({
     } else if (destination.length > 1) {
       params.country = destination[1];
     }
-
-    //console.log(params);
+    var hash = params.checkin+params.checkout+params.city+params.source;
+    hash = sha1(hash);
     axios
-      .get('https://vokou.parseapp.com/search', { params: params })
-      .then((response) => {
-        params.secret = response.data;
-        params.hotelname = this.props.query.hotelname;
-        params.propID = this.props.query.propID;
-        axios
-          .get(servers.api + '/search', { params: params })
-          .then((response) => {
-            let hotel = this.formatHotelData(response.data);
-            let price = hotel.original;
-            
-            let self = this;
-            reqwest({
-              url: `${servers.proxy}/http://hotelscombined.com`,
-              method: 'get',
-              withCredentials: true,
-              success: function() {
-                //the dom created at componentDiDmount does not work;
-                var d = document.createElement('div');
+      .get('https://vokou.parseapp.com/cache/'+hash, {params: {id: this.props.query.propID}})
+      .then((response)=>{
+        
+        if(response.data == 'FAIL'){
+          console.log("no cache");
+            axios
+            .get('https://vokou.parseapp.com/search', { params: params })
+            .then((response) => {
+              params.secret = response.data;
+              params.hotelname = this.props.query.hotelname;
+              params.propID = this.props.query.propID;
+              axios
+                .get(servers.api + '/search', { params: params })
+                .then((response) => {
+                  let hotel = this.formatHotelData(response.data);
+                  let price = hotel.original;
 
-                clientFetch(d, hotel.url,
-                            result => {
-                              
-                              if (!result.err && result.price < price * days * 0.99) {
-                                hotel.brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
-                                /* translate url to real url */
-                                var u = servers.proxy + '/http://www.hotelscombined.com/' + result.url;
-                                reqwest({
-                                  url: u,
-                                  method: 'get',
-                                  success: function (resp) {
-                                    // get the part start from url = 'h<- this 'h'
-                                    let starti = resp.indexOf("url") + 7;
-                                    let endi = resp.indexOf("\'", starti + 7);
-                                    let brgurl = resp.substring(starti, endi);
-                                    hotel.url = brgurl;
+                  let self = this;
+                  reqwest({
+                    url: `${servers.proxy}/http://hotelscombined.com`,
+                    method: 'get',
+                    withCredentials: true,
+                    success: function() {
+                      //the dom created at componentDiDmount does not work;
+                      var d = document.createElement('div');
+
+                      clientFetch(d, hotel.url,
+                                  result => {
+
+                                    if (!result.err && result.price < price * days * 0.99) {
+                                      hotel.brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
+                                      /* translate url to real url */
+                                      var u = servers.proxy + '/http://www.hotelscombined.com/' + result.url;
+                                      reqwest({
+                                        url: u,
+                                        method: 'get',
+                                        success: function (resp) {
+                                          // get the part start from url = 'h<- this 'h'
+                                          let starti = resp.indexOf("url") + 7;
+                                          let endi = resp.indexOf("\'", starti + 7);
+                                          let brgurl = resp.substring(starti, endi);
+                                          hotel.url = brgurl;
+                                          self.props.onFinish(hotel);
+                                        }
+                                      })
+                                    } else {
+                                      hotel.brgPrice = null;
+                                      self.props.onFinish(hotel);
+                                    }
+
+                                  }, () => {
+                                    hotel.brgPrice = null;
                                     self.props.onFinish(hotel);
-                                  }
-                                })
-                              } else {
-                                hotel.brgPrice = null;
-                                self.props.onFinish(hotel);
-                              }
-
-                            }, () => {
-                              hotel.brgPrice = null;
-                              self.props.onFinish(hotel);
-                            });
-              }
-            });
-          })
-      });
-    
-    
+                                  });
+                    }});})})}else{
+                      console.log("found cache");
+                      let hotel = response.data;
+                      console.log(hotel);
+                      let u = servers.proxy + '/http://www.hotelscombined.com/' + hotel.url;
+                      let self=this;
+                      reqwest({
+                        url: u,
+                        method: 'get',
+                        success: function (resp) {
+                          // get the part start from url = 'h<- this 'h'
+                          
+                          let starti = resp.indexOf("url") + 7;
+                          let endi = resp.indexOf("\'", starti + 7);
+                          let brgurl = resp.substring(starti, endi);
+                          hotel.img = hotel.detailImgs[0];
+                          hotel.img_1 = hotel.detailImgs[1].replace('_xx', '_ss');
+                          hotel.img_2 = hotel.detailImgs[2].replace('_xx', '_ss');
+                          hotel.img_3 = hotel.detailImgs[3].replace('_xx', '_ss');
+                          hotel.url = brgurl;
+                          console.log(hotel);
+                          self.props.onFinish(hotel);
+                        }
+                      })
+                    }})
   },
 
   render() {

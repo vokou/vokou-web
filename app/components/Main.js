@@ -4,7 +4,7 @@ import { Styles, Dialog, FlatButton, RaisedButton} from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Accounts from './accounts/Accounts';
 import Parse from 'parse';
-
+import Modal from 'react-modal';
 
 let ThemeManager = Styles.ThemeManager;
 
@@ -23,7 +23,8 @@ const Main = React.createClass({
   getInitialState(){
     return {
       logedIn: false,
-      showLogin: false
+      showLogin: false,
+      feedbackOpen: false
     }
   },
 
@@ -73,6 +74,14 @@ const Main = React.createClass({
     this.setState({logedIn: true});
   },
 
+  openFeedback: function() {
+    this.setState({feedbackOpen: true});
+  },
+
+  closeFeedback: function() {
+    this.setState({feedbackOpen: false});
+  },
+  
   render() {
     injectTapEventPlugin();
     if(this.state.logedIn){
@@ -126,6 +135,24 @@ const Main = React.createClass({
             <p style={{marginTop: '20px', marginBottom: '20px', color: '#d3d3d3'}}>
               Ⓒ 2015 Vokou LLC All rights reserved.
             </p>
+            <div onClick={this.openFeedback}>Feedback</div>
+            <Modal
+              isOpen={this.state.feedbackOpen}
+              onRequestClose={this.closeFeedback}
+               >
+
+              <h2>Hello</h2>
+              
+              <div>I am a modal</div>
+              <form>
+                <input />
+                <button>tab navigation</button>
+                <button>stays</button>
+                <button>inside</button>
+                <button>the modal</button>
+              </form>
+            </Modal>
+            
           </div>
         </div>
       </div>
