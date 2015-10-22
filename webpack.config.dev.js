@@ -12,9 +12,16 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/static/'
   },
+  externals:{
+    "jquery": "jQuery"
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.ProvidePlugin({
+      $: "jQuery",
+      jquery: "jQuery"
+    })
   ],
   module: {
     loaders: [

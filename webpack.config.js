@@ -3,6 +3,10 @@ module.exports = {
   output: {
     filename: "build/bundle.js"
   },
+  externals:{
+    "jquery": "jQuery"
+  },
+
   module: {
     loaders: [
       {

@@ -4,7 +4,7 @@ import { Styles, Dialog, FlatButton, RaisedButton} from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Accounts from './accounts/Accounts';
 import Parse from 'parse';
-
+import Feedback from './feedback/Feedback';
 
 let ThemeManager = Styles.ThemeManager;
 
@@ -95,6 +95,7 @@ const Main = React.createClass({
     }
 
     return (
+    
       <div>
         <nav className="navbar navbar-default"
           style={{
@@ -126,7 +127,7 @@ const Main = React.createClass({
             <p style={{marginTop: '20px', marginBottom: '20px', color: '#d3d3d3'}}>
               Ⓒ 2015 Vokou LLC All rights reserved.
             </p>
-            
+            <Feedback/>
           </div>
         </div>
       </div>
