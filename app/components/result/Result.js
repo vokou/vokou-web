@@ -1,4 +1,5 @@
 import React from 'react';
+import { Styles } from 'material-ui';
 import { History } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Search from '../search/Search';
@@ -53,7 +54,7 @@ var Result = React.createClass({
       fetching: false
     };
     this.setState(newState);
-
+    
   },
   handleNewSearch() {
     this.setState({
@@ -74,19 +75,7 @@ var Result = React.createClass({
   },
   render() {
     injectTapEventPlugin();
-    let Fetch;
-    if(!this.state.fetching){
-      Fetch = <div className="row">
-                <br/>
-                <br/>
-              </div>
-    }else{
-      Fetch = <Fetcher
-                query={this.props.location.query}
-                stop={!this.state.fetching}
-                onUpdate={this.handleUpdate}
-                onFinish={this.handleFinish} />
-    }
+
     return (
       <div className="container" style={{paddingBottom:'60px'}}>
         <div className="result">
@@ -96,9 +85,14 @@ var Result = React.createClass({
             onNewSearch={this.handleNewSearch}
             onCancel={this.handleCancelSearch} />
 
-          {Fetch}
-          
+          <Fetcher
+            query={this.props.location.query}
+            stop={!this.state.fetching}
+            onUpdate={this.handleUpdate}
+            onFinish={this.handleFinish} />
+
           <HotelList data={this.state.data} query={this.props.location.query} />
+
         </div>
       </div>
     );

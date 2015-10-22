@@ -20,7 +20,6 @@ var Fetcher = React.createClass({
     this.dataDOM = document.createElement('div');
 
   },
-
   componentWillReceiveProps(nextProps) {
     if (!nextProps.stop && this.props.stop) {
       let params = this.getParams(nextProps.query);
@@ -64,8 +63,7 @@ var Fetcher = React.createClass({
                   });
                 });
             });
-        }
-        else{
+        } else if (!this.props.stop) {
           hotels = response.data;
           for(var i = 0 ; i < hotels.length ; i++){
             this.props.onUpdate(hotels[i]);

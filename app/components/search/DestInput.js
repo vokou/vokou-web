@@ -35,7 +35,7 @@ const DestInput = React.createClass({
     }
   },
   handleBlur() {
-    this.refs.menu.hide();
+    setTimeout(() => this.refs.menu.hide(), 100);
   },
   handleFocus() {
     this.refs.menu.show();
