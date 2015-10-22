@@ -139,7 +139,8 @@ var Fetcher = React.createClass({
         name: hotel.name,
         available: hotel.lsp ? true : false,
         original: hotel.lsp ? hotel.lsp : 9999,
-        url: hotel.url
+        url: hotel.url,
+        spgURL: hotel.spgurl
       };
 
       if (hotel.detail) {
