@@ -141,7 +141,10 @@ var DetailFetcher = React.createClass({
                           let starti = resp.indexOf("url") + 7;
                           let endi = resp.indexOf("\'", starti + 7);
                           let brgurl = resp.substring(starti, endi);
-                          
+                          hotel.img = hotel.detailImgs[0];
+                          hotel.img_1 = hotel.detailImgs[1].replace('_xx', '_ss');
+                          hotel.img_2 = hotel.detailImgs[2].replace('_xx', '_ss');
+                          hotel.img_3 = hotel.detailImgs[3].replace('_xx', '_ss');
                           hotel.url = brgurl;
                           console.log(hotel);
                           self.props.onFinish(hotel);

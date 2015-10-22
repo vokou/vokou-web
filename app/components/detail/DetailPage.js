@@ -121,13 +121,13 @@ var DetailPage = React.createClass({
               <h3 className="detail-text">
                 {this.state.name} 
               </h3>
-              <p className="detail-location">
+              <div className="detail-location">
                 {this.state.location}
-              </p>
-              <p className="points-string detail-text">
+              </div>
+              <div className="points-string detail-text">
                 {price}
                 {pointsString}
-              </p>
+              </div>
               <div className="detail-all">
                 <RaisedButton label="Go To SPG" secondary={true} onClick={this.goSPG}/>
               </div>
