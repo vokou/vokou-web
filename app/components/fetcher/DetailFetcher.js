@@ -39,7 +39,7 @@ var DetailFetcher = React.createClass({
       hotelObj.thumbnail = _.map(thumbnail, (n)=>{
         return n.replace('_xx', '_ss');
       })
-      hotelObj.propertyID = hotel.detail.id;
+        hotelObj.propertyID = hotel.detail.id;
     }
     /* TODO: server does not support points plan yet */
     let pointsPlan = {value: parseFloat(Math.round(hotel.pp.value * 10000) / 10000),
@@ -75,10 +75,10 @@ var DetailFetcher = React.createClass({
     axios
       .get('https://vokou.parseapp.com/cache/'+hash, {params: {id: this.props.query.propID}})
       .then((response)=>{
-        console.log(response.data);
+        
         if(response.data == 'FAIL'){
           console.log("no cache");
-            axios
+          axios
             .get('https://vokou.parseapp.com/search', { params: params })
             .then((response) => {
               params.secret = response.data;
@@ -128,37 +128,36 @@ var DetailFetcher = React.createClass({
                                     self.props.onFinish(hotel);
                                   });
                     }});})})}else{
-                      console.log("found cache");
+                
                       let hotel = response.data;
                       hotel.img = hotel.detailImgs;
-                      let thumbnail = hotelObj.img;
+                      let thumbnail = hotel.img;
+                      
                       hotel.thumbnail = _.map(thumbnail, (n)=>{
                         return n.replace('_xx', '_ss');
-                      })
-
+                      });
+                      
                       if(hotel.brgPrice == null){
-                        
                         this.props.onFinish(hotel);
-                        
                       }else{
-                        
+
                         let u = servers.proxy + '/http://www.hotelscombined.com/' + hotel.url;
-                      let self=this;
-                      reqwest({
-                        url: u,
-                        method: 'get',
-                        success: function (resp) {
-                          // get the part start from url = 'h<- this 'h'
-                          
-                          let starti = resp.indexOf("url") + 7;
-                          let endi = resp.indexOf("\'", starti + 7);
-                          let brgurl = resp.substring(starti, endi);
-                          hotel.url = brgurl;
-                          console.log(hotel);
-                          self.props.onFinish(hotel);
-                        }
-                      })
-                    }}})
+                        let self=this;
+                        reqwest({
+                          url: u,
+                          method: 'get',
+                          success: function (resp) {
+                            // get the part start from url = 'h<- this 'h'
+
+                            let starti = resp.indexOf("url") + 7;
+                            let endi = resp.indexOf("\'", starti + 7);
+                            let brgurl = resp.substring(starti, endi);
+                            hotel.url = brgurl;
+                            
+                            self.props.onFinish(hotel);
+                          }
+                        })
+                      }}})
   },
 
   render() {
