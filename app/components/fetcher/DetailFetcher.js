@@ -3,7 +3,7 @@ import axios from 'axios';
 import sha1 from 'sha1';
 import { CircularProgress, Styles } from 'material-ui';
 import servers from '../../config/servers';
-import _ from 'underscore';
+import _ from 'lodash';
 import clientFetch from './clientFetch';
 import reqwest from 'reqwest';
 
@@ -34,10 +34,11 @@ var DetailFetcher = React.createClass({
 
     if (hotel.detail) {
       hotelObj.address = hotel.detail.address;
-      hotelObj.img = hotel.detail.img[0];
-      hotelObj.img_1 = hotel.detail.img[1].replace('_xx', '_ss');
-      hotelObj.img_2 = hotel.detail.img[2].replace('_xx', '_ss');
-      hotelObj.img_3 = hotel.detail.img[3].replace('_xx', '_ss');
+      hotelObj.img = hotel.detail.img;
+      let thumbnail = hotelObj.img;
+      hotelObj.thumbnail = _.map(thumbnail, (n)=>{
+        return n.replace('_xx', '_ss');
+      })
       hotelObj.propertyID = hotel.detail.id;
     }
     /* TODO: server does not support points plan yet */
@@ -129,11 +130,12 @@ var DetailFetcher = React.createClass({
                     }});})})}else{
                       console.log("found cache");
                       let hotel = response.data;
-                      hotel.img = hotel.detailImgs[0];
-                      hotel.img_1 = hotel.detailImgs[1].replace('_xx', '_ss');
-                      hotel.img_2 = hotel.detailImgs[2].replace('_xx', '_ss');
-                      hotel.img_3 = hotel.detailImgs[3].replace('_xx', '_ss');
-                      
+                      hotel.img = hotel.detailImgs;
+                      let thumbnail = hotelObj.img;
+                      hotel.thumbnail = _.map(thumbnail, (n)=>{
+                        return n.replace('_xx', '_ss');
+                      })
+
                       if(hotel.brgPrice == null){
                         
                         this.props.onFinish(hotel);

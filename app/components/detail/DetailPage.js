@@ -2,6 +2,7 @@ import React from 'react';
 import {FlatButton, Styles, RaisedButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import servers from '../../config/servers'
+import Lightbox from '../../libs/imgGalery/Lightbox';
 require("./detail.css");
 
 var DetailPage = React.createClass({
@@ -9,9 +10,7 @@ var DetailPage = React.createClass({
     let hotel = nextProps["hotel"];
     this.setState({
       "image":            hotel.img,
-      "image1":           hotel.img_1,
-      "image2":           hotel.img_2,
-      "image3":           hotel.img_3,
+      "thumbnail":        hotel.thumbnail, 
       "price":            hotel.brgPrice,
       "oldPrice":         hotel.original,
       "pValue":           hotel.pointsPlan.value,
@@ -24,15 +23,15 @@ var DetailPage = React.createClass({
       "cover":            hotel.cover,
       "brgurl":           hotel.url,
       "spgurl":           hotel.spgURL,
+      "galleryOpen":      false,
+      "index":            null
     });
   },
 
   componentWillMount(){
     this.setState({
       "image":            null,
-      "image1":           null,
-      "image2":           null,
-      "image3":           null,
+      "thumbnail":        null,
       "price":            null,
       "oldPrice":         null,
       "pValue":           null,
@@ -42,7 +41,9 @@ var DetailPage = React.createClass({
       "pointsPlan":       null,
       "pointsAvailable":  null,
       "available":        null,
-      "cover": null
+      "cover":            null,
+      "galleryOpen":      false,
+      "index":            null
     });
   },
 
@@ -55,6 +56,15 @@ var DetailPage = React.createClass({
     let escapeURL = this.state.spgurl.replace(/\?/g, '%3F').replace(/&/g, '%26');
     window.open(`${servers.vokou}redirect?url=${escapeURL}&type=spg`);
   },
+
+  openGallery(i){
+    this.setState({galleryOpen: true, index: i});
+  },
+
+  closeGallery(){
+    this.setState({galleryOpen: false});
+  },
+
   render() {
     injectTapEventPlugin();
     /* loading detail from server */
@@ -65,8 +75,6 @@ var DetailPage = React.createClass({
             {/* Loading BRG detail. Please be patient with us. */}
           </div>
         </div>);
-
-
     let pointsString;
     if(this.state.pointsAvailable && this.state.pValue != 0){
       pointsString = "or Use "+this.state.pointsPlan+" as "+this.state.pValue+"$/point";
@@ -86,39 +94,53 @@ var DetailPage = React.createClass({
     if(this.state.available){
       if(this.state.price === this.state.oldPrice || this.state.price==null){
         price =
-          <div>
-            <strong className="number">{this.state.oldPrice}$/Night</strong>
-          </div>
+        <div>
+          <strong className="number">{this.state.oldPrice}$/Night</strong>
+        </div>
       }else{
         price =
-          <div>
-            <strike className="number">{this.state.oldPrice}$</strike>&nbsp;
-            <strong className="number">{this.state.price}$/Night</strong>
-          </div>
+        <div>
+          <strike className="number">{this.state.oldPrice}$</strike>&nbsp;
+          <strong className="number">{this.state.price}$/Night</strong>
+        </div>
       }
     }else{
       price =
-        <p>
-          No room available!
-        </p>
+      <p>
+        No room available!
+      </p>
     }
-
-
-
+    
     return (
 
       <div>
         <div className="container big-img-container" >
-          <img src={this.state.image}
-               className="big-img img-responsive"/>
+          <img src={this.state.image[0]}
+            className="big-img img-responsive"/>
         </div>
         <div className="container">
           <div className="row detail-hotel-info">
+            <Lightbox
+	      images={this.state.image}
+	      isOpen={this.state.galleryOpen}
+              onClose={this.closeGallery}
+              initialImage={this.state.index}
+	    />
             <div className="col-md-7 row-height sq-img-container" >
-              <img src={this.state.image1} className="sq-img"/>
-              <img src={this.state.image2} className="sq-img"/>
-              <img src={this.state.image3} className="sq-img"/>
-            </div>
+              <img
+                src={this.state.thumbnail[1]}
+                onClick={this.openGallery.bind(this, 1)}
+                className="sq-img"/>
+              <img
+                src={this.state.thumbnail[2]}
+                onClick={this.openGallery.bind(this, 2)}
+                className="sq-img"/>
+              <img
+                src={this.state.thumbnail[3]}
+                onClick={this.openGallery.bind(this, 3)}
+                className="sq-img"/>
+            </div>;
+            
             <div className="col-md-5">
               <h3 className="detail-text">
                 {this.state.name}

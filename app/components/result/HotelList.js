@@ -2,7 +2,7 @@ import React from 'react';
 import {Styles } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ListItem from './ListItem';
-import _ from 'underscore';
+import _ from 'lodash';
 
 var HotelList = React.createClass({
   compare(a, b) {
