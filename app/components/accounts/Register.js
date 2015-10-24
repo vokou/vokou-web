@@ -53,7 +53,7 @@ var Register = React.createClass({
             <TextField ref="pw"  type="password" hintText="Password" className="pw inputfield"/>
           </div>
 
-          <div className="loginToggle">
+          <div className="login-toggle">
             <FlatButton
               key={2}
               label="Register"
@@ -63,7 +63,7 @@ var Register = React.createClass({
             />
           </div>
         </form>
-        <div className="loginToggle">
+        <div className="login-toggle">
           <a onClick={this.props.toggle}>Already have a account?</a>
         </div>
 

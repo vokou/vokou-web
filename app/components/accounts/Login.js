@@ -58,7 +58,7 @@ var Login = React.createClass({
               className="pw inputfield"/>
 
           </div>
-          <div className="loginToggle">
+          <div className="login-toggle">
             <FlatButton
               key={2}
               label="Sign in"
@@ -68,7 +68,7 @@ var Login = React.createClass({
             />
           </div>
         </form>
-        <div className="loginToggle">
+        <div className="login-toggle">
           <a onClick={this.props.toggle}>Register</a>
         </div>
 
