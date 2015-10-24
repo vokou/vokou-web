@@ -8,7 +8,8 @@
     "build": "webpack",
     "start": "node devServer.js",
     "upload": "node publish.js",
-    "getCities": "node ./utils/getCityList.js > ./app/utils/cityList.json"
+    "getCities": "node ./utils/getCityList.js > ./app/utils/cityList.json",
+    "production": "NODE_ENV=production webpack -p --config webpack.production.config.js"
   },
   "repository": {
     "type": "git",
