@@ -23,6 +23,12 @@ function authenticate(location, replaceWith) {
   }
 }
 
+function redirectAfterLogin(locatoin, replaceWith) {
+  if (Parse.User.current()) {
+    replaceWith(null, '/search');
+  }
+}
+
 var routes = (
   <Route name="app" path="/" component={Main}>
     <IndexRoute onEnter={indexRedirect} />
@@ -30,7 +36,7 @@ var routes = (
     <Route path="/result" component={Result} onEnter={authenticate}/>
     <Route path="/detail/:hotelname/:city/:checkin/:checkout/:propID" component={Detail} onEnter={authenticate} />
     <Route path="/detail/" component={Detail} onEnter={authenticate} />
-    <Route path="/invite" component={Invite} />
+    <Route path="/invite" component={Invite} onEnter={redirectAfterLogin}/>
   </Route>
 );
 
