@@ -47,8 +47,12 @@
 .login-toggle{
   margin-top: 10px;
   text-align: center;
+}
+
+.login-toggle > a{
   cursor: pointer;
 }
+
 .email > input{
   color: white !important;
   font-size: 80% !important;
@@ -64,7 +68,6 @@
 
 
 .pw > div{
-  color: grey !important;
   font-size: 80% !important;
 }
 

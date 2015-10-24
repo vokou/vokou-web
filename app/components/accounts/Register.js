@@ -1,10 +1,10 @@
 import React from 'react';
 import { History } from 'react-router';
-import {Styles, TextField, FlatButton } from 'material-ui';
+import {TextField, FlatButton } from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import axios from 'axios';
 import servers from '../../config/servers';
 import Parse from 'parse';
+import reqwest from 'reqwest';
 
 var Register = React.createClass({
   mixins: [History],
@@ -19,12 +19,12 @@ var Register = React.createClass({
     };
     let onSuccess = this.props.onSuccess;
     let close = this.props.close;
-    axios
-      .post(servers.vokou + 'users',
-            {password: this.refs.pw.getValue(),
-             email:    this.refs.email.getValue(),
-             code:     this.refs.code.getValue()})
-      .then((response) => {
+    reqwest({
+      url: `${servers.vokou}users`,
+      method: 'post',
+      data: params,
+      success: function(resp) {
+        document.body.style.cursor='default';
         Parse.User.logIn(params.email, params.password, {
           success: function(user) {
             onSuccess();
@@ -35,10 +35,15 @@ var Register = React.createClass({
             console.log(error);
           }
         });
-      })
-      .catch((response) =>{
-        alert(response);
-      });
+      },
+      error: function(err) {
+        if(err.response.error == "code")
+          self.refs.code.setErrorText("Invalid Code");
+        if(err.response.error == "username")
+          self.refs.email.setErrorText("Email has been taken");
+        console.log(err.response);
+      }
+    })
   },
 
   render() {
@@ -47,11 +52,25 @@ var Register = React.createClass({
       <div>
         <form onSubmit={this.register}>
           <div className="user-input">
-            <TextField ref="code"  hintText="Code" className="pw inputfield"/>
+            <TextField
+              ref="code"
+              hintText="Code"
+              hintStyle={{color: 'grey'}}
+              className="pw inputfield"/>
 
-            <TextField ref="email"  type="email" hintText="Email address" className="pw inputfield"/>
+            <TextField
+              ref="email"
+              type="email"
+              hintText="Email address"
+              hintStyle={{color: 'grey'}}
+              className="pw inputfield"/>
 
-            <TextField ref="pw"  type="password" hintText="Password" className="pw inputfield"/>
+            <TextField
+              ref="pw"
+              type="password"
+              hintText="Password"
+              hintStyle={{color: 'grey'}}
+              className="pw inputfield"/>
           </div>
 
           <div className="login-toggle">
@@ -59,11 +78,10 @@ var Register = React.createClass({
               key={2}
               label="Register"
               primary={true}
-              type="submit"
-              
-            />
+              type="submit"/>
           </div>
         </form>
+        <div></div>
         <div className="login-toggle">
           <a onClick={this.props.toggle}>Already have a account?</a>
         </div>

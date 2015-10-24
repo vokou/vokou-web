@@ -72,6 +72,13 @@ var DetailFetcher = React.createClass({
     }
     var hash = params.checkin+params.checkout+params.city+params.source;
     hash = sha1(hash);
+
+    /* reqwest({
+       url: 'https://vokou.parseapp.com/cache/'+hash,
+       data: {params: {id: this.props.query.propID}}
+       
+       }) */
+    
     axios
       .get('https://vokou.parseapp.com/cache/'+hash, {params: {id: this.props.query.propID}})
       .then((response)=>{
