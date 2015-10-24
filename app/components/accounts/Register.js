@@ -11,6 +11,7 @@ var Register = React.createClass({
 
   register(e) {
     e.preventDefault();
+    let self = this;
     let params = {
       password: this.refs.pw.getValue(),
       email:    this.refs.email.getValue(),
