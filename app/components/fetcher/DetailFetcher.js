@@ -39,13 +39,13 @@ var DetailFetcher = React.createClass({
       hotelObj.thumbnail = _.map(thumbnail, (n)=>{
         return n.replace('_xx', '_ss');
       })
-        hotelObj.propertyID = hotel.detail.id;
+      hotelObj.propertyID = hotel.detail.id;
     }
     /* TODO: server does not support points plan yet */
     let pointsPlan = {value: parseFloat(Math.round(hotel.pp.value * 10000) / 10000),
                       name: hotel.pp.point_plan,
                       available: hotel.pp.point_plan ? true : false
-    };
+                     };
     hotelObj.spgURL = hotel.spgurl;
     hotelObj.pointsPlan = pointsPlan;
     return hotelObj;
@@ -73,109 +73,113 @@ var DetailFetcher = React.createClass({
     var hash = params.checkin+params.checkout+params.city+params.source;
     hash = sha1(hash);
 
-    /* reqwest({
-       url: 'https://vokou.parseapp.com/cache/'+hash,
-       data: {params: {id: this.props.query.propID}}
-       
-       }) */
-    
-    axios
-      .get('https://vokou.parseapp.com/cache/'+hash, {params: {id: this.props.query.propID}})
-      .then((response)=>{
-        
-        if(response.data == 'FAIL'){
-          console.log("no cache");
+    /* fetching detail information */
+    reqwest({
+      url: 'https://vokou.parseapp.com/cache/'+hash,
+      data: {params: {id: this.props.query.propID}}
+    }).then((response) => {
+      if(response != 'FAIL'){
+        console.log(response);
+        let hotel = response;
+        hotel.img = hotel.detailImgs;
+        let thumbnail = hotel.img;
+        hotel.thumbnail = _.map(thumbnail, (n)=>{
+          return n.replace('_xx', '_ss');
+        });
+        if(hotel.brgPrice == null){
+          this.props.onFinish(hotel);
+        }else{
+          let u = servers.proxy + '/http://www.hotelscombined.com/' + hotel.url;
+          let self=this;
+          reqwest({
+            url: u,
+            method: 'get',
+            success: function (resp) {
+              // get the part start from url = 'h<- this 'h'
+
+              let starti = resp.indexOf("url") + 7;
+              let endi = resp.indexOf("\'", starti + 7);
+              let brgurl = resp.substring(starti, endi);
+              hotel.url = brgurl;
+              self.props.onFinish(hotel);
+            }
+          });
+        }
+      }else{
+        /* no cache found. */
+        /* console.log(response); */
+        console.log(params);
+        reqwest({
+          url:'https://vokou.parseapp.com/search',
+          data: params
+        }).then((response) => {
+          params.secret = response;
+          params.hotelname = this.props.query.hotelname;
+          params.propID = this.props.query.propID;
+          
+          // reqwest({
+          //   method: 'get',
+          //   url:servers.api + '/search',
+          //   data: params 
+          // })
           axios
-            .get('https://vokou.parseapp.com/search', { params: params })
+            .get(servers.api + '/search', { params: params })
             .then((response) => {
-              params.secret = response.data;
-              params.hotelname = this.props.query.hotelname;
-              params.propID = this.props.query.propID;
-              axios
-                .get(servers.api + '/search', { params: params })
-                .then((response) => {
-                  let hotel = this.formatHotelData(response.data);
-                  let price = hotel.original;
+              let hotel = this.formatHotelData(response.data);
+              let price = hotel.original;
 
-                  let self = this;
-                  reqwest({
-                    url: `${servers.proxy}/http://hotelscombined.com`,
-                    method: 'get',
-                    withCredentials: true,
-                    success: function() {
-                      //the dom created at componentDiDmount does not work;
-                      var d = document.createElement('div');
+              let self = this;
+              reqwest({
+                url: `${servers.proxy}/http://hotelscombined.com`,
+                method: 'get',
+                withCredentials: true,
+                success: function() {
+                  //the dom created at componentDiDmount does not work;
+                  var d = document.createElement('div');
 
-                      clientFetch(d, hotel.url,
-                                  result => {
+                  clientFetch(d, hotel.url,
+                              result => {
 
-                                    if (!result.err && result.price < price * days * 0.99) {
-                                      hotel.brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
-                                      /* translate url to real url */
-                                      var u = servers.proxy + '/http://www.hotelscombined.com/' + result.url;
-                                      reqwest({
-                                        url: u,
-                                        method: 'get',
-                                        success: function (resp) {
-                                          // get the part start from url = 'h<- this 'h'
-                                          let starti = resp.indexOf("url") + 7;
-                                          let endi = resp.indexOf("\'", starti + 7);
-                                          let brgurl = resp.substring(starti, endi);
-                                          hotel.url = brgurl;
-                                          self.props.onFinish(hotel);
-                                        }
-                                      })
-                                    } else {
-                                      hotel.brgPrice = null;
+                                if (!result.err && result.price < price * days * 0.99) {
+                                  hotel.brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
+                                  /* translate url to real url */
+                                  var u = servers.proxy + '/http://www.hotelscombined.com/' + result.url;
+                                  reqwest({
+                                    url: u,
+                                    method: 'get',
+                                    success: function (resp) {
+                                      // get the part start from url = 'h<- this 'h'
+                                      let starti = resp.indexOf("url") + 7;
+                                      let endi = resp.indexOf("\'", starti + 7);
+                                      let brgurl = resp.substring(starti, endi);
+                                      hotel.url = brgurl;
                                       self.props.onFinish(hotel);
                                     }
+                                  })
+                                } else {
+                                  hotel.brgPrice = null;
+                                  self.props.onFinish(hotel);
+                                }
 
-                                  }, () => {
-                                    hotel.brgPrice = null;
-                                    self.props.onFinish(hotel);
-                                  });
-                    }});})})}else{
-                
-                      let hotel = response.data;
-                      hotel.img = hotel.detailImgs;
-                      let thumbnail = hotel.img;
-                      
-                      hotel.thumbnail = _.map(thumbnail, (n)=>{
-                        return n.replace('_xx', '_ss');
-                      });
-                      
-                      if(hotel.brgPrice == null){
-                        this.props.onFinish(hotel);
-                      }else{
-
-                        let u = servers.proxy + '/http://www.hotelscombined.com/' + hotel.url;
-                        let self=this;
-                        reqwest({
-                          url: u,
-                          method: 'get',
-                          success: function (resp) {
-                            // get the part start from url = 'h<- this 'h'
-
-                            let starti = resp.indexOf("url") + 7;
-                            let endi = resp.indexOf("\'", starti + 7);
-                            let brgurl = resp.substring(starti, endi);
-                            hotel.url = brgurl;
-                            
-                            self.props.onFinish(hotel);
-                          }
-                        })
-                      }}})
+                              }, () => {
+                                hotel.brgPrice = null;
+                                self.props.onFinish(hotel);
+                              });
+                }})
+            })
+        })
+      }})
   },
 
   render() {
     return (
-      <div className="row detail-progress">
+        <div className="row detail-progress">
         <br/>
         <div className="col-md-3 col-md-offset-4">
-          {!this.props.stop && <CircularProgress mode="indeterminate" size={2} />}
-        </div>
-        <br/>
+        {!this.props.stop && <CircularProgress mode="indeterminate" size={2} />}
       </div>
+        <br/>
+        </div>
     );
   }
 });

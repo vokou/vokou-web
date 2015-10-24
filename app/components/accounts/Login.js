@@ -50,11 +50,13 @@ var Login = React.createClass({
               ref="email"
               hintText="email"
               type="email"
+              hintStyle={{color: 'grey'}}
               className="email inputfield"/>
             <TextField
               ref="pw"
               hintText="Password"
               type="password"
+              hintStyle={{color: 'grey'}}
               className="pw inputfield"/>
 
           </div>

@@ -37,11 +37,11 @@ var Register = React.createClass({
         });
       },
       error: function(err) {
-        if(err.response.error == "code")
+        let res = JSON.parse(err.response);
+        if(res.error == "code")
           self.refs.code.setErrorText("Invalid Code");
-        if(err.response.error == "username")
+        if(res.error == "username")
           self.refs.email.setErrorText("Email has been taken");
-        console.log(err.response);
       }
     })
   },
