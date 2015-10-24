@@ -7,7 +7,7 @@ import Result from '../components/result/Result';
 import Detail from '../components/detail/Detail';
 import Invite from '../components/invite/Invite';
 
-Parse.initialize("JUXCXuysBgoulgFgGDGzc9elQNx4q84XiaDBoYyo", "B7RS0P7Yc5ts80tia2wMoMFBsyVqMFmj9H3JocTK");
+Parse.initialize("bHqmUA41bQ1NINPU3OISrbR0YcmitymVLONL0PYU", "KYCGAe9P0IthLWJnBYwnsjHdNO2wWUlt2xsd50mb");
 
 function indexRedirect(location, replaceWith) {
   if (Parse.User.current()) {
