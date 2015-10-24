@@ -15,3 +15,5 @@ node_modules
 # Ignore built bundles (regenerate when needed) TODO: move bundle to /build
 build/bundle.js
 
+# Ignore dist
+dist
