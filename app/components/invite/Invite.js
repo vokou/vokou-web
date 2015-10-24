@@ -33,7 +33,12 @@ const Invite = React.createClass({
         self.setState({text: "Thank you! Your invitation code would be sent to you via email during our beta!"});
       },
       error: function(err) {
-       self.setState({err: "Sorry, You've already applied!"});
+        let errMsg = `An error occures {err.status}`;
+        if(err.status == 403)
+          errMsg = "Sorry, You've already applied!";
+        else if(err.status == 404)
+          errMsg = "Sorry, no more invitation left. We have added you to the waiting list.";
+          self.setState({err: errMsg});
       }
     })
   },
