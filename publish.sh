@@ -12,6 +12,8 @@ node upload.js;
 cd ../vokou;
 git pull;
 cp ../vokou-web/build/index-pro.html public/index.html;
+git commit -am "Update index.html";
+git push;
 parse deploy;
 cd ../vokou-web;
 git checkout master;
