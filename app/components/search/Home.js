@@ -9,10 +9,20 @@ const Home = React.createClass({
       bottom: 0,
       paddingBottom: '60px'
     };
+    let bgStyle = {
+      width: '100%',
+      height: '90vh',
+      position: 'absolute',
+      top: '52px',
+      left: 0
+    };
     return (
-      <div style={footerStyle}>
-        <div className="container">
-          <Search bottom={true}/>
+      <div>
+        <img src="https://s3.amazonaws.com/vokou/assets/bg.jpg" style={bgStyle}/>
+        <div style={footerStyle}>
+          <div className="container">
+            <Search bottom={true}/>
+          </div>
         </div>
       </div>
     );
