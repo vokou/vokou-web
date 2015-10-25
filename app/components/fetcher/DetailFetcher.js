@@ -39,7 +39,7 @@ var DetailFetcher = React.createClass({
       })
       hotelObj.propertyID = hotel.detail.id;
     }
-    /* TODO: server does not support points plan yet */
+    
     let pointsPlan = {value: parseFloat(Math.round(hotel.pp.value * 10000) / 10000),
                       name: hotel.pp.point_plan,
                       available: hotel.pp.point_plan ? true : false
@@ -74,11 +74,12 @@ var DetailFetcher = React.createClass({
     /* fetching detail information */
     reqwest({
       url: servers.vokou + '/cache/' + hash,
-      data: {params: {id: this.props.query.propID}}
+      data: {id: this.props.query.propID}
     }).then((response) => {
       if(response != 'FAIL'){
         // console.log(response);
-        let hotel = response;
+        let hotel = JSON.parse(response);
+        console.log(hotel);
         hotel.img = hotel.detailImgs;
         let thumbnail = hotel.img;
         hotel.thumbnail = _.map(thumbnail, (n)=>{
