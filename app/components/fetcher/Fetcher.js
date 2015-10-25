@@ -38,15 +38,15 @@ var Fetcher = React.createClass({
     hash = sha1(hash);
     console.log(hash);
     reqwest({
-      url: 'https://vokou.parseapp.com/cache/'+hash,
+      url: servers.vokou + '/cache/' + hash,
     }).then((response)=>{
         if(response == 'FAIL'){
           console.log("Not match");
           reqwest({
-            url:'https://vokou.parseapp.com/search',
+            url: servers.vokou + '/search',
             data: params
           }).then((response) => {
-              params.secret = response.data;
+              params.secret = response;
             reqwest({
               url:servers.api + '/search',
               data: params,
