@@ -25,7 +25,7 @@ const Main = React.createClass({
     let isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
 
     return {
-      safariNotificationOpen: isSafari ? true : false,
+      isSafari: isSafari ? true : false,
       logedIn: false,
       showLogin: false,
     }
@@ -34,12 +34,6 @@ const Main = React.createClass({
   componentWillMount() {
     if(Parse.User.current()){
       this.setState({logedIn: true});
-    }
-  },
-
-  componentDidMount(){
-    if(this.state.safariNotificationOpen){
-      this.refs.safari.show();
     }
   },
 
@@ -94,13 +88,20 @@ const Main = React.createClass({
 
     if(localStorage.getItem('safariNoDisplay') == null){
       let standardActions = [
-        { text: 'OK' },
+        <Checkbox
+          style={{ width: '32%'}}
+          name="safariCheckbox"
+          ref="safariCheckbox"
+          label="Don't show this again."/>,
+        { text: 'OK' }
       ];
       var safariDialog =
       <Dialog
         ref="safari"
+        openImmediately={this.state.isSafari}
         actions={standardActions}
         onDismiss={this.saveSafari}
+        autoDetectWindowHeight={true}
         className="modal-dialog">
 
         <div className="modal-header">
@@ -110,13 +111,10 @@ const Main = React.createClass({
 
         Please change your browser's privicy setting or switch to another browser.
         <br/>
-        <img src="https://s3.amazonaws.com/vokou/assets/safari.png"/>
+        <div style={{height: '400px'}}>
+          <img style={{width: '100%'}} src="https://s3.amazonaws.com/vokou/assets/safari.png"/>
+        </div>
         <br/>
-
-        <Checkbox
-          name="safariCheckbox"
-          ref="safariCheckbox"
-          label="Don't show this again."/>
 
       </Dialog>
     }else{
