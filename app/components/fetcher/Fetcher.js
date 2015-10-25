@@ -84,7 +84,7 @@ var Fetcher = React.createClass({
       this.props.onFinish();
       if(index != 0){
         reqwest({
-          url: servers.vokou + '/cache' + hash,
+          url: servers.vokou + '/cache/' + hash,
           method: 'post',
           data: {result: JSON.stringify(hotels)}
         })
