@@ -14,18 +14,18 @@ var Login = React.createClass({
   },
 
   login(e){
-    e.preventDefault(); 
+    e.preventDefault();
     let self = this;
     let params = {
       password: this.refs.pw.getValue(),
       email:    this.refs.email.getValue()
     };
-    
+
     let onSuccess = this.props.onSuccess;
     let close = this.props.close;
     Parse.User.logIn(params.email, params.password, {
       success: function(user) {
-        console.log("success");
+        // console.log("success");
         onSuccess();
         close();
         self.history.replaceState(null, '/search');
@@ -34,7 +34,7 @@ var Login = React.createClass({
         alert(error.message);
       }
     });
-    
+
   },
 
   render() {

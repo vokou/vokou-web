@@ -33,6 +33,6 @@ request('https://www.starwoodhotels.com/preferredguest/directory/hotels/all/list
       });
     }
   });
-  console.log(JSON.stringify(cityArray));
+  //console.log(JSON.stringify(cityArray));
   process.exit();
 });

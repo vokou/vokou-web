@@ -25,9 +25,9 @@ var Result = React.createClass({
   componentWillMount() {
     let hotels = JSON.parse(localStorage.getItem('hotels'));
     if(hotels){
-      console.log('found hotels in localstorage', hotels);
+      // console.log('found hotels in localstorage', hotels);
     }else{
-      console.log("no hotels found in localstorage");
+      // console.log("no hotels found in localstorage");
       let query = this.props.location.query;
       if (!query.destination || !query.checkIn || !query.checkOut) {
         this.history.replaceState(null, '/search');
@@ -54,7 +54,7 @@ var Result = React.createClass({
       fetching: false
     };
     this.setState(newState);
-    
+
   },
   handleNewSearch() {
     this.setState({

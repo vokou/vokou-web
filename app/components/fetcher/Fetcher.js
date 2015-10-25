@@ -37,12 +37,11 @@ var Fetcher = React.createClass({
     //console.log(params);
     var hash = params.checkin+params.checkout+params.city+params.source;
     hash = sha1(hash);
-    console.log(hash);
     axios
       .get('https://vokou.parseapp.com/cache/'+hash)
       .then((response)=>{
         if(response.data == 'FAIL'){
-          console.log("Not match");
+          // console.log("Not match");
           axios
             .get('https://vokou.parseapp.com/search', { params: params })
             .then((response) => {
@@ -52,14 +51,14 @@ var Fetcher = React.createClass({
                 .then((response) => {
                   hotels = this.transformHotelsArray(response.data);
                   //console.log('OK');
-                  console.log(`${servers.proxy}/http://hotelscombined.com`);
+                  // console.log(`${servers.proxy}/http://hotelscombined.com`);
                   let self = this;
                   reqwest({
                     url: `${servers.proxy}/http://hotelscombined.com`,
                     method: 'get',
                     withCredentials: true,
                     success: function() {
-                      console.log("success!");
+                      // console.log("success!");
                       self.getHotelsInformation(hotels, 0, id, hash);
                     }
                   });
@@ -102,7 +101,7 @@ var Fetcher = React.createClass({
     clientFetch(this.dataDOM, hotel.url,
         result => {
           //console.log(`${hotels[index].name}`);
-          console.log( result);
+          //console.log( result);
           if (!result.err && result.price < price * days * 0.99 && result.price != -1) {
             hotels[index].brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
             hotels[index].url = result.url;

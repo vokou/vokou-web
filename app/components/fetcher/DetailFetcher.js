@@ -79,7 +79,7 @@ var DetailFetcher = React.createClass({
       data: {params: {id: this.props.query.propID}}
     }).then((response) => {
       if(response != 'FAIL'){
-        console.log(response);
+        // console.log(response);
         let hotel = response;
         hotel.img = hotel.detailImgs;
         let thumbnail = hotel.img;
@@ -108,7 +108,7 @@ var DetailFetcher = React.createClass({
       }else{
         /* no cache found. */
         /* console.log(response); */
-        console.log(params);
+        // console.log(params);
         reqwest({
           url:'https://vokou.parseapp.com/search',
           data: params
@@ -116,11 +116,11 @@ var DetailFetcher = React.createClass({
           params.secret = response;
           params.hotelname = this.props.query.hotelname;
           params.propID = this.props.query.propID;
-          
+
           // reqwest({
           //   method: 'get',
           //   url:servers.api + '/search',
-          //   data: params 
+          //   data: params
           // })
           axios
             .get(servers.api + '/search', { params: params })
