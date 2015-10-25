@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/vokou/vokou-web",
   "dependencies": {
-    "axios": "^0.5.4",
     "blacklist": "^1.1.2",
     "install": "^0.1.8",
     "material-ui": "^0.12.4",

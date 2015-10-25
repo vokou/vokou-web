@@ -8,7 +8,7 @@ var ListItem = React.createClass({
 
   componentWillMount(){
     let hotel = this.props.hotel;
-
+    console.log(hotel);
     this.setState({
       "image":            hotel.img,
       "price":            hotel.brgPrice,

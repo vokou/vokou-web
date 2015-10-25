@@ -10,40 +10,20 @@ require("./result.css");
 var Result = React.createClass({
   mixins: [History],
 
-  isLocalStorageOn() {
-    // this code is borrowed from modernizer
-    let mod = 'react-count';
-    try {
-      localStorage.setItem(mod, mod);
-      localStorage.removeItem(mod);
-      return true;
-    } catch(e) {
-      return false;
-    }
-  },
+
 
   componentWillMount() {
-    let hotels = JSON.parse(localStorage.getItem('hotels'));
-    if(hotels){
-      // console.log('found hotels in localstorage', hotels);
-    }else{
-      // console.log("no hotels found in localstorage");
-      let query = this.props.location.query;
-      if (!query.destination || !query.checkIn || !query.checkOut) {
-        this.history.replaceState(null, '/search');
-      }}
+    let query = this.props.location.query;
+    if (!query.destination || !query.checkIn || !query.checkOut) {
+      this.history.replaceState(null, '/search');
+    }
   },
 
   getInitialState(){
     let data = [];
     let fetching = true;
-    let hotels = JSON.parse(localStorage.getItem('hotels'));
+    
 
-    if(hotels){
-      /* hotel found in localstorage */
-      fetching = false;
-      data = hotels;
-    }
     return {
       fetching: fetching,
       data: data
@@ -71,7 +51,7 @@ var Result = React.createClass({
     this.setState({
       data: this.state.data.concat([hotel])
     });
-    localStorage.setItem('hotels', JSON.stringify(this.state.data));
+    
   },
   render() {
     injectTapEventPlugin();

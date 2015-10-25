@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import sha1 from 'sha1';
 import reqwest from 'reqwest';
 import servers from '../../config/servers';
@@ -37,19 +36,24 @@ var Fetcher = React.createClass({
     //console.log(params);
     var hash = params.checkin+params.checkout+params.city+params.source;
     hash = sha1(hash);
-    axios
-      .get('https://vokou.parseapp.com/cache/'+hash)
-      .then((response)=>{
-        if(response.data == 'FAIL'){
-          // console.log("Not match");
-          axios
-            .get('https://vokou.parseapp.com/search', { params: params })
-            .then((response) => {
+    console.log(hash);
+    reqwest({
+      url: 'https://vokou.parseapp.com/cache/'+hash,
+    }).then((response)=>{
+        if(response == 'FAIL'){
+          console.log("Not match");
+          reqwest({
+            url:'https://vokou.parseapp.com/search',
+            data: params
+          }).then((response) => {
               params.secret = response.data;
-              axios
-                .get(`${servers.api}/search`, { params: params })
-                .then((response) => {
-                  hotels = this.transformHotelsArray(response.data);
+            reqwest({
+              url:servers.api + '/search',
+              data: params,
+              crossOrigin: true,
+              header: {'x-requested-with': null}
+            }).then((response) => {
+                  hotels = this.transformHotelsArray(response);
                   //console.log('OK');
                   // console.log(`${servers.proxy}/http://hotelscombined.com`);
                   let self = this;
@@ -65,7 +69,7 @@ var Fetcher = React.createClass({
                 });
             });
         } else if (!this.props.stop) {
-          hotels = response.data;
+          hotels = JSON.parse(response);
           for(var i = 0 ; i < hotels.length ; i++){
             this.props.onUpdate(hotels[i]);
           }
@@ -79,9 +83,10 @@ var Fetcher = React.createClass({
     if (index == hotels.length) {
       this.props.onFinish();
       if(index != 0){
-        axios.post('https://vokou.parseapp.com/cache/'+hash, {
-          result: JSON.stringify(hotels)
-        });
+        reqwest({
+          method: 'post',
+          data: {result: JSON.stringify(hotels)}
+        })
       }
       return;
     }
