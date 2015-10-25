@@ -32,8 +32,6 @@ var Register = React.createClass({
             self.history.replaceState(null, '/search');
           },
           error: function(user, error) {
-            if(__DEV__)
-              console.log(error);
           }
         });
       },

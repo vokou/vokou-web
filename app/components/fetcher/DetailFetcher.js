@@ -50,8 +50,6 @@ var DetailFetcher = React.createClass({
   },
 
   fetch(query) {
-    if(__DEV__)
-      console.log("yes");
 
     let days = this.differenceBetweenDates(new Date(query.checkin),
                                            new Date(query.checkout));
