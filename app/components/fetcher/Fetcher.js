@@ -38,12 +38,12 @@ var Fetcher = React.createClass({
     hash = sha1(hash);
     
     reqwest({
-      url: servers.vokou + '/cache/' + hash,
+      url: servers.vokou + 'cache/' + hash,
     }).then((response)=>{
         if(response == 'FAIL'){
           
           reqwest({
-            url: servers.vokou + '/search',
+            url: servers.vokou + 'search',
             data: params
           }).then((response) => {
               params.secret = response;
@@ -84,7 +84,7 @@ var Fetcher = React.createClass({
       this.props.onFinish();
       if(index != 0){
         reqwest({
-          url: servers.vokou + '/cache/' + hash,
+          url: servers.vokou + 'cache/' + hash,
           method: 'post',
           data: {result: JSON.stringify(hotels)}
         })
@@ -112,7 +112,7 @@ var Fetcher = React.createClass({
             hotels[index].brgPrice = parseFloat(Math.round(result.price * 10 / days) / 10);
             hotels[index].url = result.url;
             if (!this.found) {
-              reqwest(`${servers.vokou}/foundBRG`, () => {});
+              reqwest(`${servers.vokou}foundBRG`, () => {});
               this.found = true;
             }
           } else {

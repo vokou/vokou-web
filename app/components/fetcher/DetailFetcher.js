@@ -73,7 +73,7 @@ var DetailFetcher = React.createClass({
 
     /* fetching detail information */
     reqwest({
-      url: servers.vokou + '/cache/' + hash,
+      url: servers.vokou + 'cache/' + hash,
       data: {id: this.props.query.propID}
     }).then((response) => {
       if(response != 'FAIL'){
@@ -109,7 +109,7 @@ var DetailFetcher = React.createClass({
         /* console.log(response); */
         // console.log(params);
         reqwest({
-          url: servers.vokou + '/search',
+          url: servers.vokou + 'search',
           data: params
         }).then((response) => {
           params.secret = response;
