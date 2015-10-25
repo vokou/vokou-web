@@ -5,7 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Accounts from './accounts/Accounts';
 import Parse from 'parse';
 import Feedback from './feedback/Feedback';
-import Modal from 'react-modal';
+
 
 let ThemeManager = Styles.ThemeManager;
 
