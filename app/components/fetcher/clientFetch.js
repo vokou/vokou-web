@@ -10,7 +10,6 @@ function getInfo(dataDOM, hotelURL, callBack, failCallBack) {
         callBack(info);
     })
     .catch((err) => {
-      console.log(err);
       failCallBack()
     });
 }

@@ -1,6 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var definePlugin = new webpack.DefinePlugin({
+  __DEV__: process.env.NODE_ENV == "production" ? false : true,
+});
+
+
 module.exports = {
   devtool: 'eval',
   entry: [
@@ -16,6 +21,7 @@ module.exports = {
     "jquery": "jQuery"
   },
   plugins: [
+    definePlugin,
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.ProvidePlugin({

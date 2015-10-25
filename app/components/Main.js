@@ -60,8 +60,6 @@ const Main = React.createClass({
     let self = this;
     Parse.User.logOut().then(
       function(result) {
-        console.log("logout attempt");
-        /* self.history.replaceState(null, '/invite'); */
         self.history.replaceState(null, `/`);
         self.setState({logedIn: false});
       }

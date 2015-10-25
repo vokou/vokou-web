@@ -8,7 +8,6 @@ require("./detail.css");
 var DetailPage = React.createClass({
   componentWillReceiveProps(nextProps){
     let hotel = nextProps["hotel"];
-    console.log(hotel);
     this.setState({
       "image":            hotel.img,
       "thumbnail":        hotel.thumbnail, 

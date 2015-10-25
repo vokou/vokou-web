@@ -22,5 +22,5 @@ app.listen(63342, 'localhost', function(err) {
     console.log(err);
     return;
   }
-  // console.log('Listening at http://localhost:63342');
+  console.log('Listening at http://localhost:63342');
 });

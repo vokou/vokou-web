@@ -50,6 +50,8 @@ var DetailFetcher = React.createClass({
   },
 
   fetch(query) {
+    if(__DEV__)
+      console.log("yes");
 
     let days = this.differenceBetweenDates(new Date(query.checkin),
                                            new Date(query.checkout));
@@ -77,9 +79,9 @@ var DetailFetcher = React.createClass({
       data: {id: this.props.query.propID}
     }).then((response) => {
       if(response != 'FAIL'){
-        // console.log(response);
+        
         let hotel = JSON.parse(response);
-        console.log(hotel);
+
         hotel.img = hotel.detailImgs;
         let thumbnail = hotel.img;
         hotel.thumbnail = _.map(thumbnail, (n)=>{
@@ -122,7 +124,6 @@ var DetailFetcher = React.createClass({
             crossOrigin: true,
             header: {'x-requested-with': null}
           }).then((response) => {
-              console.log(response);
               let hotel = this.formatHotelData(response);
               let price = hotel.original;
 

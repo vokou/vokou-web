@@ -36,12 +36,12 @@ var Fetcher = React.createClass({
     //console.log(params);
     var hash = params.checkin+params.checkout+params.city+params.source;
     hash = sha1(hash);
-    console.log(hash);
+    
     reqwest({
       url: servers.vokou + '/cache/' + hash,
     }).then((response)=>{
         if(response == 'FAIL'){
-          console.log("Not match");
+          
           reqwest({
             url: servers.vokou + '/search',
             data: params
