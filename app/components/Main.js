@@ -99,6 +99,7 @@ const Main = React.createClass({
       <Dialog
         ref="safari"
         openImmediately={this.state.isSafari}
+        autoScrollBodyContent={true}
         actions={standardActions}
         onDismiss={this.saveSafari}
         autoDetectWindowHeight={true}

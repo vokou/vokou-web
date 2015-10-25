@@ -31,7 +31,8 @@ var Login = React.createClass({
         self.history.replaceState(null, '/search');
       },
       error: function(user, error) {
-        alert(error.message);
+        self.setState({incorrectLogin: true});
+        
       }
     });
 
@@ -39,6 +40,12 @@ var Login = React.createClass({
 
   render() {
     injectTapEventPlugin();
+    
+    if(this.state.incorrectLogin)
+      var incorrectLoginPrompt = <p style={{'color': 'red'}}>Incorrect email or password!</p>;
+    else
+      var incorrectLoginPrompt = null;
+
     return (
       <div>
         <form onSubmit={this.login}>
@@ -60,6 +67,7 @@ var Login = React.createClass({
               className="pw inputfield"/>
 
           </div>
+          <div>{incorrectLoginPrompt}</div>
           <div className="login-toggle">
             <FlatButton
               key={2}
