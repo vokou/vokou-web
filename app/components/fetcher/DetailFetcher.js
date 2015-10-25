@@ -1,13 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 import sha1 from 'sha1';
-import { CircularProgress, Styles } from 'material-ui';
+import { CircularProgress } from 'material-ui';
 import servers from '../../config/servers';
 import _ from 'lodash';
 import clientFetch from './clientFetch';
 import reqwest from 'reqwest';
 
-const serverIP = 'http://52.89.111.15:8888/';
 var DetailFetcher = React.createClass({
   contextTypes: {
     location: React.PropTypes.object
@@ -116,16 +114,15 @@ var DetailFetcher = React.createClass({
           params.secret = response;
           params.hotelname = this.props.query.hotelname;
           params.propID = this.props.query.propID;
-
-          // reqwest({
-          //   method: 'get',
-          //   url:servers.api + '/search',
-          //   data: params
-          // })
-          axios
-            .get(servers.api + '/search', { params: params })
-            .then((response) => {
-              let hotel = this.formatHotelData(response.data);
+          
+          reqwest({
+            url:servers.api + '/search',
+            data: params,
+            crossOrigin: true,
+            header: {'x-requested-with': null}
+          }).then((response) => {
+              console.log(response);
+              let hotel = this.formatHotelData(response);
               let price = hotel.original;
 
               let self = this;
