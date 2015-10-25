@@ -1,10 +1,11 @@
 import React from 'react';
 import { History } from 'react-router';
-import { Styles, Dialog, FlatButton, RaisedButton} from 'material-ui';
+import { Styles, Checkbox, Dialog, FlatButton, RaisedButton} from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Accounts from './accounts/Accounts';
 import Parse from 'parse';
 import Feedback from './feedback/Feedback';
+import Modal from 'react-modal';
 
 let ThemeManager = Styles.ThemeManager;
 
@@ -21,7 +22,10 @@ const Main = React.createClass({
   },
 
   getInitialState(){
+    let isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+
     return {
+      safariNotificationOpen: isSafari ? true : false,
       logedIn: false,
       showLogin: false,
     }
@@ -30,6 +34,12 @@ const Main = React.createClass({
   componentWillMount() {
     if(Parse.User.current()){
       this.setState({logedIn: true});
+    }
+  },
+
+  componentDidMount(){
+    if(this.state.safariNotificationOpen){
+      this.refs.safari.show();
     }
   },
 
@@ -56,6 +66,12 @@ const Main = React.createClass({
     })
   },
 
+  saveSafari() {
+    if(this.refs.safariCheckbox.isChecked()){
+      localStorage.setItem('safariNoDisplay', 1);
+    }
+  },
+
   onLogout() {
     let self = this;
     Parse.User.logOut().then(
@@ -73,6 +89,41 @@ const Main = React.createClass({
 
   render() {
     injectTapEventPlugin();
+
+
+
+    if(localStorage.getItem('safariNoDisplay') == null){
+      let standardActions = [
+        { text: 'OK' },
+      ];
+      var safariDialog =
+      <Dialog
+        ref="safari"
+        actions={standardActions}
+        onDismiss={this.saveSafari}
+        className="modal-dialog">
+
+        <div className="modal-header">
+          <h4 className="modal-title">You are using Safari!</h4>
+        </div>
+
+
+        Please change your browser's privicy setting or switch to another browser.
+        <br/>
+        <img src="https://s3.amazonaws.com/vokou/assets/safari.png"/>
+        <br/>
+
+        <Checkbox
+          name="safariCheckbox"
+          ref="safariCheckbox"
+          label="Don't show this again."/>
+
+      </Dialog>
+    }else{
+
+      var safariDialog = null;
+    }
+
     if(this.state.logedIn){
 
       var loginOrUser =
@@ -92,16 +143,18 @@ const Main = React.createClass({
       var loginDialog = null;
     }
 
+
+
     return (
 
       <div>
         <nav className="navbar navbar-default"
           style={{
-            backgroundColor: 'black',
-            borderColor: 'black',
-            borderRadius: '0px',
-            marginBottom: '0px'
-          }}>
+                 backgroundColor: 'black',
+                 borderColor: 'black',
+                 borderRadius: '0px',
+                 marginBottom: '0px'
+                 }}>
           <div className="container-fluid">
             <div className="navbar-header">
               <a className="navbar-brand" href="#">Vokou</a>
@@ -116,11 +169,11 @@ const Main = React.createClass({
 
         {this.props.children}
         <div style={{
-          position: 'fixed',
-          width: '100%',
-          bottom: 0,
-          backgroundColor: 'black'
-        }}>
+                    position: 'fixed',
+                    width: '100%',
+                    bottom: 0,
+                    backgroundColor: 'black'
+                    }}>
           <div className="container">
             <p style={{marginTop: '20px', marginBottom: '20px', color: '#d3d3d3'}}>
               Ⓒ 2015 Vokou LLC All rights reserved.
@@ -128,6 +181,10 @@ const Main = React.createClass({
             <Feedback/>
           </div>
         </div>
+
+        {safariDialog}
+
+
       </div>
     );
   }
