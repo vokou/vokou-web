@@ -7,7 +7,7 @@ var data = fs.readFileSync(path.resolve(__dirname, 'dist/bundle.js'));
 var params = {
   ACL    : 'public-read',
   Bucket : 'vokou',
-  Key    : 'bundle.js',
+  Key    : 'bundle' + process.env.TS + '.js',
   Body   : data
 };
 
@@ -22,15 +22,18 @@ s3.putObject(params, function(err, data) {
     console.log('Bundle Upload Succeed');
   }
 
-  data = fs.readFileSync(path.resolve(__dirname, 'dist/vendors.js'));
-  params.Key = 'vendors.js';
-  params.Body = data;
-  s3.putObject(params, function(err, data) {
-    if (err) {
-      console.log('Failed');
-      console.log(err);
-    } else {
-      console.log('Vendors Upload Succeed');
-    }
-  });
+  // Check if vendor needs to be updated
+  if (process.env.UV === 'T') {
+    data = fs.readFileSync(path.resolve(__dirname, 'dist/vendors.js'));
+    params.Key = 'vendors' + process.env.TS + '.js';
+    params.Body = data;
+    s3.putObject(params, function(err, data) {
+      if (err) {
+        console.log('Failed');
+        console.log(err);
+      } else {
+        console.log('Vendors Upload Succeed');
+      }
+    });
+  }
 });
