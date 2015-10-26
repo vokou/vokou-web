@@ -16,17 +16,22 @@ const DestInput = React.createClass({
     let input = this.refs.destination.getValue();
     if (input.length > 1) {
       let matches = [];
-      let substrRegex = new RegExp(`^${input}`, 'i');
+      let partMatches = [];
+      let startWithRegEx = new RegExp(`^${input}`, 'i');
+      let subStringRegEx = new RegExp(`,? ${input}`, 'i');
 
       for (let i = 0; i < cityList.length; i++) {
         let str = cityList[i];
-        if (substrRegex.test(str) && matches.length < 7) {
+        if (startWithRegEx.test(str)) {
           matches.push(str);
+        } else if (input.length > 2 && partMatches.length < 5 && subStringRegEx.test(str)) {
+          partMatches.push(str);
         }
       }
+      let result = matches.sort().slice(0, 7).concat(partMatches);
 
       this.setState({
-        cities : matches
+        cities : result
       });
     } else {
       this.setState({
