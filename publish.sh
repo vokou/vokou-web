@@ -12,6 +12,8 @@ node upload.js;
 cd ../vokou;
 git pull;
 node switch.js;
+git commit -am "New version"
+git push
 parse deploy;
 cd ../vokou-web;
 git checkout master;
